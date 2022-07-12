@@ -5,7 +5,7 @@ footer p {
 }
 main{
   padding-bottom: 90px;
-  padding-top: 40px;
+  padding-top: 80px;
 }
 footer {
   border-top: 1px solid #ccc;
@@ -20,11 +20,11 @@ footer {
 </style>
 
 <script>
-import Header from '$lib/Header/Header.svelte'
-import AuthGate from '$lib/AuthGate/AuthGate.svelte'
+  import Header from '$lib/Header/Header.svelte'
+  import AuthGate from '$lib/AuthGate/AuthGate.svelte'
 
-import '../app.css'
-import Menu from '../lib/Menu/Menu.svelte'
+  import '../app.css'
+  import Menu from '../lib/Menu/Menu.svelte'
 </script>
 
 <AuthGate>
