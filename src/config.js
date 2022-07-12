@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyABWfGbDn_7Z4FvsFGfhETvxUG__j1qN1Q",
   authDomain: "konserter-89e26.firebaseapp.com",
   projectId: "konserter-89e26",
@@ -9,7 +9,7 @@ const firebaseConfig = {
 };
 
 /**
- * 
+ *
  * // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";

@@ -5,7 +5,7 @@ main {
 </style>
 
 <script lang="ts">
-import { isAuthenticated, signIn } from '../../myStore.js'
+  import {isAuthenticated, signIn} from '../../myStore.js'
 </script>
 
 {#if $isAuthenticated}
@@ -14,8 +14,7 @@ import { isAuthenticated, signIn } from '../../myStore.js'
 {#if !$isAuthenticated}
   <main>
     <div class="flex gap-2 justify-center">
-      <button class="button" on:click="{signIn}">Sign in</button>
-      <a href="/" class="button">another button</a>
+      <button class="button" on:click="{signIn}">Sign in with Google</button>
     </div>
   </main>
 {/if}
