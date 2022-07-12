@@ -2,8 +2,8 @@
 
 - ✅ add svelte
 - ✅ setup tailwind
-- push to github
-- connect to vercel
+- ✅ push to gitHub
+- connect to Vercel
 - pwa files
 - make awesome konserter app
 - lage favicon
