@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+section h1 {
+  @apply text-4xl p-2 text-center;
+}
+
+p {
+  @apply p-3 text-sm md:text-base;
+}
+
+.button {
+  @apply bg-blue-500 text-base px-6 py-2 flex justify-center rounded-md text-white hover:bg-blue-800;
+}
+
+.button.green {
+  @apply bg-green-700 hover:text-gray-50 hover:bg-green-900;
+}
+
+.button.red {
+  @apply bg-red-500 hover:text-gray-50 hover:bg-red-800;
+}
+
+.button.gray {
+  @apply bg-gray-200 text-gray-900 hover:text-gray-800 hover:bg-gray-300;
+}
+
+
+.button.round {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  @apply truncate items-center text-ellipsis overflow-hidden p-0;
+  margin: 0 auto;
+}
+
+.input {
+  @apply border rounded-md border-gray-400 px-2 w-full;
+  height: 40px;
+}
+
+.input:focus-visible {
+  @apply border-blue-600 outline-none;
+}
+
+.textarea {
+  @apply border rounded-md border-gray-400 p-2 w-full;
+  min-height: 100px;
+}
+
+.textarea:focus-visible {
+  @apply border-blue-600 outline-none;
+}
+
+.combo {
+  @apply flex;
+}
+
+.combo .input {
+  @apply rounded-none grow;
+}
+
+.combo .button:last-of-type {
+  @apply rounded-l-none;
+}
+
+.combo .button:first-of-type {
+  @apply rounded-r-none;
+}
+
+.combo .button:first-child {
+  @apply rounded-l-md;
+}
+
+.combo .button:last-child {
+  @apply rounded-r-md;
+}
+
+.combo .input:last-child {
+  @apply rounded-r-md;
+}
+
+.combo .input:first-child {
+  @apply rounded-l-md;
+}
+
+.combo > span:first-child {
+  @apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center;
+  height: 40px;
+}
+
+.combo > span:last-child {
+  @apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center;
+  height: 40px;
+}
+
+.box {
+  @apply border border-blue-100 rounded-md mb-3 mx-3;
+}
+
+.box > .header {
+  @apply text-xl bg-blue-100 px-3 py-1;
+}

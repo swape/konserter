@@ -1,0 +1,73 @@
+<style>
+.menu {
+  @apply fixed right-0 z-50 top-0 bottom-0 bg-black flex flex-col;
+  min-width: 250px;
+}
+.menu-list li {
+  @apply hover:bg-blue-900 hover:opacity-80 mb-1;
+}
+
+li.active {
+  @apply bg-blue-900 border-l-4 border-amber-50;
+}
+
+.menu-list a {
+  @apply text-cyan-50 w-full block p-2 flex gap-2;
+}
+.close-button {
+  @apply text-red-400 p-3 text-right;
+}
+h2 {
+  @apply text-cyan-50 text-center text-2xl my-3;
+}
+</style>
+
+<script lang="ts">
+import { showMenu, signOut } from '../../myStore.js'
+import { fly } from 'svelte/transition'
+import { page } from '$app/stores'
+import { beforeNavigate } from '$app/navigation'
+import { getMyMenu } from './menuList'
+
+function myAccess(): number[] {
+  return [1]
+}
+
+const myMenu = getMyMenu(myAccess())
+
+function close(): void {
+  showMenu.set(false)
+}
+
+function isActive(path: string, pathname: string): boolean {
+  return path === pathname
+}
+
+beforeNavigate(() => {
+  close()
+})
+</script>
+
+{#if $showMenu}
+  <div class="backdrop-blur-sm fixed inset-0" on:click="{close}" transition:fly></div>
+  <div class="menu" transition:fly>
+    <button on:click="{close}" class="close-button"><span class="material-icons"> cancel </span></button>
+    <h2>Hello you</h2>
+    <div>
+      <ul class="menu-list">
+        <li class:active="{isActive('/', $page.url.pathname)}">
+          <a sveltekit:prefetch href="/">Home</a>
+        </li>
+        {#each myMenu as item}
+          <li class:active="{isActive(item.url, $page.url.pathname)}">
+            <a sveltekit:prefetch href="{item.url}">{item.title}</a>
+          </li>
+        {/each}
+        <li class:active="{isActive('/about', $page.url.pathname)}">
+          <a sveltekit:prefetch href="/about">About</a>
+        </li>
+        <li><a on:click="{signOut}" href="#"><span class="material-icons">logout</span> Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+{/if}
