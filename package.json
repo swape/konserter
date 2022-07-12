@@ -1,5 +1,5 @@
 {
-  "name": "lms",
+  "name": "konserter",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
