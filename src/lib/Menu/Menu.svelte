@@ -23,17 +23,13 @@ h2 {
 </style>
 
 <script lang="ts">
-import { showMenu, signOut } from '../../myStore.js'
-import { fly } from 'svelte/transition'
-import { page } from '$app/stores'
-import { beforeNavigate } from '$app/navigation'
-import { getMyMenu } from './menuList'
+  import {showMenu, signOut, userObj} from '../../myStore.js'
+  import {fly} from 'svelte/transition'
+  import {page} from '$app/stores'
+  import {beforeNavigate} from '$app/navigation'
+  import {getMyMenu} from './menuList'
 
-function myAccess(): number[] {
-  return [1]
-}
-
-const myMenu = getMyMenu(myAccess())
+  const myMenu = getMyMenu()
 
 function close(): void {
   showMenu.set(false)
@@ -46,14 +42,21 @@ function isActive(path: string, pathname: string): boolean {
 beforeNavigate(() => {
   close()
 })
+
+
 </script>
 
 {#if $showMenu}
   <div class="backdrop-blur-sm fixed inset-0" on:click="{close}" transition:fly></div>
   <div class="menu" transition:fly>
     <button on:click="{close}" class="close-button"><span class="material-icons"> cancel </span></button>
-    <h2>Hello you</h2>
-    <div>
+    <div class="grid grid-cols-1 gap-3 justify-items-center">
+      <div class="rounded-full overflow-hidden w-16">
+        <img class="w-full" src={userObj.img} alt="user image"/>
+      </div>
+      <h2>Hei {userObj.name}</h2>
+    </div>
+      <div>
       <ul class="menu-list">
         <li class:active="{isActive('/', $page.url.pathname)}">
           <a sveltekit:prefetch href="/">Home</a>
@@ -63,9 +66,9 @@ beforeNavigate(() => {
             <a sveltekit:prefetch href="{item.url}">{item.title}</a>
           </li>
         {/each}
-        <li class:active="{isActive('/about', $page.url.pathname)}">
+      <!--  <li class:active="{isActive('/about', $page.url.pathname)}">
           <a sveltekit:prefetch href="/about">About</a>
-        </li>
+        </li>-->
         <li><a on:click="{signOut}" href="#"><span class="material-icons">logout</span> Sign out</a></li>
       </ul>
     </div>
