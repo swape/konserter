@@ -4,6 +4,7 @@
 - ✅ setup tailwind
 - ✅ push to gitHub
 - ✅ connect to Vercel
-- pwa files
-- make awesome konserter app
-- lage favicon
+- ✅ make favicon and icon
+- ✅ pwa files
+- make awesome *konserter* app
+
