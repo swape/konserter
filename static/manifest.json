@@ -1,0 +1,41 @@
+
+{
+  "short_name": "Konserter",
+  "name": "konserter",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "konserter-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "konserter-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "konserter-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    }
+  ],
+  "background_color": "#a855f7",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#a855f7",
+  "shortcuts": [
+    {
+      "name": "Registrer",
+      "short_name": "new",
+      "description": "Registrer ny konsert",
+      "url": "/new",
+      "icons": [  {
+        "src": "konserter-96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      }]
+    }
+  ],
+  "description": "Registrere konserter"
+}
