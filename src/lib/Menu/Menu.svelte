@@ -15,10 +15,13 @@ li.active {
   @apply text-cyan-50 w-full block p-2 flex gap-2;
 }
 .close-button {
-  @apply text-red-400 p-3 text-right;
+  @apply text-slate-900 p-3 text-right fixed top-0 right-0;
 }
 h2 {
   @apply text-cyan-50 text-center text-2xl my-3;
+}
+.avatar-wrapper{
+  @apply grid grid-cols-1 gap-3 justify-items-center bg-purple-800 pt-8 pb-4;
 }
 </style>
 
@@ -50,12 +53,14 @@ beforeNavigate(() => {
   <div class="backdrop-blur-sm fixed inset-0" on:click="{close}" transition:fly></div>
   <div class="menu" transition:fly>
     <button on:click="{close}" class="close-button"><span class="material-icons"> cancel </span></button>
-    <div class="grid grid-cols-1 gap-3 justify-items-center">
+
+    <div class="avatar-wrapper">
       <div class="rounded-full overflow-hidden w-16">
         <img class="w-full" src={userObj.img} alt="user image"/>
       </div>
       <h2>Hei {userObj.name}</h2>
     </div>
+
       <div>
       <ul class="menu-list">
         <li class:active="{isActive('/', $page.url.pathname)}">

@@ -13,21 +13,32 @@ header > div {
 }
 
 .corner {
-  @apply p-3;
+  @apply p-4;
+}
+
+.logo{
+  width: 32px;
+  height: 32px;
+  transition: all 0.3s;
+}
+.logo:hover{
+  transform : scale(1.2);
 }
 </style>
 
 <script lang="ts">
-import { showMenu } from '../../myStore.js'
+  import {showMenu} from '../../myStore.js'
 
-function openMenu() {
+  function openMenu() {
   showMenu.set(true)
 }
 </script>
 
 <header>
   <div>
-    <div class="corner">Logo</div>
+    <div class="corner">
+      <img src="konserter-96.png" alt="konserter logo" class="logo"/>
+    </div>
 
     <div class="corner"><button on:click="{openMenu}">Menu</button></div>
   </div>

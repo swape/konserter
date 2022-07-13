@@ -13,11 +13,14 @@ export const prerender = true
   <meta name="description" content="LMS" />
 </svelte:head>
 
-<section>
-  <h1 class="mb-3">Konserter</h1>
+
 <div class="box">
   <h2 class="header">Konserter</h2>
-  <p>Noe info her</p>
+  <div>
+    <p>Noe info her</p>
+  </div>
+
 </div>
- 
-</section>
+
+
+

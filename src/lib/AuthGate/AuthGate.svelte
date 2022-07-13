@@ -1,9 +1,3 @@
-<style>
-main {
-  @apply m-12;
-}
-</style>
-
 <script lang="ts">
   import {isAuthenticated, signIn} from '../../myStore.js'
 </script>
@@ -13,8 +7,11 @@ main {
 {/if}
 {#if !$isAuthenticated}
   <main>
-    <div class="flex gap-2 justify-center">
-      <button class="button" on:click="{signIn}">Sign in with Google</button>
+    <div class="box">
+      <h1 class="header">Konserter</h1>
+      <div>
+        <button class="button" on:click="{signIn}">Logg inn med Google</button>
+      </div>
     </div>
   </main>
 {/if}

@@ -1,9 +1,9 @@
 <script lang="ts">
-import InputWithLabel from '$lib/InputWithLabel/index.svelte'
-import TextareaWithLabel from '$lib/TextareaWithLabel/index.svelte'
-import StarRating from '$lib/StarRating/index.svelte'
+  import InputWithLabel from '$lib/InputWithLabel/index.svelte'
+  import TextareaWithLabel from '$lib/TextareaWithLabel/index.svelte'
+  import StarRating from '$lib/StarRating/index.svelte'
 
-interface concertObjectType {
+  interface concertObjectType {
   date: string
   artist: string
   note: string
@@ -32,8 +32,9 @@ function cancel(){
 }
 </script>
 
-<div>
-  <div class="flex gap-4 flex-col p-4">
+<div class="box">
+  <h2 class="header">Registrer</h2>
+  <div class="grid grid-cols-1 gap-4">
     <InputWithLabel bind:value="{concertObject.artist}" title="Artist / band" />
     <InputWithLabel bind:value="{concertObject.festival}" title="Festival" />
 
