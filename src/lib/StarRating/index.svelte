@@ -11,7 +11,7 @@ function setStar(index: number) {
 </script>
 
 <div>
-  <div class="text-slate-700 pb-3">{title}: {value}</div>
+  <div class="text-slate-700 pb-2">{title}: {value}</div>
 
   <div>
     {#each starsList as _, index}

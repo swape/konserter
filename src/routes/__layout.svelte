@@ -1,10 +1,9 @@
-
 <script>
-  import Header from '$lib/Header/Header.svelte'
-  import AuthGate from '$lib/AuthGate/AuthGate.svelte'
+import Header from '$lib/Header/Header.svelte'
+import AuthGate from '$lib/AuthGate/AuthGate.svelte'
 
-  import '../app.css'
-  import Menu from '../lib/Menu/Menu.svelte'
+import '../app.css'
+import Menu from '../lib/Menu/Menu.svelte'
 </script>
 
 <AuthGate>
@@ -16,5 +15,5 @@
 </AuthGate>
 
 <footer>
-  <p>Mjolnir Media As</p>
+  <p class="text-center">Mjolnir Media As</p>
 </footer>
