@@ -1,11 +1,8 @@
 <style>
 </style>
 
-<script context="module">
-export const prerender = true
-</script>
-
-<script>
+<script lang="ts">
+import ConsertList from '$lib/Concertlist/index.svelte'
 </script>
 
 <svelte:head>
@@ -13,14 +10,6 @@ export const prerender = true
   <meta name="description" content="LMS" />
 </svelte:head>
 
-
 <div class="box">
-  <h2 class="header">Konserter</h2>
-  <div>
-    <p>Noe info her</p>
-  </div>
-
+  <ConsertList />
 </div>
-
-
-
