@@ -59,12 +59,21 @@ function resetData() {
 function isDataOk(item: concertObjectType) {
   return !!item.artist.trim() && !!item.date
 }
+
+function getFeedBack(rating: number) {
+  if (rating < 3) {
+    return 'Uff da'
+  }
+  return 'Woho superkonsert'
+}
 </script>
 
 {#if showFeedBack}
   <div class="box">
-    <h2 class="header">Yay</h2>
-    <p>Woho</p>
+    <h2 class="header">
+      {getFeedBack(concertObject.rating)}
+    </h2>
+
     <div class="flex gap-3 justify-between">
       <button class="button" on:click="{resetData}">Registrer ny konsert</button>
       <button class="button gray" on:click="{cancel}">Gå til forsiden</button>
