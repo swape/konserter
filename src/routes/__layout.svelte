@@ -13,7 +13,3 @@ import Menu from '../lib/Menu/Menu.svelte'
   </main>
   <Menu />
 </AuthGate>
-
-<footer>
-  <p class="text-center">Mjolnir Media As</p>
-</footer>

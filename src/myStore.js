@@ -7,7 +7,6 @@ export const isAuthenticated = writable(false)
 export let userObj = {}
 
 init((data) => {
-  console.info(data)
   if (data?.email) {
     isAuthenticated.set(true)
     userObj = data
@@ -19,7 +18,6 @@ init((data) => {
 
 export function signIn() {
   return fireSignIn()
-  /* isAuthenticated.set(true)*/
 }
 
 export function signOut() {

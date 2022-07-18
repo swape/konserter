@@ -4,7 +4,7 @@
   min-width: 250px;
 }
 .menu-list li {
-  @apply hover:bg-blue-900 hover:opacity-80 mb-1;
+  @apply hover:bg-blue-900 hover:opacity-80 mb-1 p-3;
 }
 
 li.active {
@@ -20,19 +20,19 @@ li.active {
 h2 {
   @apply text-cyan-50 text-center text-2xl my-3;
 }
-.avatar-wrapper{
+.avatar-wrapper {
   @apply grid grid-cols-1 gap-3 justify-items-center bg-purple-800 pt-8 pb-4;
 }
 </style>
 
 <script lang="ts">
-  import {showMenu, signOut, userObj} from '../../myStore.js'
-  import {fly} from 'svelte/transition'
-  import {page} from '$app/stores'
-  import {beforeNavigate} from '$app/navigation'
-  import {getMyMenu} from './menuList'
+import { showMenu, signOut, userObj } from '../../myStore.js'
+import { fly } from 'svelte/transition'
+import { page } from '$app/stores'
+import { beforeNavigate } from '$app/navigation'
+import { getMyMenu } from './menuList'
 
-  const myMenu = getMyMenu()
+const myMenu = getMyMenu()
 
 function close(): void {
   showMenu.set(false)
@@ -45,8 +45,6 @@ function isActive(path: string, pathname: string): boolean {
 beforeNavigate(() => {
   close()
 })
-
-
 </script>
 
 {#if $showMenu}
@@ -56,12 +54,12 @@ beforeNavigate(() => {
 
     <div class="avatar-wrapper">
       <div class="rounded-full overflow-hidden w-16">
-        <img class="w-full" src={userObj.img} alt="user image"/>
+        <img class="w-full" src="{userObj.img}" alt="user image" />
       </div>
       <h2>Hei {userObj.name}</h2>
     </div>
 
-      <div>
+    <div>
       <ul class="menu-list">
         <li class:active="{isActive('/', $page.url.pathname)}">
           <a sveltekit:prefetch href="/">Home</a>
@@ -71,9 +69,6 @@ beforeNavigate(() => {
             <a sveltekit:prefetch href="{item.url}">{item.title}</a>
           </li>
         {/each}
-      <!--  <li class:active="{isActive('/about', $page.url.pathname)}">
-          <a sveltekit:prefetch href="/about">About</a>
-        </li>-->
         <li><a on:click="{signOut}" href="#"><span class="material-icons">logout</span> Sign out</a></li>
       </ul>
     </div>

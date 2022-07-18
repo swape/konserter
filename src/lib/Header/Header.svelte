@@ -4,7 +4,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: black;
   color: white;
   backdrop-filter: blur(40);
   z-index: 2;
@@ -36,11 +36,14 @@ function openMenu() {
 </script>
 
 <header>
-  <div>
+  <div class="grid grid-cols-3 items-center">
     <div class="corner">
-      <img src="konserter-96.png" alt="konserter logo" class="logo" />
+      <a href="/"><img src="konserter-96.png" alt="konserter logo" class="logo" /></a>
+    </div>
+    <div>
+      <a href="/new"><span class="material-icons text-3xl text-blue-100"> add_circle </span></a>
     </div>
 
-    <div class="corner"><button on:click="{openMenu}">Menu</button></div>
+    <div class="corner"><button on:click="{openMenu}"><span class="material-icons"> menu </span></button></div>
   </div>
 </header>
