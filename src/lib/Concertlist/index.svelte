@@ -2,6 +2,7 @@
     import {userObj} from '../../myStore'
     import {syncItems} from '../../fire.js'
     import {ConcertObjectType} from "../../types";
+    import {goto} from '$app/navigation';
 
     let concertList: ConcertObjectType[] = []
 
@@ -25,11 +26,16 @@
     function getHeader(concert: ConcertObjectType) {
         return `${concert?.artist}${concert?.venue ? ' @ ' + concert.venue : ''}`
     }
+
+    function clicked(id: string) {
+        goto(`/new/${id}`)
+    }
 </script>
 
 
 {#each concertList as concert}
-    <div class="box">
+    <button on:click={()=>clicked(concert.id)} class="box">
+
         <h2 class="header">{getHeader(concert)} </h2>
         <div>
             <div class="flex justify-between text-sm text-gray-400 items-center">
@@ -48,6 +54,7 @@
 
             <div class="text-sm text-gray-500">{concert.note}</div>
         </div>
-    </div>
+
+    </button>
 {/each}
 
