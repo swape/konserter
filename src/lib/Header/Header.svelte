@@ -4,10 +4,9 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background-color: black;
   color: white;
-  backdrop-filter: blur(40);
   z-index: 2;
+  @apply bg-slate-900;
 }
 header > div {
   @apply flex justify-between container mx-auto;

@@ -126,7 +126,7 @@ p {
 }
 
 .box {
-  @apply border border-slate-100 rounded-xl bg-white text-xl w-full flex-1 self-center;
+  @apply  rounded-xl bg-white text-xl w-full flex-1 self-center;
   max-width: 500px;
 }
 
@@ -135,5 +135,5 @@ p {
 }
 
 .box > .header {
-  @apply text-xl text-center p-6 bg-slate-100 rounded-t-xl;
+  @apply text-xl text-center p-6 bg-slate-900 text-white ;
 }

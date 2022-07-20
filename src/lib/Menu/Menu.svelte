@@ -12,7 +12,7 @@ li.active {
 }
 
 .menu-list a {
-  @apply text-cyan-50 w-full block p-2 flex gap-2;
+  @apply text-cyan-50 w-full p-2 flex gap-2;
 }
 .close-button {
   @apply text-slate-900 p-3 text-right fixed top-0 right-0;
@@ -54,6 +54,7 @@ beforeNavigate(() => {
 
     <div class="avatar-wrapper">
       <div class="rounded-full overflow-hidden w-16">
+        <!-- svelte-ignore a11y-img-redundant-alt -->
         <img class="w-full" src="{userObj.img}" alt="user image" />
       </div>
       <h2>Hei {userObj.name}</h2>
@@ -62,14 +63,14 @@ beforeNavigate(() => {
     <div>
       <ul class="menu-list">
         <li class:active="{isActive('/', $page.url.pathname)}">
-          <a sveltekit:prefetch href="/">Home</a>
+          <a sveltekit:prefetch href="/">Forsiden</a>
         </li>
         {#each myMenu as item}
           <li class:active="{isActive(item.url, $page.url.pathname)}">
             <a sveltekit:prefetch href="{item.url}">{item.title}</a>
           </li>
         {/each}
-        <li><a on:click="{signOut}" href="#"><span class="material-icons">logout</span> Sign out</a></li>
+        <li><a on:click="{signOut}" href="/#"><span class="material-icons">logout</span> Logg ut</a></li>
       </ul>
     </div>
   </div>
