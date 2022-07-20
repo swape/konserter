@@ -24,7 +24,7 @@
         }
         const saveObj = {
             ...concertValue,
-            price: toNumber(concertValue.price),
+            price: toNumber(concertValue.price) || 0,
             uid: userObj.uid
         }
         addEntry(userObj.uid, saveObj).then(() => {

@@ -18,6 +18,7 @@ export function gotoNew(): void {
     goto('/new')
 }
 
+
 export function getFormattedDate(): string {
     const nowDate = new Date()
     const day = `${nowDate.getDate()}`.padStart(2, '0')
