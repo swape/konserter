@@ -38,7 +38,7 @@
     </div>
 
     <div class="text-sm text-gray-500 pt-2">{concert.note}</div>
-  
+
 
   </button>
 {/each}
