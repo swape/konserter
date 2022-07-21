@@ -19,10 +19,10 @@
       "sizes": "32x32"
     }
   ],
-  "background_color": "#000000",
+  "background_color": "#0F172A",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#000000",
+  "theme_color": "#0F172A",
   "shortcuts": [
     {
       "name": "Registrer",
