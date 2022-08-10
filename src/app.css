@@ -2,138 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body, html, main {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(180deg, #FFB7B7 0%, #727272 100%), radial-gradient(60.91% 100% at 50% 0%, #FFD1D1 0%, #260000 100%), linear-gradient(238.72deg, #FFDDDD 0%, #720066 100%), linear-gradient(127.43deg, #00FFFF 0%, #FF4444 100%), radial-gradient(100.22% 100% at 70.57% 0%, #FF0000 0%, #00FFE0 100%), linear-gradient(127.43deg, #B7D500 0%, #3300FF 100%);
+    background-blend-mode: screen, overlay, hard-light, color-burn, color-dodge, normal;
+    background-attachment: fixed;
 }
 
 footer > p {
-  @apply container mx-auto;
+    @apply container mx-auto;
 }
-main{
-  padding-bottom: 100px;
-  padding-top: 100px;
-  @apply grid gap-4 justify-items-center w-full grid-cols-1 fixed;
-  top: 0;
-  bottom: 0;
-  left:0;
-  right:0;
-  background: linear-gradient(180deg, #FFB7B7 0%, #727272 100%), radial-gradient(60.91% 100% at 50% 0%, #FFD1D1 0%, #260000 100%), linear-gradient(238.72deg, #FFDDDD 0%, #720066 100%), linear-gradient(127.43deg, #00FFFF 0%, #FF4444 100%), radial-gradient(100.22% 100% at 70.57% 0%, #FF0000 0%, #00FFE0 100%), linear-gradient(127.43deg, #B7D500 0%, #3300FF 100%);
-  background-blend-mode: screen, overlay, hard-light, color-burn, color-dodge, normal;
- 
-  overflow: scroll;
+
+main {
+    padding-bottom: 100px;
+    padding-top: 100px;
+    @apply grid gap-4 justify-items-center w-full grid-cols-1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
+
 footer {
-  border-top: 1px solid #ccc;
-  padding: 5px 20px;
-  position: fixed;
-  bottom: 0;
-  left:0;
-  right:0;
-  background-color: rgba(255,255,255,0.9);
-  backdrop-filter: blur();
+    border-top: 1px solid #ccc;
+    padding: 5px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur();
 }
 
 h1 {
-  @apply text-4xl p-2 text-center;
+    @apply text-4xl p-2 text-center;
 }
 
 p {
-  @apply p-3;
+    @apply p-3;
 }
 
 .button {
-  @apply bg-blue-500 text-base px-6 py-2 flex justify-center rounded-md text-white hover:bg-blue-800;
+    @apply bg-blue-500 text-base px-6 py-2 flex justify-center rounded-md text-white hover:bg-blue-800;
 }
 
 .button.green {
-  @apply bg-green-700 hover:text-gray-50 hover:bg-green-900;
+    @apply bg-green-700 hover:text-gray-50 hover:bg-green-900;
 }
 
 .button.red {
-  @apply bg-red-500 hover:text-gray-50 hover:bg-red-800;
+    @apply bg-red-500 hover:text-gray-50 hover:bg-red-800;
 }
 
 .button.gray {
-  @apply bg-gray-200 text-gray-900 hover:text-gray-800 hover:bg-gray-300;
+    @apply bg-gray-200 text-gray-900 hover:text-gray-800 hover:bg-gray-300;
 }
 
 
 .button.round {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  @apply truncate items-center text-ellipsis overflow-hidden p-0;
-  margin: 0 auto;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    @apply truncate items-center text-ellipsis overflow-hidden p-0;
+    margin: 0 auto;
 }
 
 .input {
-  @apply border rounded-md border-gray-400 px-2 w-full;
-  height: 40px;
+    @apply border rounded-md border-gray-400 px-2 w-full;
+    height: 40px;
 }
 
 .input:focus-visible {
-  @apply border-blue-600 outline-none;
+    @apply border-blue-600 outline-none;
 }
 
 .textarea {
-  @apply border rounded-md border-gray-400 p-2 w-full;
-  min-height: 100px;
+    @apply border rounded-md border-gray-400 p-2 w-full;
+    min-height: 100px;
 }
 
 .textarea:focus-visible {
-  @apply border-blue-600 outline-none;
+    @apply border-blue-600 outline-none;
 }
 
 .combo {
-  @apply flex;
+    @apply flex;
 }
 
 .combo .input {
-  @apply rounded-none grow;
+    @apply rounded-none grow;
 }
 
 .combo .button:last-of-type {
-  @apply rounded-l-none;
+    @apply rounded-l-none;
 }
 
 .combo .button:first-of-type {
-  @apply rounded-r-none;
+    @apply rounded-r-none;
 }
 
 .combo .button:first-child {
-  @apply rounded-l-md;
+    @apply rounded-l-md;
 }
 
 .combo .button:last-child {
-  @apply rounded-r-md;
+    @apply rounded-r-md;
 }
 
 .combo .input:last-child {
-  @apply rounded-r-md;
+    @apply rounded-r-md;
 }
 
 .combo .input:first-child {
-  @apply rounded-l-md;
+    @apply rounded-l-md;
 }
 
 .combo > span:first-child {
-  @apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center;
-  height: 40px;
+    @apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center;
+    height: 40px;
 }
 
 .combo > span:last-child {
-  @apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center;
-  height: 40px;
+    @apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center;
+    height: 40px;
 }
 
 .box {
-  @apply  rounded-xl bg-white text-xl w-full flex-1 self-center;
-  max-width: 500px;
+    @apply rounded-xl bg-white text-xl w-full flex-1 self-center;
+    max-width: 500px;
 }
 
-.box > div{
-  @apply p-6;
+.box > div {
+    @apply p-6;
 }
 
 .box > .header {
-  @apply text-xl text-center p-6 bg-slate-900 text-white ;
+    @apply text-xl text-center p-6 bg-slate-900 text-white ;
 }
