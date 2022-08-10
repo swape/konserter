@@ -19,8 +19,7 @@ export function gotoNew(): void {
 }
 
 
-export function getFormattedDate(): string {
-    const nowDate = new Date()
+export function getFormattedDate(nowDate = new Date()): string {
     const day = `${nowDate.getDate()}`.padStart(2, '0')
     const month = `${nowDate.getMonth()}`.padStart(2, '0')
     return `${nowDate.getFullYear()}-${month}-${day}`
