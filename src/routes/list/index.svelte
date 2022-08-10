@@ -9,7 +9,7 @@
     let filterText = ''
 
     let concertList = []
-    $: filteredList = filterList(concertList, filterText)
+    $: thisYearList = filterList(concertList, filterText)
 
 
     syncItems(userObj.uid, (data: any) => {

@@ -1,0 +1,119 @@
+<script lang="ts">
+    import {userObj} from "../myStore"
+    import {syncItems} from '../fire.js'
+    import {getArtistAndVenue, sortByDate} from "$lib/Concertlist/helper"
+    import {goto} from "$app/navigation";
+    import {ConcertObjectType} from "../types";
+
+    let concertList = []
+
+    $: thisYearList = thisYear(concertList)
+    $: lastYearList = lastYear(concertList)
+    $: thisYearBestList = thisYearBest(thisYearList)
+    $: totalSumThisYear = findTotalSumThisYear(thisYearList)
+
+    syncItems(userObj.uid, (data: any) => {
+        concertList = Object.values(data).sort(sortByDate)
+    })
+
+    const now = new Date()
+
+    const intNoFormat = new Intl.NumberFormat('no-NO', {style: 'currency', currency: 'NOK'})
+    const convertToNoCurrency = value => intNoFormat.format(value).replace('NOK', 'kr')
+
+    function findTotalSumThisYear(concertList: ConcertObjectType[]) {
+        let total = 0;
+        concertList.forEach((item: ConcertObjectType) => {
+            total += item.price || 0
+        })
+        return convertToNoCurrency(total);
+    }
+
+    function thisYear(concertList) {
+        return concertList.filter(item => {
+            const year = item.date.split('-')[0]
+            return parseInt(year, 10) === now.getFullYear()
+        })
+    }
+
+    function thisYearBest(concertList) {
+        return concertList.filter(item => item.rating > 3)
+    }
+
+    function lastYear(concertList) {
+        return concertList.filter(item => {
+            const year = item.date.split('-')[0]
+            return parseInt(year, 10) === now.getFullYear() - 1
+        })
+    }
+
+    function gotoConcert(id: string) {
+        goto(`/new/${id}`)
+    }
+
+
+</script>
+<div class="stats-list">
+  <div class="stats">
+    <div>Konserter i år</div>
+    <div class="stats-number">{thisYearList.length}</div>
+  </div>
+
+  <div class="stats">
+    <div>Konserter i fjor</div>
+    <div class="stats-number">{lastYearList.length}</div>
+  </div>
+</div>
+
+<div class="m-3 grid grid-cols-1">
+  <div class="stats">
+    <div>Beste konserter i år: {thisYearBestList.length}</div>
+    <div>
+      <ul class="p-3">
+        {#each thisYearBestList as concert}
+          <li>
+            <button on:click={()=>gotoConcert(concert.id)}
+                    class="button concert-button ">
+                   <span class="flex items-center">
+                    <span class="material-icons text-sm">star</span>
+                    <span>{concert.rating}</span>
+                  </span>
+
+              <span class="px-2">{concert.date}</span>
+
+              <span class="flex items-center truncate">
+              <span class="material-icons text-sm">music_note</span>
+              <span class="overflow-ellipsis overflow-hidden truncate">{getArtistAndVenue(concert)}</span>
+              </span>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="stats">
+  Du brukte {totalSumThisYear} i år på konserter
+</div>
+<style>
+    .stats-list {
+        @apply grid grid-cols-2 gap-4;
+    }
+
+    .stats {
+        @apply p-4 bg-white text-center text-cyan-600 rounded-md;
+    }
+
+    .stats-number {
+        @apply flex justify-center text-4xl text-cyan-900 pt-4;
+    }
+
+    .concert-button {
+        @apply truncate mb-1 w-full justify-start;
+    }
+
+
+</style>
