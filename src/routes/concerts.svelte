@@ -1,7 +1,7 @@
 <script lang="ts">
     import {userObj} from "../myStore"
     import {syncItems} from '../fire.js'
-    import {getArtistAndVenue, sortByDate} from "$lib/Concertlist/helper"
+    import {getArtistAndVenue, sortByBestVenue, sortByDate} from "$lib/Concertlist/helper"
     import {goto} from "$app/navigation";
     import {ConcertObjectType} from "../types";
 
@@ -11,6 +11,7 @@
     $: lastYearList = lastYear(concertList)
     $: thisYearBestList = thisYearBest(thisYearList)
     $: totalSumThisYear = findTotalSumThisYear(thisYearList)
+    $: sortedVenue = sortByBestVenue(thisYearList)
 
     syncItems(userObj.uid, (data: any) => {
         concertList = Object.values(data).sort(sortByDate)
@@ -94,6 +95,15 @@
 <div class="mx-3 grid grid-cols-1">
   <div class="stats">
     Du brukte {totalSumThisYear} i år på konserter
+  </div>
+</div>
+<div class="mx-3 grid grid-cols-1">
+  <div class="stats">
+    <div class="mb-2">Alle besøkte konsertstedene i år</div>
+    {#each sortedVenue as venue}
+      <div class="flex justify-between"><span class="text-cyan-800 truncate">{venue[0]}:</span><span>{venue[1]}</span>
+      </div>
+    {/each}
   </div>
 </div>
 <style>
