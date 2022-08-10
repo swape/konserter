@@ -142,3 +142,10 @@ p {
 .box > .header {
     @apply text-xl text-center p-6 bg-slate-900 text-white ;
 }
+
+input[type="date"] {
+    display: block;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+}
