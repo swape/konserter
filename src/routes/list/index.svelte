@@ -39,11 +39,11 @@
 
   <div>
     <InputWithLabel title="Filter" bind:value={filterText}/>
-    <div class="text-xs mt-2">Resultater: {filteredList.length}</div>
+    <div class="text-xs mt-2">Resultater: {thisYearList.length}</div>
   </div>
 
   <ul class="p-3">
-    {#each filteredList as concert}
+    {#each thisYearList as concert}
       <li>
         <button on:click={()=>gotoConcert(concert.id)}
                 class="concert-button">
