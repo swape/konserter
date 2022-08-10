@@ -144,7 +144,7 @@ p {
 }
 
 input[type="date"] {
-    display: block;
+    display: flex;
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     min-height: 1.2em;
