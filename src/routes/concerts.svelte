@@ -36,11 +36,11 @@
         })
     }
 
-    function thisYearBest(concertList) {
+    function thisYearBest(concertList: ConcertObjectType[]) {
         return concertList.filter(item => item.rating > 3)
     }
 
-    function lastYear(concertList) {
+    function lastYear(concertList: ConcertObjectType[]) {
         return concertList.filter(item => {
             const year = item.date.split('-')[0]
             return parseInt(year, 10) === now.getFullYear() - 1
@@ -51,9 +51,8 @@
         goto(`/new/${id}`)
     }
 
-
 </script>
-<div class="stats-list">
+<div class="mx-3 grid grid-cols-2 gap-2">
   <div class="stats">
     <div>Konserter i år</div>
     <div class="stats-number">{thisYearList.length}</div>
@@ -74,16 +73,16 @@
           <li>
             <button on:click={()=>gotoConcert(concert.id)}
                     class="button concert-button ">
-                   <span class="flex items-center">
-                    <span class="material-icons text-sm">star</span>
-                    <span>{concert.rating}</span>
-                  </span>
+              <span class="flex items-center">
+                <span class="material-icons text-sm">star</span>
+                <span>{concert.rating}</span>
+              </span>
 
               <span class="px-2">{concert.date}</span>
 
               <span class="flex items-center truncate">
-              <span class="material-icons text-sm">music_note</span>
-              <span class="overflow-ellipsis overflow-hidden truncate">{getArtistAndVenue(concert)}</span>
+                <span class="material-icons text-sm">music_note</span>
+                <span class="overflow-ellipsis overflow-hidden truncate">{getArtistAndVenue(concert)}</span>
               </span>
             </button>
           </li>
@@ -91,18 +90,13 @@
       </ul>
     </div>
   </div>
-
-
 </div>
-
-<div class="stats">
-  Du brukte {totalSumThisYear} i år på konserter
+<div class="mx-3 grid grid-cols-1">
+  <div class="stats">
+    Du brukte {totalSumThisYear} i år på konserter
+  </div>
 </div>
 <style>
-    .stats-list {
-        @apply grid grid-cols-2 gap-4;
-    }
-
     .stats {
         @apply p-4 bg-white text-center text-cyan-600 rounded-md;
     }
@@ -114,6 +108,4 @@
     .concert-button {
         @apply truncate mb-1 w-full justify-start;
     }
-
-
 </style>
