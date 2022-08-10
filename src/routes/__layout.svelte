@@ -1,15 +1,16 @@
 <script>
-import Header from '$lib/Header/Header.svelte'
-import AuthGate from '$lib/AuthGate/AuthGate.svelte'
+    import Header from '$lib/Header/Header.svelte'
+    import AuthGate from '$lib/AuthGate/AuthGate.svelte'
 
-import '../app.css'
-import Menu from '../lib/Menu/Menu.svelte'
+    import '../app.css'
+    import Menu from '../lib/Menu/Menu.svelte'
 </script>
 
 <AuthGate>
-  <Header />
+  <Header/>
   <main>
-    <slot />
+    <slot/>
+    <br>&nbsp;<br>
   </main>
-  <Menu />
+  <Menu/>
 </AuthGate>

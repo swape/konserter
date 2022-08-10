@@ -7,7 +7,7 @@
     import {getFormattedDate, isDataOk, toNumber} from "$lib/NewParts/helper";
 
     let concertObject: ConcertObjectType = {
-        date: getFormattedDate(),
+        date: getFormattedDate(new Date()),
         artist: '',
         note: '',
         rating: 3,
@@ -35,7 +35,7 @@
     function resetData() {
         showFeedBack = false
         concertObject = {
-            date: getFormattedDate(),
+            date: getFormattedDate(new Date()),
             artist: '',
             note: '',
             rating: 3,

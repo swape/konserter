@@ -8,7 +8,7 @@
     import {page} from '$app/stores';
 
     let concertObject: ConcertObjectType = {
-        date: getFormattedDate(),
+        date: getFormattedDate(new Date()),
         artist: '',
         note: '',
         rating: 3,
