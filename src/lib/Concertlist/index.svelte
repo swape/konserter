@@ -19,23 +19,25 @@ function clicked(id: string) {
 }
 </script>
 
-{#each concertList as concert}
-  <button on:click="{() => clicked(concert.id)}" class="box">
-    <h2 class="header">{getArtistAndVenue(concert)}</h2>
+<div class="p-3">
+  {#each concertList as concert}
+    <button on:click="{() => clicked(concert.id)}" class="box mb-3">
+      <div class="text-xl p-3">{getArtistAndVenue(concert)}</div>
 
-    <div class="flex justify-between text-sm text-gray-400 items-center">
-      <small>{concert.date}</small>
-      {#if concert.festival}
-        <div>{concert.festival}</div>
-      {/if}
-      {#if concert.rating}
-        <div class="flex items-center">
-          <span class="material-icons">star</span>
-          <span>{concert.rating}</span>
-        </div>
-      {/if}
-    </div>
+      <div class="flex justify-between text-sm text-gray-400 items-center">
+        <small>{concert.date}</small>
+        {#if concert.festival}
+          <div>{concert.festival}</div>
+        {/if}
+        {#if concert.rating}
+          <div class="flex items-center">
+            <span class="material-icons">star</span>
+            <span>{concert.rating}</span>
+          </div>
+        {/if}
+      </div>
 
-    <div class="text-sm text-gray-500 pt-2">{concert.note}</div>
-  </button>
-{/each}
+      <div class="text-sm text-gray-500 pt-2">{concert.note}</div>
+    </button>
+  {/each}
+</div>
