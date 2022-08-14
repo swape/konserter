@@ -13,4 +13,6 @@ export interface ConcertObjectType {
   festival: string
   venue: string
   price: number
+  uid?: string
+  id?: string
 }

@@ -1,6 +1,10 @@
 <style>
     .stats {
-        @apply p-4 bg-white text-center text-cyan-600 rounded-md;
+        @apply p-4 bg-white text-center text-cyan-600 rounded-md w-full;
+    }
+
+    .stats-wrapper {
+        @apply p-3 w-full flex;
     }
 
     .stats-number {
@@ -13,61 +17,61 @@
 </style>
 
 <script lang="ts">
-    import {userObj} from '../myStore'
-    import {syncItems} from '../fire.js'
-    import {getArtistAndVenue, sortByBestVenue, sortByDate} from '$lib/Concertlist/helper'
-    import {goto} from '$app/navigation'
-    import {ConcertObjectType} from '../types'
+  import { userObj } from "../myStore";
+  import { syncItems } from "../fire.js";
+  import { getArtistAndVenue, sortByBestVenue, sortByDate } from "$lib/Concertlist/helper";
+  import { goto } from "$app/navigation";
+  import { ConcertObjectType } from "../types";
 
-    let concertList = []
+  let concertList = [];
 
-    $: thisYearList = thisYear(concertList)
-    $: lastYearList = lastYear(concertList)
-    $: thisYearBestList = thisYearBest(thisYearList)
-    $: totalSumThisYear = findTotalSumThisYear(thisYearList)
-    $: sortedVenue = sortByBestVenue(thisYearList)
+  $: thisYearList = thisYear(concertList);
+  $: lastYearList = lastYear(concertList);
+  $: thisYearBestList = thisYearBest(thisYearList);
+  $: totalSumThisYear = findTotalSumThisYear(thisYearList);
+  $: sortedVenue = sortByBestVenue(thisYearList);
 
-    syncItems(userObj.uid, (data: any) => {
-        concertList = Object.values(data).sort(sortByDate)
-    })
+  syncItems(userObj.uid, (data: any) => {
+    concertList = Object.values(data).sort(sortByDate);
+  });
 
-    const now = new Date()
+  const now = new Date();
 
-    const intNoFormat = new Intl.NumberFormat('no-NO', {style: 'currency', currency: 'NOK'})
-    const convertToNoCurrency = (value) => intNoFormat.format(value).replace('NOK', 'kr')
+  const intNoFormat = new Intl.NumberFormat("no-NO", { style: "currency", currency: "NOK" });
+  const convertToNoCurrency = (value) => intNoFormat.format(value).replace("NOK", "kr");
 
-    function findTotalSumThisYear(concertList: ConcertObjectType[]) {
-        let total = 0
-        concertList.forEach((item: ConcertObjectType) => {
-            total += item.price || 0
-        })
-        return convertToNoCurrency(total)
-    }
+  function findTotalSumThisYear(concertList: ConcertObjectType[]) {
+    let total = 0;
+    concertList.forEach((item: ConcertObjectType) => {
+      total += item.price || 0;
+    });
+    return convertToNoCurrency(total);
+  }
 
-    function thisYear(concertList) {
-        return concertList.filter((item) => {
-            const year = item.date.split('-')[0]
-            return parseInt(year, 10) === now.getFullYear()
-        })
-    }
+  function thisYear(concertList) {
+    return concertList.filter((item) => {
+      const year = item.date.split("-")[0];
+      return parseInt(year, 10) === now.getFullYear();
+    });
+  }
 
-    function thisYearBest(concertList: ConcertObjectType[]) {
-        return concertList.filter((item) => item.rating > 3)
-    }
+  function thisYearBest(concertList: ConcertObjectType[]) {
+    return concertList.filter((item) => item.rating > 3);
+  }
 
-    function lastYear(concertList: ConcertObjectType[]) {
-        return concertList.filter((item) => {
-            const year = item.date.split('-')[0]
-            return parseInt(year, 10) === now.getFullYear() - 1
-        })
-    }
+  function lastYear(concertList: ConcertObjectType[]) {
+    return concertList.filter((item) => {
+      const year = item.date.split("-")[0];
+      return parseInt(year, 10) === now.getFullYear() - 1;
+    });
+  }
 
-    function gotoConcert(id: string) {
-        goto(`/new/${id}`)
-    }
+  function gotoConcert(id: string) {
+    goto(`/new/${id}`);
+  }
 </script>
 
-<div class="mx-3 grid grid-cols-2 gap-2">
+<div class="stats-wrapper gap-2">
   <div class="stats">
     <div>Konserter i år</div>
     <div class="stats-number">{thisYearList.length}</div>
@@ -79,7 +83,7 @@
   </div>
 </div>
 
-<div class="m-3 grid grid-cols-1">
+<div class="stats-wrapper">
   <div class="stats">
     <div>Beste konserter i år: {thisYearBestList.length}</div>
     <div>
@@ -105,16 +109,17 @@
     </div>
   </div>
 </div>
-<div class="mx-3 grid grid-cols-1">
+<div class="stats-wrapper">
   <div class="stats">
     Du brukte {totalSumThisYear} i år på konserter
   </div>
 </div>
-<div class="mx-3 grid grid-cols-1">
+<div class="stats-wrapper">
   <div class="stats">
     <div class="mb-2">Alle besøkte konsertstedene i år</div>
     {#each sortedVenue as venue}
-      <div class="flex justify-between"><span class="text-cyan-800 truncate">{venue[0]}:</span><span>{venue[1]}</span>
+      <div class="flex justify-between"><span class="text-cyan-800 truncate capitalize">{venue[0]}
+        :</span><span>{venue[1]}</span>
       </div>
     {/each}
   </div>
