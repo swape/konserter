@@ -1,9 +1,23 @@
+<style>
+    .stats {
+        @apply p-4 bg-white text-center text-cyan-600 rounded-md;
+    }
+
+    .stats-number {
+        @apply flex justify-center text-4xl text-cyan-900 pt-4;
+    }
+
+    .concert-button {
+        @apply truncate mb-1 w-full justify-start;
+    }
+</style>
+
 <script lang="ts">
-    import {userObj} from "../myStore"
+    import {userObj} from '../myStore'
     import {syncItems} from '../fire.js'
-    import {getArtistAndVenue, sortByBestVenue, sortByDate} from "$lib/Concertlist/helper"
-    import {goto} from "$app/navigation";
-    import {ConcertObjectType} from "../types";
+    import {getArtistAndVenue, sortByBestVenue, sortByDate} from '$lib/Concertlist/helper'
+    import {goto} from '$app/navigation'
+    import {ConcertObjectType} from '../types'
 
     let concertList = []
 
@@ -20,29 +34,29 @@
     const now = new Date()
 
     const intNoFormat = new Intl.NumberFormat('no-NO', {style: 'currency', currency: 'NOK'})
-    const convertToNoCurrency = value => intNoFormat.format(value).replace('NOK', 'kr')
+    const convertToNoCurrency = (value) => intNoFormat.format(value).replace('NOK', 'kr')
 
     function findTotalSumThisYear(concertList: ConcertObjectType[]) {
-        let total = 0;
+        let total = 0
         concertList.forEach((item: ConcertObjectType) => {
             total += item.price || 0
         })
-        return convertToNoCurrency(total);
+        return convertToNoCurrency(total)
     }
 
     function thisYear(concertList) {
-        return concertList.filter(item => {
+        return concertList.filter((item) => {
             const year = item.date.split('-')[0]
             return parseInt(year, 10) === now.getFullYear()
         })
     }
 
     function thisYearBest(concertList: ConcertObjectType[]) {
-        return concertList.filter(item => item.rating > 3)
+        return concertList.filter((item) => item.rating > 3)
     }
 
     function lastYear(concertList: ConcertObjectType[]) {
-        return concertList.filter(item => {
+        return concertList.filter((item) => {
             const year = item.date.split('-')[0]
             return parseInt(year, 10) === now.getFullYear() - 1
         })
@@ -51,8 +65,8 @@
     function gotoConcert(id: string) {
         goto(`/new/${id}`)
     }
-
 </script>
+
 <div class="mx-3 grid grid-cols-2 gap-2">
   <div class="stats">
     <div>Konserter i år</div>
@@ -72,8 +86,7 @@
       <ul class="p-3">
         {#each thisYearBestList as concert}
           <li>
-            <button on:click={()=>gotoConcert(concert.id)}
-                    class="button concert-button ">
+            <button on:click="{() => gotoConcert(concert.id)}" class="button concert-button ">
               <span class="flex items-center">
                 <span class="material-icons text-sm">star</span>
                 <span>{concert.rating}</span>
@@ -106,16 +119,3 @@
     {/each}
   </div>
 </div>
-<style>
-    .stats {
-        @apply p-4 bg-white text-center text-cyan-600 rounded-md;
-    }
-
-    .stats-number {
-        @apply flex justify-center text-4xl text-cyan-900 pt-4;
-    }
-
-    .concert-button {
-        @apply truncate mb-1 w-full justify-start;
-    }
-</style>
