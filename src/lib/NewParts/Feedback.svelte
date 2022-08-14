@@ -1,18 +1,18 @@
 <script lang="ts">
-    import {ConcertObjectType} from "../../types";
-    import {cancel} from "./helper.js";
+import { ConcertObjectType } from '../../types'
+import { cancel } from './helper.js'
 
-    export let concertObject: ConcertObjectType = null;
-    export let resetData: () => void = null;
+export let concertObject: ConcertObjectType = null
+export let resetData: () => void = null
 
-    function getFeedBack(rating: number) {
-        if (rating < 3) {
-            return 'Uffda. Neste konsert kommer til å bli fantastisk'
-        }
-        return 'Woho enda en superkonsert'
-    }
-
+function getFeedBack(rating: number) {
+  if (rating < 3) {
+    return 'Uffda. Neste konsert kommer til å bli fantastisk'
+  }
+  return 'Woho enda en superkonsert'
+}
 </script>
+
 <div class="box">
   <h2 class="header">
     {getFeedBack(concertObject.rating)}
