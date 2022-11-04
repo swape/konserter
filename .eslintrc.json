@@ -16,6 +16,7 @@
     "@typescript-eslint", "simple-import-sort"
   ],
   "rules": {
-    "semi": 0
+    "semi": 0,
+    "@typescript-eslint/ban-ts-comment": 0
   }
 }
