@@ -4,19 +4,19 @@
     import {getArtistAndVenue, sortByDate} from "$lib/Concertlist/helper"
     import {goto} from "$app/navigation"
     import InputWithLabel from "../../lib/InputWithLabel/index.svelte";
-    import {ConcertObjectType} from "../../types";
+    import type {ConcertObjectType, ConcertObjectTypeFromFireBase} from "../../types";
 
     let filterText = ''
 
-    let concertList = []
+    let concertList: ConcertObjectType[] = []
     $: thisYearList = filterList(concertList, filterText)
 
 
-    syncItems(userObj.uid, (data: any) => {
+    syncItems(userObj.uid, (data: ConcertObjectTypeFromFireBase) => {
         concertList = Object.values(data).sort(sortByDate)
     })
 
-    function gotoConcert(id: string) {
+    function gotoConcert(id: string | unknown) {
         goto(`/new/${id}`)
     }
 

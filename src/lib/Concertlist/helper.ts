@@ -6,8 +6,12 @@ export function sortByDate(a: ConcertObjectType, b: ConcertObjectType) {
   return cleanedA < cleanedB ? 1 : -1
 }
 
+interface VenueSort{
+  [key: string]: number
+}
+
 export function sortByBestVenue(concertList: ConcertObjectType[]) {
-  const venues: any = {}
+  const venues: VenueSort = {}
   concertList.forEach((item) => {
     const cleanedVenue = item.venue.trim().toLocaleLowerCase()
     if (venues[cleanedVenue]) {
@@ -16,7 +20,7 @@ export function sortByBestVenue(concertList: ConcertObjectType[]) {
       venues[cleanedVenue] = 1
     }
   })
-  return Object.entries(venues).sort((a: any, b: any) => {
+  return Object.entries(venues).sort((a: unknown, b: unknown) => {
     return a[1] < b[1] ? 1 : -1
   })
 }

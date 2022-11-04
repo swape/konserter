@@ -2,11 +2,19 @@
 import InputWithLabel from '$lib/InputWithLabel/index.svelte'
 import TextareaWithLabel from '$lib/TextareaWithLabel/index.svelte'
 import StarRating from '$lib/StarRating/index.svelte'
-import { ConcertObjectType } from '../../types'
+import type { ConcertObjectType } from '../../types'
 import { cancel, isDataOk } from './helper'
 import { page } from '$app/stores'
 
-export let concertObject: ConcertObjectType = null
+export let concertObject: ConcertObjectType = {
+  artist: '',
+  festival: '',
+  venue: '',
+  price: 0,
+  date: '',
+  rating: 0,
+  note: ''
+}
 export let save: (concertObject: ConcertObjectType) => void
 
 function getHeader(page: any) {

@@ -21,9 +21,9 @@ import { userObj } from '../myStore'
 import { syncItems } from '../fire.js'
 import { getArtistAndVenue, sortByBestVenue, sortByDate } from '$lib/Concertlist/helper'
 import { goto } from '$app/navigation'
-import { ConcertObjectType } from '../types'
+import type { ConcertObjectType, ConcertObjectTypeFromFireBase } from '../types'
 
-let concertList = []
+let concertList : ConcertObjectType[] = []
 
 $: thisYearList = thisYear(concertList)
 $: lastYearList = lastYear(concertList)
@@ -31,14 +31,14 @@ $: thisYearBestList = thisYearBest(thisYearList)
 $: totalSumThisYear = findTotalSumThisYear(thisYearList)
 $: sortedVenue = sortByBestVenue(thisYearList)
 
-syncItems(userObj.uid, (data: any) => {
+syncItems(userObj.uid, (data: ConcertObjectTypeFromFireBase) => {
   concertList = Object.values(data).sort(sortByDate)
 })
 
 const now = new Date()
 
 const intNoFormat = new Intl.NumberFormat('no-NO', { style: 'currency', currency: 'NOK' })
-const convertToNoCurrency = (value) => intNoFormat.format(value).replace('NOK', 'kr')
+const convertToNoCurrency = (value: number) => intNoFormat.format(value).replace('NOK', 'kr')
 
 function findTotalSumThisYear(concertList: ConcertObjectType[]) {
   let total = 0
@@ -48,7 +48,7 @@ function findTotalSumThisYear(concertList: ConcertObjectType[]) {
   return convertToNoCurrency(total)
 }
 
-function thisYear(concertList) {
+function thisYear(concertList: ConcertObjectType[]) {
   return concertList.filter((item) => {
     const year = item.date.split('-')[0]
     return parseInt(year, 10) === now.getFullYear()
@@ -66,7 +66,7 @@ function lastYear(concertList: ConcertObjectType[]) {
   })
 }
 
-function gotoConcert(id: string) {
+function gotoConcert(id: string | undefined) {
   goto(`/new/${id}`)
 }
 </script>

@@ -1,17 +1,15 @@
 <script lang="ts">
 import { userObj } from '../../myStore'
 import { syncItems } from '../../fire.js'
-import { ConcertObjectType } from '../../types'
+import type { ConcertObjectType } from '../../types'
 import { goto } from '$app/navigation'
 import { sortByDate } from './helper'
 import { getArtistAndVenue } from './helper.js'
 
 let concertList: ConcertObjectType[] = []
 
-syncItems(userObj.uid, (data: any) => {
-  concertList = Object.values(data)
-    .sort(sortByDate)
-    .filter((_, index) => index < 9)
+syncItems(userObj.uid, (data: unknown) => {
+  concertList = Object.values(data).sort(sortByDate).filter((_, index) => index < 9)
 })
 
 function clicked(id: string) {

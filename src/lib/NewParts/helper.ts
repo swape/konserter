@@ -22,3 +22,15 @@ export function getFormattedDate(nowDate = new Date()): string {
   const month = `${nowDate.getMonth()}`.padStart(2, '0')
   return `${nowDate.getFullYear()}-${month}-${day}`
 }
+
+export function getEmptyConsertItem(): ConcertObjectType{
+  return {
+      date: getFormattedDate(new Date()),
+      artist: '',
+      note: '',
+      rating: 3,
+      festival: '',
+      venue: '',
+      price: 0
+    }
+}

@@ -1,20 +1,12 @@
 <script lang="ts">
 import { userObj } from '../../myStore'
 import { addEntry } from '../../fire'
-import { ConcertObjectType } from '../../types'
+import type { ConcertObjectType } from '../../types'
 import Feedback from '$lib/NewParts/Feedback.svelte'
 import ConcertForm from '$lib/NewParts/ConcertForm.svelte'
-import { getFormattedDate, isDataOk, toNumber } from '$lib/NewParts/helper'
+import { getEmptyConsertItem, getFormattedDate, isDataOk, toNumber } from '$lib/NewParts/helper'
 
-let concertObject: ConcertObjectType = {
-  date: getFormattedDate(new Date()),
-  artist: '',
-  note: '',
-  rating: 3,
-  festival: '',
-  venue: '',
-  price: null
-}
+let concertObject = getEmptyConsertItem()
 
 let showFeedBack = false
 
@@ -38,15 +30,7 @@ function save(concertValue: ConcertObjectType) {
 
 function resetData() {
   showFeedBack = false
-  concertObject = {
-    date: getFormattedDate(new Date()),
-    artist: '',
-    note: '',
-    rating: 3,
-    festival: '',
-    venue: '',
-    price: null
-  }
+  concertObject = getEmptyConsertItem()
 }
 </script>
 

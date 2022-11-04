@@ -16,3 +16,7 @@ export interface ConcertObjectType {
   uid?: string
   id?: string
 }
+
+export interface ConcertObjectTypeFromFireBase{
+  [key: string]: ConcertObjectType
+}

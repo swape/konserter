@@ -1,9 +1,10 @@
 <script lang="ts">
-import { ConcertObjectType } from '../../types'
+import type { ConcertObjectType } from '../../types'
 import { cancel } from './helper.js'
+import { getEmptyConsertItem } from '$lib/NewParts/helper'
 
-export let concertObject: ConcertObjectType = null
-export let resetData: () => void = null
+export let concertObject: ConcertObjectType = getEmptyConsertItem()
+export let resetData: () => void = ()=>{}
 
 function getFeedBack(rating: number) {
   if (rating < 3) {
