@@ -18,10 +18,14 @@ function navigateTo(value) {
 	$currentConcertItem = null
 	showMenu.set(!$showMenu)
 }
+
+function handleSignOut() {
+	signOut()
+}
 </script>
 
 {#if $showMenu}
-	<div class="backdrop-blur-sm fixed inset-0" on:click={close} on:keypress={close} />
+	<div class="backdrop-blur-sm fixed inset-0" on:click={close} on:keypress={close}>&nbsp;</div>
 	<div class="menu" transition:fly>
 		<button on:click={close} class="close-button"><span class="material-icons"> cancel </span></button>
 
@@ -40,7 +44,7 @@ function navigateTo(value) {
 						<button on:click={() => navigateTo(item.url)}>{item.title}</button>
 					</li>
 				{/each}
-				<li><button on:click={() => signOut}><span class="material-icons">logout</span> Logg ut</button></li>
+				<li><button on:click={() => handleSignOut()}><span class="material-icons">logout</span> Logg ut</button></li>
 			</ul>
 		</div>
 	</div>
