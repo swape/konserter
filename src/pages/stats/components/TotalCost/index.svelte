@@ -14,6 +14,6 @@ concerts.subscribe((data) => {
 <div class="stats-wrapper">
 	<div class="stats">
 		<div>Du brukte <strong>{thisYear}</strong> i år på konserter</div>
-		<div>Du har brukte <strong>{allYears}</strong> total</div>
+		<div>Du brukte totalt <strong>{allYears}</strong></div>
 	</div>
 </div>
