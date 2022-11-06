@@ -1,0 +1,28 @@
+{
+	"short_name": "Konserter",
+	"name": "konserter",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "/static/konserter-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "/static/konserter-96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "/static/konserter-32.png",
+			"type": "image/png",
+			"sizes": "32x32"
+		}
+	],
+	"background_color": "#0F172A",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#0F172A",
+
+	"description": "Konserter"
+}
