@@ -18,7 +18,7 @@ module.exports = {
 		node: true
 	},
 	rules: {
-		"semi": 0,
-		"@typescript-eslint/ban-ts-comment": 0
-	  }
-};
+		semi: 0,
+		'@typescript-eslint/ban-ts-comment': 0
+	}
+}

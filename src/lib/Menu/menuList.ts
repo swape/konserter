@@ -1,15 +1,15 @@
 interface MenuItemsType {
-  url: string
-  title: string
-  access: number[]
+	url: string
+	title: string
 }
 
 export const menuList: MenuItemsType[] = [
-  { url: '/new', title: 'Registrer', access: [1] },
-  { url: '/list', title: 'Alle konserter', access: [1] },
-  { url: '/stats', title: 'Statistikk', access: [1] }
+	{ url: 'start', title: 'Forsiden' },
+	{ url: 'new', title: 'Registrer' },
+	{ url: 'list', title: 'Alle konserter' },
+	{ url: 'stats', title: 'Statistikk' }
 ]
 
 export function getMyMenu(): MenuItemsType[] {
-  return menuList
+	return menuList
 }
