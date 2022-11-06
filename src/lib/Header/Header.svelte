@@ -16,7 +16,7 @@ function navigateTo(value) {
 	<Menu />
 	<div class="grid grid-cols-3 items-center">
 		<div class="corner">
-			<button on:click={() => navigateTo('start')}><img src="../../../public/static/konserter-96.png" alt="konserter logo" class="logo" /></button>
+			<button on:click={() => navigateTo('start')}><img src="/static/konserter-96.png" alt="konserter logo" class="logo" /></button>
 		</div>
 		<div>
 			<button on:click={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
