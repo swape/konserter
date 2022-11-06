@@ -26,22 +26,21 @@ function clicked(concert) {
 <div class="p-3">
 	{#each localConcerts as concert}
 		<button on:click={() => clicked(concert)} class="box mb-3">
-			<div class="text-xl p-3">{getArtistAndVenue(concert)}</div>
-
-			<div class="flex justify-between text-sm text-gray-400 items-center">
-				<small>{concert.date}</small>
-				{#if concert.festival}
-					<div>{concert.festival}</div>
-				{/if}
-				{#if concert.rating}
-					<div class="flex items-center">
-						<span class="material-icons">star</span>
-						<span>{concert.rating}</span>
-					</div>
-				{/if}
+			<div>
+				<div class="text-xl">{getArtistAndVenue(concert)}</div>
+				<div class="flex justify-between text-sm text-gray-400 items-center">
+					<small>{concert.date}</small>
+					{#if concert.festival}
+						<div>{concert.festival}</div>
+					{/if}
+					{#if concert.rating}
+						<div class="flex items-center">
+							<span class="material-icons">star</span>
+							<span>{concert.rating}</span>
+						</div>
+					{/if}
+				</div>
 			</div>
-
-			<div class="text-sm text-gray-500 pt-2">{concert.note}</div>
 		</button>
 	{/each}
 </div>

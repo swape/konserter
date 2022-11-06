@@ -56,12 +56,12 @@ function handleSignOut() {
 	min-width: 250px;
 }
 
-.menu-list li {
-	/*@apply hover:bg-blue-900 hover:opacity-80 mb-1 p-3;*/
+.menu-list li:hover {
+	@apply bg-indigo-900 opacity-80;
 }
 
 li.active {
-	@apply bg-blue-900 border-l-4 border-amber-50;
+	@apply bg-indigo-900 border-l-4 border-amber-50;
 }
 
 .menu-list button {
@@ -77,6 +77,6 @@ h2 {
 }
 
 .avatar-wrapper {
-	@apply grid grid-cols-1 gap-3 justify-items-center bg-purple-800 pt-8 pb-4;
+	@apply grid grid-cols-1 gap-3 justify-items-center bg-indigo-900 pt-8 pb-4;
 }
 </style>
