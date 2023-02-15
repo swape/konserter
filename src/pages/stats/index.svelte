@@ -8,15 +8,11 @@ const nowYear = new Date().getFullYear()
 const years = [...Array(5)].map((_, i) => `${nowYear - i}`)
 
 let selected = '' + nowYear
-
-function handleOnClick() {
-	console.log(selected)
-}
 </script>
 
 <main>
 	<div class="p-3">
-		<select bind:value={selected} class="button" on:change={handleOnClick}>
+		<select bind:value={selected} class="button">
 			{#each years as year}
 				<option value={year}>{year}</option>
 			{/each}
