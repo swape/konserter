@@ -1,4 +1,4 @@
-import type { ConcertObjectType } from './types'
+import type { ConcertObjectType, ChartData } from './types'
 
 export function sortByDate(a: ConcertObjectType, b: ConcertObjectType) {
 	const cleanedA = cleanDateToNumber(a.date)
@@ -26,7 +26,7 @@ export function sortByBestVenue(concertList: ConcertObjectType[]) {
 }
 
 export function getArtistAndVenue(concert: ConcertObjectType) {
-	return `${concert?.artist}${concert?.venue ? ' @ ' + concert.venue : ''}`
+	return `${concert?.artist}${concert?.venue ? ` @ ${concert.venue}` : ''}`
 }
 
 export function cleanDateToNumber(value: string): number {
@@ -78,6 +78,11 @@ export function totalSumThisYear(list: ConcertObjectType[]) {
 	return countSum(thisYearConcert)
 }
 
+export function totalSumYear(list: ConcertObjectType[], year: number) {
+	const thisYearConcert = filterByGivenYear(list, year)
+	return countSum(thisYearConcert)
+}
+
 export function filterByThisYear(list: ConcertObjectType[]) {
 	const now = new Date()
 	const thisYear = now.getFullYear()
@@ -89,4 +94,40 @@ export function filterByGivenYear(list: ConcertObjectType[], year: number) {
 		const itemYear = item.date.split('-')[0]
 		return parseInt(itemYear, 10) === year
 	})
+}
+
+export function getMonthObject() : ChartData{
+	const newList : ChartData = {};
+	[...Array(12)].forEach((_ :unknown ,i: number)=>{
+		newList[ `${i}`.padStart(2,'0') ] = 1
+	})
+	return newList
+}
+
+export function sortByMonth(list: ConcertObjectType[]){
+	const newList = getMonthObject()
+	
+	list.forEach((consert)=>{
+		const month = consert.date.split('-')[1]
+		console.log(month)
+		if(newList[month]){
+			newList[month] = newList[month] + 1
+		}else{
+			newList[month] = 1
+		}
+	})
+	return newList
+}
+
+export function getGraphData(list: ConcertObjectType[]){
+	const newList : ChartData = {}
+	list.sort(sortByDate).reverse().forEach((consert)=>{
+	
+		if(newList[consert.date]){
+			newList[consert.date] = newList[consert.date] + 1
+		}else{
+			newList[consert.date] = 1
+		}
+	})
+	return newList
 }
