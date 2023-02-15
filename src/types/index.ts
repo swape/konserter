@@ -20,3 +20,7 @@ export interface ConcertObjectType {
 export interface ConcertObjectTypeFromFireBase {
 	[key: string]: ConcertObjectType
 }
+
+export interface ChartData {
+	[key: string]: number
+}
