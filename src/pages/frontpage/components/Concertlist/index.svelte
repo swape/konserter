@@ -1,7 +1,7 @@
 <script>
-import { concerts, currentConcertItem, currentPage } from '../../../../myStore.ts'
-import { getArtistAndVenue, sortByDate } from '../../../../helper'
-
+import { concerts } from '../../../../myStore.ts'
+import { sortByDate } from '../../../../helper'
+import ConcertBox from '../ConcertBox/index.svelte'
 export let limit
 
 let localConcerts = []
@@ -16,31 +16,10 @@ concerts.subscribe((data) => {
 		localConcerts = [...data.sort(sortByDate)]
 	}
 })
-
-function clicked(concert) {
-	$currentConcertItem = concert
-	$currentPage = 'new'
-}
 </script>
 
 <div class="p-3">
 	{#each localConcerts as concert}
-		<button on:click={() => clicked(concert)} class="box mb-3">
-			<div>
-				<div class="text-xl">{getArtistAndVenue(concert)}</div>
-				<div class="flex justify-between text-sm text-gray-400 items-center">
-					<small>{concert.date}</small>
-					{#if concert.festival}
-						<div>{concert.festival}</div>
-					{/if}
-					{#if concert.rating}
-						<div class="flex items-center">
-							<span class="material-icons">star</span>
-							<span>{concert.rating}</span>
-						</div>
-					{/if}
-				</div>
-			</div>
-		</button>
+		<ConcertBox concert={concert} />
 	{/each}
 </div>
