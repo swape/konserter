@@ -1,19 +1,27 @@
-<script>
-import { concerts } from '../../../../myStore.ts'
-import { countSum, totalSumThisYear } from '../../../../helper'
+<script lang="js">
+import { concerts } from '../../../../myStore'
+import { totalSumYear, filterByGivenYear } from '../../../../helper'
 
-let thisYear = 0
-let allYears = 0
+export let year = ''
 
-concerts.subscribe((data) => {
-	thisYear = totalSumThisYear(data)
-	allYears = countSum(data)
-})
+let thisYear = ''
+let count = 0
+
+$: {
+	concerts.subscribe((data) => {
+		thisYear = totalSumYear(data, parseInt(year, 10))
+		count = filterByGivenYear(data, parseInt(year, 10)).length
+	})
+}
 </script>
 
 <div class="stats-wrapper">
 	<div class="stats">
-		<div>Du brukte <strong>{thisYear}</strong> i år på konserter</div>
-		<div>Du brukte totalt <strong>{allYears}</strong></div>
+		{#if count}
+			<div>Du brukte <strong>{thisYear}</strong> i {year} på {count} konsert{`${count === 1 ? '' : 'er'}`}.</div>
+		{/if}
+		{#if count === 0}
+			<div>Ingen kontert i {year}?</div>
+		{/if}
 	</div>
 </div>
