@@ -15,7 +15,7 @@ $: {
 {#if sortedVenue.length > 0}
 	<div class="stats-wrapper">
 		<div class="stats">
-			<div class="mb-2">Mest besøkte konsert-stedene i {year}</div>
+			<div class="mb-2">Mest besøkte konsertstedene i {year}</div>
 			{#each sortedVenue as venue}
 				<div class="flex justify-between">
 					<span class="text-cyan-800 truncate capitalize">{venue[0]}:</span>

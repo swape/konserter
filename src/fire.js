@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, getRedirectResult } from 'firebase/auth'
 import { child, getDatabase, onValue, push, query, ref, remove, set, update } from 'firebase/database'
@@ -17,7 +15,7 @@ export const init = (cb) => {
 		return cb(saveUser(auth.currentUser))
 	}
 	onAuthStateChanged(auth, (dUser) => {
-		if (dUser && dUser.uid) {
+		if (dUser?.uid) {
 			cb(saveUser(dUser))
 		} else {
 			cb(null)
@@ -65,13 +63,11 @@ export const getData = (path) => {
 			if (data) {
 				resolve(data)
 			} else {
-				reject(new Error('Could not find ' + path))
+				reject(new Error(`Could not find ${path}`))
 			}
 		})
 	})
 }
-
-// export const getProfile = (uid) => getData('profile/' + uid)
 
 export const addEntry = (name, data) => {
 	return new Promise((resolve) => {
@@ -96,28 +92,6 @@ export const setEntry = (name, data) => {
 export const deleteEntry = (name) => {
 	return remove(ref(database, name))
 }
-
-// export const syncItemsFilteredByUid = (path, uid, cb) => {
-//   const results = query(ref(database, path), orderByChild('uid'), equalTo(uid))
-
-//   onValue(results, (data) => {
-//     cb(data.val())
-//   })
-// }
-
-// export const findUserByEmail = (email, cb) => {
-//   const results = query(ref(database, 'profile'), orderByChild('email'), equalTo(email))
-
-//   onValue(
-//     results,
-//     (data) => {
-//       cb(data.val())
-//     },
-//     {
-//       onlyOnce: true
-//     }
-//   )
-// }
 
 export const syncItems = (path, cb) => {
 	const results = query(ref(database, path))

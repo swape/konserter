@@ -25,7 +25,7 @@ function handleSignOut() {
 </script>
 
 {#if $showMenu}
-	<div class="backdrop-blur-sm fixed inset-0" on:click={close} on:keypress={close}>&nbsp;</div>
+	<div class="backdrop" on:click={close} on:keypress={close}>&nbsp;</div>
 	<div class="menu" transition:fly>
 		<button on:click={close} class="close-button"><span class="material-icons"> cancel </span></button>
 
@@ -51,6 +51,10 @@ function handleSignOut() {
 {/if}
 
 <style>
+.backdrop {
+	background-color: rgba(0, 0, 0, 0.2);
+	@apply fixed inset-0;
+}
 .menu {
 	@apply fixed right-0 z-50 top-0 bottom-0 bg-black flex flex-col;
 	min-width: 250px;
