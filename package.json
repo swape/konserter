@@ -7,10 +7,11 @@
 		"preview": "vite preview",
 		"format": "prettier -w ."
 	},
+	"packageManager": "npm@9.5.1",
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^2.0.4",
 		"autoprefixer": "^10.4.14",
-		"postcss": "^8.4.21",
+		"postcss": "^8.4.22",
 		"prettier": "^2.8.7",
 		"prettier-plugin-svelte": "^2.10.0",
 		"svelte": "^3.58.0",
