@@ -48,7 +48,7 @@ function save(concertValue) {
 
 function resetData() {
 	showFeedBack = false
-	concertObject = getEmptyConcertItem()
+	$concertObject = getEmptyConcertItem()
 }
 </script>
 

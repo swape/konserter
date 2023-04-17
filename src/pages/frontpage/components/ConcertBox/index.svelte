@@ -4,13 +4,13 @@ import {getArtistAndVenue} from '../../../../helper'
 
 export let concert
 
-function clicked(concert) {
-	$currentConcertItem = concert
-	$currentPage = 'new'
+function clicked() {
+	currentConcertItem.set(concert)
+	currentPage.set('new')
 }
 </script>
 
-<button on:click={() => clicked(concert)} class="box mb-3">
+<button on:click={() => clicked()} class="box mb-3">
 	<div>
 		<div class="text-xl">{getArtistAndVenue(concert)}</div>
 		<div class="flex justify-between text-sm text-gray-400 items-center">

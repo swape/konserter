@@ -10,6 +10,9 @@ function cancel() {
 }
 
 function getFeedBack(rating) {
+	if (!rating) {
+		return 'Konserten er registrert'
+	}
 	if (rating < 3) {
 		return 'Uffda. Neste konsert kommer til å bli fantastisk'
 	}
