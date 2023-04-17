@@ -1,7 +1,7 @@
 <script>
-import { concerts, isAuthenticated, signIn, userObj } from '../../myStore.ts'
-import { onMount } from 'svelte'
-import { init, syncItems } from '../../fire.js'
+import {concerts, isAuthenticated, signIn, userObj} from '../../myStore.ts'
+import {onMount} from 'svelte'
+import {init, syncItems} from '../../fire.js'
 import Header from '../Header/Header.svelte'
 
 onMount(() => {

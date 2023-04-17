@@ -1,5 +1,5 @@
 <script>
-import { currentConcertItem, currentPage, showMenu } from '../../myStore.ts'
+import {currentConcertItem, currentPage, showMenu} from '../../myStore.ts'
 import Menu from '../Menu/index.svelte'
 
 function openMenu() {

@@ -1,6 +1,6 @@
 <script lang="js">
-import { concerts } from '../../../../myStore'
-import { filterByGivenYear, sortByBestVenue } from '../../../../helper'
+import {concerts} from '../../../../myStore'
+import {filterByGivenYear, sortByBestVenue} from '../../../../helper'
 
 export let year = ''
 let sortedVenue = []

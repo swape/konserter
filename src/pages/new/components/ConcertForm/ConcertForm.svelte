@@ -2,7 +2,7 @@
 import InputWithLabel from '../../../../lib/InputWithLabel/index.svelte'
 import TextareaWithLabel from '../../../../lib/TextareaWithLabel/index.svelte'
 import StarRating from '../../../../lib/StarRating/index.svelte'
-import { isDataOk } from '../../../../helper'
+import {isDataOk} from '../../../../helper'
 
 export let concertObject
 export let onSave

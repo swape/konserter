@@ -1,6 +1,6 @@
 <script lang="js">
-import { concerts } from '../../../../myStore'
-import { totalSumYear, filterByGivenYear } from '../../../../helper'
+import {concerts} from '../../../../myStore'
+import {totalSumYear, filterByGivenYear} from '../../../../helper'
 
 export let year = ''
 

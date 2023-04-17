@@ -1,6 +1,6 @@
 <script>
-import { concerts } from '../../../../myStore.ts'
-import { sortByDate } from '../../../../helper'
+import {concerts} from '../../../../myStore.ts'
+import {sortByDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 export let limit
 

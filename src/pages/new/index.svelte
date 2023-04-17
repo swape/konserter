@@ -1,10 +1,10 @@
 <script>
-import { userObj, currentPage, currentConcertItem } from '../../myStore.ts'
-import { addEntry, updateEntry } from '../../fire.js'
-import { getEmptyConcertItem, isDataOk, toNumber } from '../../helper'
+import {userObj, currentPage, currentConcertItem} from '../../myStore.ts'
+import {addEntry, updateEntry} from '../../fire.js'
+import {getEmptyConcertItem, isDataOk, toNumber} from '../../helper'
 import Feedback from './components/Feedback/Feedback.svelte'
 import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
-import { writable } from 'svelte/store'
+import {writable} from 'svelte/store'
 
 let concertObject = writable()
 let showFeedBack = false

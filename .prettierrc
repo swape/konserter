@@ -8,9 +8,10 @@
 	"plugins": ["prettier-plugin-svelte"],
 	"pluginSearchDirs": ["."],
 	"svelteIndentScriptAndStyle": false,
-	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
+	"overrides": [{"files": "*.svelte", "options": {"parser": "svelte"}}],
 	"svelteSortOrder": "scripts-markup-styles",
 	"svelteStrictMode": false,
 	"svelteBracketNewLine": false,
-	"svelteAllowShorthand": false
+	"svelteAllowShorthand": false,
+	"bracketSpacing": false
 }

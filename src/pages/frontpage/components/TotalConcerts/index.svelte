@@ -1,5 +1,5 @@
 <script>
-import { concerts } from '../../../../myStore.ts'
+import {concerts} from '../../../../myStore.ts'
 </script>
 
 <div class="flex justify-center items-center text-white">

@@ -1,7 +1,7 @@
 <script>
-import { currentConcertItem, currentPage, showMenu, signOut, userObj } from '../../myStore.ts'
-import { fly } from 'svelte/transition'
-import { getMyMenu } from './menuList'
+import {currentConcertItem, currentPage, showMenu, signOut, userObj} from '../../myStore.ts'
+import {fly} from 'svelte/transition'
+import {getMyMenu} from './menuList'
 
 const myMenu = getMyMenu()
 

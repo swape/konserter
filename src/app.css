@@ -9,7 +9,7 @@ main {
 }
 
 body {
-	background: linear-gradient(180deg,#6c1280 0%,  #041434 100%);
+	background: linear-gradient(180deg, #6c1280 0%, #041434 100%);
 	background-blend-mode: screen;
 	background-attachment: fixed;
 }

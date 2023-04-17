@@ -4,10 +4,10 @@ interface MenuItemsType {
 }
 
 export const menuList: MenuItemsType[] = [
-	{ url: 'start', title: 'Forsiden' },
-	{ url: 'new', title: 'Registrer' },
-	{ url: 'list', title: 'Alle konserter' },
-	{ url: 'stats', title: 'Statistikk' }
+	{url: 'start', title: 'Forsiden'},
+	{url: 'new', title: 'Registrer'},
+	{url: 'list', title: 'Alle konserter'},
+	{url: 'stats', title: 'Statistikk'}
 ]
 
 export function getMyMenu(): MenuItemsType[] {

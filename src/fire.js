@@ -1,8 +1,8 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, getRedirectResult } from 'firebase/auth'
-import { child, getDatabase, onValue, push, query, ref, remove, set, update } from 'firebase/database'
+import {initializeApp} from 'firebase/app'
+import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, getRedirectResult} from 'firebase/auth'
+import {child, getDatabase, onValue, push, query, ref, remove, set, update} from 'firebase/database'
 
-import { firebaseConfig } from './config.js'
+import {firebaseConfig} from './config.js'
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
@@ -29,9 +29,9 @@ export const init = (cb) => {
 				cb(saveUser(user))
 			}
 		})
-		.catch(({ code, message }) => {
+		.catch(({code, message}) => {
 			if (code) {
-				console.error({ code, message })
+				console.error({code, message})
 			}
 		})
 }

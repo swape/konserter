@@ -1,7 +1,7 @@
 <script lang="js">
-import { concerts } from '../../../../myStore'
-import { filterByGivenYear, getGraphData } from '../../../../helper'
-import { LinkedChart } from 'svelte-tiny-linked-charts'
+import {concerts} from '../../../../myStore'
+import {filterByGivenYear, getGraphData} from '../../../../helper'
+import {LinkedChart} from 'svelte-tiny-linked-charts'
 import ConsertBox from '../../../frontpage/components/ConcertBox/index.svelte'
 
 export let year = ''

@@ -9,12 +9,12 @@ export let postfix = null
 	<div class="text-slate-700 pb-2">{title}</div>
 	{#if !postfix}
 		<div>
-			<input bind:value {...{ type }} class="input" />
+			<input bind:value={value} {...{type}} class="input" />
 		</div>
 	{/if}
 	{#if postfix}
 		<div class="combo">
-			<input bind:value {...{ type }} class="input" />
+			<input bind:value={value} {...{type}} class="input" />
 			<span>{postfix}</span>
 		</div>
 	{/if}

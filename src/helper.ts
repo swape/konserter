@@ -1,4 +1,4 @@
-import type { ConcertObjectType, ChartData } from './types'
+import type {ConcertObjectType, ChartData} from './types'
 
 export function sortByDate(a: ConcertObjectType, b: ConcertObjectType) {
 	const cleanedA = cleanDateToNumber(a.date)
@@ -62,7 +62,7 @@ export function getEmptyConcertItem(): ConcertObjectType {
 	}
 }
 
-const intNoFormat = new Intl.NumberFormat('no-NO', { style: 'currency', currency: 'NOK' })
+const intNoFormat = new Intl.NumberFormat('no-NO', {style: 'currency', currency: 'NOK'})
 const convertToNoCurrency = (value: number) => intNoFormat.format(value).replace('NOK', 'kr')
 
 export function countSum(list: ConcertObjectType[]) {
@@ -96,38 +96,40 @@ export function filterByGivenYear(list: ConcertObjectType[], year: number) {
 	})
 }
 
-export function getMonthObject() : ChartData{
-	const newList : ChartData = {};
-	[...Array(12)].forEach((_ :unknown ,i: number)=>{
-		newList[ `${i}`.padStart(2,'0') ] = 1
+export function getMonthObject(): ChartData {
+	const newList: ChartData = {}
+	;[...Array(12)].forEach((_: unknown, i: number) => {
+		newList[`${i}`.padStart(2, '0')] = 1
 	})
 	return newList
 }
 
-export function sortByMonth(list: ConcertObjectType[]){
+export function sortByMonth(list: ConcertObjectType[]) {
 	const newList = getMonthObject()
-	
-	list.forEach((consert)=>{
+
+	list.forEach((consert) => {
 		const month = consert.date.split('-')[1]
 		console.log(month)
-		if(newList[month]){
+		if (newList[month]) {
 			newList[month] = newList[month] + 1
-		}else{
+		} else {
 			newList[month] = 1
 		}
 	})
 	return newList
 }
 
-export function getGraphData(list: ConcertObjectType[]){
-	const newList : ChartData = {}
-	list.sort(sortByDate).reverse().forEach((consert)=>{
-	
-		if(newList[consert.date]){
-			newList[consert.date] = newList[consert.date] + 1
-		}else{
-			newList[consert.date] = 1
-		}
-	})
+export function getGraphData(list: ConcertObjectType[]) {
+	const newList: ChartData = {}
+	list
+		.sort(sortByDate)
+		.reverse()
+		.forEach((consert) => {
+			if (newList[consert.date]) {
+				newList[consert.date] = newList[consert.date] + 1
+			} else {
+				newList[consert.date] = 1
+			}
+		})
 	return newList
 }

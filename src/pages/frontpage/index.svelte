@@ -1,7 +1,7 @@
 <script>
 import TotalConcerts from './components/TotalConcerts/index.svelte'
 import ConcertList from './components/Concertlist/index.svelte'
-import { currentPage } from '../../myStore.ts'
+import {currentPage} from '../../myStore.ts'
 
 function handleSeeMore() {
 	$currentPage = 'list'
