@@ -27,13 +27,7 @@ function navigateTo(value) {
 
 <style>
 header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	color: white;
-	z-index: 2;
-	@apply bg-slate-900;
+	@apply bg-slate-900 fixed top-0 left-0 right-0 z-10 text-white;
 }
 header > div {
 	@apply flex justify-between container mx-auto;

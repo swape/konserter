@@ -36,8 +36,11 @@ export function cleanDateToNumber(value: string): number {
 	return parseInt(value.replace(/-/g, ''), 10)
 }
 
-export function isDataOk(item: ConcertObjectType): boolean {
-	return !!item.artist.trim() && !!item.date
+export function isDataOk(item: ConcertObjectType | undefined): boolean {
+	if (!item) {
+		return false
+	}
+	return !!`${item?.artist || ''}`.trim() && !!item.date
 }
 
 export function toNumber(value: string | number): number {

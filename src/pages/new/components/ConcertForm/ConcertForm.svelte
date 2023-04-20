@@ -37,7 +37,7 @@ function getHeader() {
 		<TextareaWithLabel bind:value={concertObject.note} title="Notat" />
 
 		<div class="flex gap-3 justify-between">
-			<button class="button {!isDataOk(concertObject) && 'gray'}" on:click={() => saveForm()} disabled={!concertObject.artist}>Lagre</button>
+			<button class="button {!isDataOk(concertObject) && 'gray'}" on:click={() => saveForm()} disabled={!isDataOk(concertObject)}>Lagre</button>
 			<button class="button gray" on:click={() => onClose()}>Avbryt</button>
 		</div>
 	</div>
