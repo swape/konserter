@@ -26,7 +26,9 @@ export function sortByBestVenue(concertList: ConcertObjectType[]) {
 }
 
 export function getArtistAndVenue(concert: ConcertObjectType) {
-	return `${concert?.artist}${concert?.venue ? ` @ ${concert.venue}` : ''}`
+	const venue = concert?.venue.trim()
+	const venueString = ` @ ${venue}`
+	return `${concert?.artist}${venue ? venueString : ''}`
 }
 
 export function cleanDateToNumber(value: string): number {
@@ -124,15 +126,13 @@ export function sortByMonth(list: ConcertObjectType[]) {
 
 export function getGraphData(list: ConcertObjectType[]) {
 	const newList: ChartData = {}
-	list
-		.sort(sortByDate)
-		.reverse()
-		.forEach((consert) => {
-			if (newList[consert.date]) {
-				newList[consert.date] = newList[consert.date] + 1
-			} else {
-				newList[consert.date] = 1
-			}
-		})
+	const sortedList = list.sort(sortByDate).reverse()
+	sortedList.forEach((consert) => {
+		if (newList[consert.date]) {
+			newList[consert.date] = newList[consert.date] + 1
+		} else {
+			newList[consert.date] = 1
+		}
+	})
 	return newList
 }
