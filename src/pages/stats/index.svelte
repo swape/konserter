@@ -2,21 +2,22 @@
 import BestVenues from './components/BestVenues/index.svelte'
 import TotalCost from './components/TotalCost/index.svelte'
 import StatGraph from './components/StatGraph/index.svelte'
+import Select from '../../lib/Select/index.svelte'
 
 const nowYear = new Date().getFullYear()
 
 const years = [...Array(5)].map((_, i) => `${nowYear - i}`)
-
+const options = years.map((year) => ({value: year, title: year}))
 let selected = '' + nowYear
+
+function handleSelectChange(e) {
+	selected = e.target.value
+}
 </script>
 
 <main>
 	<div class="p-3">
-		<select bind:value={selected} class="button">
-			{#each years as year}
-				<option value={year}>{year}</option>
-			{/each}
-		</select>
+		<Select bind:value={selected} options={options} onChange={handleSelectChange} />
 	</div>
 
 	<TotalCost year={selected} />
