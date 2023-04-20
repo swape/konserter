@@ -1,25 +1,38 @@
 <script>
 import {concerts} from '../../../../myStore.ts'
-import {sortByDate} from '../../../../helper'
+import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 export let limit
 
-let localConcerts = []
+let futureConcerts = []
+let pastConcerts = []
 
 concerts.subscribe((data) => {
+	const now = cleanDateToNumber(getFormattedDate(new Date()))
+	data.sort(sortByDate)
+	futureConcerts = data.filter((item) => cleanDateToNumber(item.date) > now)
+	pastConcerts = data.filter((item) => cleanDateToNumber(item.date) < now)
+
 	if (limit) {
-		localConcerts = data
+		futureConcerts = futureConcerts
+			.reverse()
 			.map((item, index) => (index < limit ? item : null))
 			.filter((item) => item)
-			.sort(sortByDate)
-	} else {
-		localConcerts = [...data.sort(sortByDate)]
+		pastConcerts = pastConcerts.map((item, index) => (index < limit ? item : null)).filter((item) => item)
 	}
 })
 </script>
 
 <div class="p-3">
-	{#each localConcerts as concert}
+	{#each pastConcerts as concert}
+		<ConcertBox concert={concert} />
+	{/each}
+
+	{#if futureConcerts.length > 0}
+		<h2 class="text-2xl text-center py-5 text-white">Kommende konserter</h2>
+	{/if}
+
+	{#each futureConcerts as concert}
 		<ConcertBox concert={concert} />
 	{/each}
 </div>
