@@ -4,17 +4,17 @@
 	"start_url": "/",
 	"icons": [
 		{
-			"src": "/static/konserter-512.png",
+			"src": "./konserter-512.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		},
 		{
-			"src": "/static/konserter-96.png",
+			"src": "./konserter-96.png",
 			"type": "image/png",
 			"sizes": "96x96"
 		},
 		{
-			"src": "/static/konserter-32.png",
+			"src": "./konserter-32.png",
 			"type": "image/png",
 			"sizes": "32x32"
 		}

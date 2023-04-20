@@ -1,7 +1,7 @@
 <script>
 import {currentConcertItem, currentPage, showMenu} from '../../myStore.ts'
 import Menu from '../Menu/index.svelte'
-
+import Logo from '../../static/konserter-96.png'
 function openMenu() {
 	showMenu.set(true)
 }
@@ -16,7 +16,7 @@ function navigateTo(value) {
 	<Menu />
 	<div class="grid grid-cols-3 items-center">
 		<div class="corner">
-			<button on:click={() => navigateTo('start')}><img src="/static/konserter-96.png" alt="konserter logo" class="logo" /></button>
+			<button on:click={() => navigateTo('start')}><img src={Logo} alt="konserter logo" class="logo" /></button>
 		</div>
 		<div>
 			<button on:click={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
