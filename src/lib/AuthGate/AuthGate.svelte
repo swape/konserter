@@ -3,7 +3,6 @@ import {concerts, isAuthenticated, signIn, userObj} from '../../myStore.ts'
 import {onMount} from 'svelte'
 import {init, syncItems} from '../../fire.js'
 import Header from '../Header/Header.svelte'
-import Logo from '../../static/konserter-96.png'
 
 onMount(() => {
 	init((data) => {
@@ -30,7 +29,7 @@ onMount(() => {
 {/if}
 {#if !$isAuthenticated}
 	<main class="flex flex-col items-center">
-		<img src={Logo} alt="konserter logo" class="logo" />
+		<img src="/konserter-96.png" alt="konserter logo" class="logo" />
 		<button class="button mt-5" on:click={signIn}>Logg inn med Google</button>
 	</main>
 {/if}
