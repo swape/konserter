@@ -2,6 +2,7 @@
 import {currentConcertItem, currentPage, showMenu} from '../../myStore.ts'
 import Menu from '../Menu/index.svelte'
 import Logo from '../../static/konserter-96.png'
+
 function openMenu() {
 	showMenu.set(true)
 }
@@ -21,7 +22,7 @@ function navigateTo(value) {
 		<div>
 			<button on:click={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
 		</div>
-		<div class="corner"><button on:click={openMenu}><span class="material-icons"> menu </span></button></div>
+		<div class="corner"><button on:click={openMenu}><span class="material-icons text-3xl"> menu </span></button></div>
 	</div>
 </header>
 
