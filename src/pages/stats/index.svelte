@@ -1,7 +1,6 @@
 <script>
 import BestVenues from './components/BestVenues/index.svelte'
 import TotalCost from './components/TotalCost/index.svelte'
-import StatGraph from './components/StatGraph/index.svelte'
 import Select from '../../lib/Select/index.svelte'
 
 const nowYear = new Date().getFullYear()
@@ -22,5 +21,4 @@ function handleSelectChange(e) {
 
 	<TotalCost year={selected} />
 	<BestVenues year={selected} />
-	<StatGraph year={selected} />
 </main>
