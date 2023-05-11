@@ -1,5 +1,5 @@
 <script>
-import {userObj, currentPage, currentConcertItem} from '../../myStore.ts'
+import {userObj, currentPage, currentConcertItem} from '../../myStore'
 import {addEntry, updateEntry} from '../../fire.js'
 import {getEmptyConcertItem, isDataOk, toNumber} from '../../helper'
 import Feedback from './components/Feedback/Feedback.svelte'

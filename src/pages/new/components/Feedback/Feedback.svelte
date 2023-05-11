@@ -1,6 +1,6 @@
 <script>
 import {getEmptyConcertItem} from '../../../../helper'
-import {currentPage} from '../../../../myStore.ts'
+import {currentPage} from '../../../../myStore'
 
 export let concertObject = getEmptyConcertItem()
 export let resetData = null

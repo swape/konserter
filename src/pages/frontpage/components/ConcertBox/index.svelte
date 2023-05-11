@@ -1,5 +1,5 @@
 <script>
-import {currentConcertItem, currentPage} from '../../../../myStore.ts'
+import {currentConcertItem, currentPage} from '../../../../myStore'
 import {getArtistAndVenue} from '../../../../helper'
 
 export let concert

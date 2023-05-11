@@ -1,5 +1,5 @@
 <script>
-import {currentPage} from './myStore.ts'
+import {currentPage} from './myStore'
 import StartPage from './pages/frontpage/index.svelte'
 import NewPage from './pages/new/index.svelte'
 import AuthGate from './lib/AuthGate/AuthGate.svelte'

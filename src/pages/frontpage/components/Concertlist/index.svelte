@@ -1,8 +1,9 @@
 <script>
-import {concerts} from '../../../../myStore.ts'
+import {concerts} from '../../../../myStore'
 import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
-export let limit
+
+export let limit = undefined
 
 let futureConcerts = []
 let pastConcerts = []
@@ -10,8 +11,8 @@ let pastConcerts = []
 concerts.subscribe((data) => {
 	const now = cleanDateToNumber(getFormattedDate(new Date()))
 	data.sort(sortByDate)
-	futureConcerts = data.filter((item) => cleanDateToNumber(item.date) > now)
-	pastConcerts = data.filter((item) => cleanDateToNumber(item.date) < now)
+	futureConcerts = data.filter((item) => cleanDateToNumber(item?.date) > now)
+	pastConcerts = data.filter((item) => cleanDateToNumber(item?.date) < now)
 
 	if (limit) {
 		futureConcerts = futureConcerts
