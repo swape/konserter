@@ -126,8 +126,9 @@ export function sortByMonth(list: ConcertObjectType[]) {
 
 export function getGraphData(list: ConcertObjectType[]) {
 	const newList: ChartData = {}
-	const sortedList = list.sort(sortByDate).reverse()
-	sortedList.forEach((consert) => {
+	list.sort(sortByDate)
+	list.reverse()
+	list.forEach((consert) => {
 		if (newList[consert.date]) {
 			newList[consert.date] = newList[consert.date] + 1
 		} else {
