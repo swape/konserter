@@ -57,7 +57,7 @@ export function getFormattedDate(nowDate = new Date()): string {
 
 export function getEmptyConcertItem(): ConcertObjectType {
 	return {
-		date: getFormattedDate(new Date()),
+		date: getFormattedDate(),
 		artist: '',
 		note: '',
 		rating: 3,
@@ -114,7 +114,7 @@ export function sortByMonth(list: ConcertObjectType[]) {
 
 	list.forEach((consert) => {
 		const month = consert.date.split('-')[1]
-		console.log(month)
+
 		if (newList[month]) {
 			newList[month] = newList[month] + 1
 		} else {
