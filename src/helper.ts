@@ -49,15 +49,15 @@ export function toNumber(value: string | number): number {
 	return parseInt(`${value}`.replace(/\D/g, ''), 10)
 }
 
-export function getFormattedDate(nowDate = new Date()): string {
+export function getFormattedDate(nowDate = new Date(), addMonth = 0): string {
 	const day = `${nowDate.getDate()}`.padStart(2, '0')
-	const month = `${nowDate.getMonth()}`.padStart(2, '0')
+	const month = `${nowDate.getMonth() + addMonth}`.padStart(2, '0')
 	return `${nowDate.getFullYear()}-${month}-${day}`
 }
 
 export function getEmptyConcertItem(): ConcertObjectType {
 	return {
-		date: getFormattedDate(),
+		date: getFormattedDate(new Date() , 1),
 		artist: '',
 		note: '',
 		rating: 3,
@@ -112,8 +112,8 @@ export function getMonthObject(): ChartData {
 export function sortByMonth(list: ConcertObjectType[]) {
 	const newList = getMonthObject()
 
-	list.forEach((consert) => {
-		const month = consert.date.split('-')[1]
+	list.forEach((concert) => {
+		const month = concert.date.split('-')[1]
 
 		if (newList[month]) {
 			newList[month] = newList[month] + 1
@@ -128,11 +128,11 @@ export function getGraphData(list: ConcertObjectType[]) {
 	const newList: ChartData = {}
 	list.sort(sortByDate)
 	list.reverse()
-	list.forEach((consert) => {
-		if (newList[consert.date]) {
-			newList[consert.date] = newList[consert.date] + 1
+	list.forEach((concert) => {
+		if (newList[concert.date]) {
+			newList[concert.date] = newList[concert.date] + 1
 		} else {
-			newList[consert.date] = 1
+			newList[concert.date] = 1
 		}
 	})
 	return newList
