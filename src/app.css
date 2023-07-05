@@ -9,9 +9,8 @@ main {
 }
 
 body {
-	background: linear-gradient(180deg, #6c1280 0%, #041434 100%);
 	background-blend-mode: screen;
-	background-attachment: fixed;
+	background: linear-gradient(180deg, #6c1280 0%, #041434 100%) fixed;
 }
 
 footer > p {
@@ -162,4 +161,19 @@ input[type='date'] {
 
 .stats-number {
 	@apply flex justify-center text-4xl text-cyan-900 pt-4;
+}
+
+.bar {
+	width: 10px;
+	background-color: tomato;
+	margin: 0 1px;
+	border-radius: 4px 4px 0 0;
+}
+.bars {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	height: 100px;
+	max-width: 90svw;
+	overflow-y: auto;
 }
