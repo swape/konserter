@@ -1,6 +1,11 @@
 <script>
 import {concerts} from '../../../../myStore'
 
+
+const date = new Date()
+const currentYear = date.getFullYear()
+const nextMonth = date.getMonth() + 2
+
 function yearMonthList(list) {
 	let newList = {}
 	list.forEach((concert) => {
@@ -8,11 +13,15 @@ function yearMonthList(list) {
 		let year = dateSplit[0]
 		let month = dateSplit[1]
 		let key = `${year}${month}`
+		if(parseInt(year, 10) === currentYear && parseInt(month, 10) > nextMonth){
+			return
+		}
 		if (!newList[key]) {
 			newList[key] = {count: 0}
 		}
 
 		newList[key].count = newList[key].count + 1
+
 	})
 	return newList
 }
@@ -21,6 +30,7 @@ function addEmptyYearMonth(list) {
 	if (Object.keys(list).length === 0) {
 		return list
 	}
+
 	let newList = {...list}
 	let findHighestKey = Object.keys(list).sort((a, b) => b - a)[0]
 	let findLowestKey = Object.keys(list).sort((a, b) => a - b)[0]
@@ -31,7 +41,10 @@ function addEmptyYearMonth(list) {
 		for (let j = 12; j >= 1; j--) {
 			let month = j.toString().padStart(2, '0')
 			let key = `${i}${month}`
-			if (!newList[key]) {
+			if (!newList[key] && i <= currentYear){
+				if(parseInt(i, 10) === currentYear && j >= nextMonth || parseInt(findLowestKey, 10) > parseInt(key, 10)){
+					break
+				}
 				newList[key] = {count: 0}
 			}
 		}
@@ -51,6 +64,12 @@ concerts.subscribe((value) => {
 		}
 	}
 })
+
+function toYearMonth(key) {
+	let year = key.slice(0, 4)
+	let month = key.slice(4, 6)
+	return `${year}-${month}`
+}
 </script>
 
 <div class="flex justify-center items-center text-white">
@@ -61,7 +80,7 @@ concerts.subscribe((value) => {
 	<div>
 		<div class="bars border-slate-800 mt-3 border-b">
 			{#each Object.keys(completeList) as key}
-				<div title={key} class="bar" style="height: {(completeList[key].count / highestCount) * 100}%">&nbsp;</div>
+				<div title={toYearMonth(key)} class="bar" style="height: {(completeList[key].count / highestCount) * 100}%">&nbsp;</div>
 			{/each}
 		</div>
 	</div>
