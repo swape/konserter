@@ -2,6 +2,7 @@
 import BestVenues from './components/BestVenues/index.svelte'
 import TotalCost from './components/TotalCost/index.svelte'
 import Select from '../../lib/Select/index.svelte'
+import BestLikedBands from './components/BestLikedBands/index.svelte'
 
 const nowYear = new Date().getFullYear()
 
@@ -21,4 +22,6 @@ function handleSelectChange(e) {
 
 	<TotalCost year={selected} />
 	<BestVenues year={selected} />
+	<hr class="my-3" />
+	<BestLikedBands />
 </main>

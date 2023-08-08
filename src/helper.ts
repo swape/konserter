@@ -137,3 +137,21 @@ export function getGraphData(list: ConcertObjectType[]) {
 	})
 	return newList
 }
+
+export function getMostLikedArtists(list: ConcertObjectType[]) {
+	const newList: ChartData = {}
+	list.sort(sortByDate)
+	list.reverse()
+	list.forEach((concert) => {
+		if (newList[concert.artist]) {
+			newList[concert.artist] = newList[concert.artist] + 1
+		} else {
+			newList[concert.artist] = 1
+		}
+	})
+	return Object.entries(newList).sort((a: [string, number], b: [string, number]) => {
+		return `${a[0]}`.toLowerCase() < `${b[0]}`.toLowerCase() ? 1 : -1
+	}).sort((a: [string, number], b: [string, number]) => {
+		return a[1] < b[1] ? 1 : -1
+	})
+}
