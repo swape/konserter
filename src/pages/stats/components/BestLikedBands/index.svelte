@@ -17,7 +17,7 @@ $: {
 			<div class="mb-2">Artister/Band du har sett mest. (alle år)</div>
 			{#each bands as band}
 				<div class="flex justify-between">
-					<span class="text-cyan-800 truncate capitalize">{band[0]}:</span>
+					<span class="text-cyan-800 truncate capitalize dark:text-white">{band[0]}:</span>
 					<span>{band[1]}</span>
 				</div>
 			{/each}

@@ -6,7 +6,7 @@ export let postfix = null
 </script>
 
 <div>
-	<div class="text-slate-700 pb-2">{title}</div>
+	<div class="text-slate-700 pb-2 dark:text-white">{title}</div>
 	{#if !postfix}
 		<div>
 			<input bind:value={value} {...{type}} class="input" />

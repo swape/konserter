@@ -72,7 +72,7 @@ p {
 }
 
 .input {
-	@apply border rounded-md border-gray-400 px-2 w-full;
+	@apply border rounded-md border-gray-400 px-2 w-full dark:bg-gray-900 dark:text-white;
 	height: 40px;
 }
 
@@ -81,7 +81,7 @@ p {
 }
 
 .textarea {
-	@apply border rounded-md border-gray-400 p-2 w-full;
+	@apply border rounded-md border-gray-400 p-2 w-full dark:bg-gray-900 dark:text-white;
 	min-height: 100px;
 }
 
@@ -122,17 +122,17 @@ p {
 }
 
 .combo > span:first-child {
-	@apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center;
+	@apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center dark:bg-gray-900 dark:text-white;
 	height: 40px;
 }
 
 .combo > span:last-child {
-	@apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center;
+	@apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center dark:bg-gray-900 dark:text-white;
 	height: 40px;
 }
 
 .box {
-	@apply rounded-xl bg-white text-xl w-full flex-1 self-center;
+	@apply rounded-xl bg-white text-xl w-full flex-1 self-center dark:bg-gray-900 dark:text-white;
 }
 
 .box > div {
@@ -152,15 +152,15 @@ input[type='date'] {
 }
 
 .stats {
-	@apply p-4 bg-white text-center text-cyan-600 rounded-md w-full;
+	@apply p-4 bg-white text-center text-cyan-600 rounded-md w-full dark:bg-gray-900 dark:text-white;
 }
 
 .stats-wrapper {
-	@apply p-3 w-full flex;
+	@apply p-3 w-full flex ;
 }
 
 .stats-number {
-	@apply flex justify-center text-4xl text-cyan-900 pt-4;
+	@apply flex justify-center text-4xl text-cyan-900 pt-4 dark:text-white;
 }
 
 .bar {
