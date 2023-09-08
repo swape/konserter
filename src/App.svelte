@@ -5,16 +5,34 @@ import NewPage from './pages/new/index.svelte'
 import AuthGate from './lib/AuthGate/AuthGate.svelte'
 import ListPage from './pages/list/index.svelte'
 import StatsPage from './pages/stats/index.svelte'
+
+let page = null
+
+function startViewTransition(callback) {
+	if (!document?.startViewTransition) {
+		callback();
+		return;
+	}
+	document.startViewTransition(callback);
+}
+
+currentPage.subscribe((value) => {
+	startViewTransition(() => {
+		page = value
+	});
+})
+
+
 </script>
 
 <AuthGate>
-	{#if $currentPage === 'start'}
+	{#if page === 'start'}
 		<StartPage />
-	{:else if $currentPage === 'list'}
+	{:else if page === 'list'}
 		<ListPage />
-	{:else if $currentPage === 'stats'}
+	{:else if page === 'stats'}
 		<StatsPage />
-	{:else if $currentPage === 'new'}
+	{:else if page === 'new'}
 		<NewPage />
 	{:else}
 		404
