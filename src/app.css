@@ -20,11 +20,7 @@ footer > p {
 main {
 	padding-bottom: 100px;
 	padding-top: 100px;
-	@apply container mx-auto;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	@apply container mx-auto inset-0;
 	max-width: 600px;
 }
 
