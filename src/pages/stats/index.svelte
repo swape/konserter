@@ -22,6 +22,6 @@ function handleSelectChange(e) {
 
 	<TotalCost year={selected} />
 	<BestVenues year={selected} />
-	<hr class="my-3" />
+	<hr class="m-3" />
 	<BestLikedBands />
 </main>
