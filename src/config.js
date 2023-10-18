@@ -1,6 +1,6 @@
 export const firebaseConfig = {
 	apiKey: 'AIzaSyABWfGbDn_7Z4FvsFGfhETvxUG__j1qN1Q',
-	authDomain: 'konserter-89e26.firebaseapp.com',
+	authDomain: 'konserter.swape.net',
 	databaseURL: 'https://konserter-89e26-default-rtdb.europe-west1.firebasedatabase.app',
 	projectId: 'konserter-89e26',
 	storageBucket: 'konserter-89e26.appspot.com',
