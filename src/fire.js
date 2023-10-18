@@ -10,9 +10,12 @@ export const auth = getAuth(app)
 
 const database = getDatabase(app)
 const provider = new GoogleAuthProvider()
+	provider.setCustomParameters({
+		redirect_uri: 'konserter.swape.net'
+	})
 
 onAuthStateChanged(auth, (dUser) => {
-	if (dUser?.uid) { 
+	if (dUser?.uid) {
 		userObj.set(saveUser(dUser))
 		isAuthenticated.set(true)
 		syncItems(dUser?.uid, (concertObj) => {
