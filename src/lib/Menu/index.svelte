@@ -25,7 +25,7 @@ function handleSignOut() {
 </script>
 
 {#if $showMenu}
-	<div class="backdrop" on:click={close} on:keypress={close}>&nbsp;</div>
+	<div class="backdrop" on:click={close} on:keypress={close} role="none">&nbsp;</div>
 	<div class="menu" transition:fly>
 		<button on:click={close} class="close-button"><span class="material-icons"> cancel </span></button>
 
