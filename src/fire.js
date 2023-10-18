@@ -3,12 +3,25 @@ import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, sig
 import {child, getDatabase, onValue, push, query, ref, remove, set, update} from 'firebase/database'
 
 import {firebaseConfig} from './config.js'
+import {isAuthenticated, userObj ,concerts} from './myStore.ts'
 
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 
 const database = getDatabase(app)
 const provider = new GoogleAuthProvider()
+
+onAuthStateChanged(auth, (dUser) => {
+	if (dUser?.uid) { 
+		userObj.set(saveUser(dUser))
+		isAuthenticated.set(true)
+		syncItems(dUser?.uid, (concertObj) => {
+			if (concertObj) {
+				concerts.set([...Object.values(concertObj)])
+			}
+		})
+	}
+ })
 
 export const init = (cb) => {
 	if (auth.currentUser) {

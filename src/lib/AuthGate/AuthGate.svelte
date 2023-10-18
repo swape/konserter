@@ -1,26 +1,6 @@
 <script>
-import {concerts, isAuthenticated, signIn, userObj} from '../../myStore.ts'
-import {onMount} from 'svelte'
-import {init, syncItems} from '../../fire.js'
+import {isAuthenticated, signIn} from '../../myStore.ts'
 import Header from '../Header/Header.svelte'
-
-onMount(() => {
-	init((data) => {
-		if (data?.uid) {
-			$isAuthenticated = true
-			$userObj = data
-
-			// sync items
-			syncItems(data.uid, (concertObj) => {
-				if (concertObj) {
-					$concerts = [...Object.values(concertObj)]
-				}
-			})
-		} else {
-			$isAuthenticated = false
-		}
-	})
-})
 </script>
 
 {#if $isAuthenticated}
