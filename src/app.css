@@ -152,7 +152,7 @@ input[type='date'] {
 }
 
 .stats-wrapper {
-	@apply p-3 w-full flex ;
+	@apply p-3 w-full flex;
 }
 
 .stats-number {

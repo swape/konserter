@@ -10,19 +10,17 @@ let page = null
 
 function startViewTransition(callback) {
 	if (!document?.startViewTransition) {
-		callback();
-		return;
+		callback()
+		return
 	}
-	document.startViewTransition(callback);
+	document.startViewTransition(callback)
 }
 
 currentPage.subscribe((value) => {
 	startViewTransition(() => {
 		page = value
-	});
+	})
 })
-
-
 </script>
 
 <AuthGate>
