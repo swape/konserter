@@ -29,7 +29,7 @@ concerts.subscribe((data) => {
 	{#if futureConcerts.length > 0}
 		<h2 class="text-2xl text-center py-5 text-white">Kommende konserter</h2>
 		{#each futureConcerts as futureConcert}
-			<ConcertBox concert={futureConcert}/>
+			<ConcertBox concert={futureConcert} />
 		{/each}
 	{/if}
 

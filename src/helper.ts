@@ -57,7 +57,7 @@ export function getFormattedDate(nowDate = new Date(), addMonth = 0): string {
 
 export function getEmptyConcertItem(): ConcertObjectType {
 	return {
-		date: getFormattedDate(new Date() , 1),
+		date: getFormattedDate(new Date(), 1),
 		artist: '',
 		note: '',
 		rating: 3,
@@ -149,9 +149,11 @@ export function getMostLikedArtists(list: ConcertObjectType[]) {
 			newList[concert.artist] = 1
 		}
 	})
-	return Object.entries(newList).sort((a: [string, number], b: [string, number]) => {
-		return `${a[0]}`.toLowerCase() < `${b[0]}`.toLowerCase() ? 1 : -1
-	}).sort((a: [string, number], b: [string, number]) => {
-		return a[1] < b[1] ? 1 : -1
-	})
+	return Object.entries(newList)
+		.sort((a: [string, number], b: [string, number]) => {
+			return `${a[0]}`.toLowerCase() < `${b[0]}`.toLowerCase() ? 1 : -1
+		})
+		.sort((a: [string, number], b: [string, number]) => {
+			return a[1] < b[1] ? 1 : -1
+		})
 }

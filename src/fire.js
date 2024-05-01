@@ -3,7 +3,7 @@ import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, sig
 import {child, getDatabase, onValue, push, query, ref, remove, set, update} from 'firebase/database'
 
 import {firebaseConfig} from './config.js'
-import {isAuthenticated, userObj ,concerts} from './myStore.ts'
+import {isAuthenticated, userObj, concerts} from './myStore.ts'
 
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
@@ -21,7 +21,7 @@ onAuthStateChanged(auth, (dUser) => {
 			}
 		})
 	}
- })
+})
 
 export const init = (cb) => {
 	if (auth.currentUser) {

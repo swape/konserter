@@ -1,7 +1,6 @@
 <script>
 import {concerts} from '../../../../myStore'
 
-
 const date = new Date()
 const currentYear = date.getFullYear()
 const nextMonth = date.getMonth() + 2
@@ -13,7 +12,7 @@ function yearMonthList(list) {
 		let year = dateSplit[0]
 		let month = dateSplit[1]
 		let key = `${year}${month}`
-		if(parseInt(year, 10) === currentYear && parseInt(month, 10) > nextMonth){
+		if (parseInt(year, 10) === currentYear && parseInt(month, 10) > nextMonth) {
 			return
 		}
 		if (!newList[key]) {
@@ -21,7 +20,6 @@ function yearMonthList(list) {
 		}
 
 		newList[key].count = newList[key].count + 1
-
 	})
 	return newList
 }
@@ -41,8 +39,8 @@ function addEmptyYearMonth(list) {
 		for (let j = 12; j >= 1; j--) {
 			let month = j.toString().padStart(2, '0')
 			let key = `${i}${month}`
-			if (!newList[key] && i <= currentYear){
-				if(parseInt(i, 10) === currentYear && j >= nextMonth || parseInt(findLowestKey, 10) > parseInt(key, 10)){
+			if (!newList[key] && i <= currentYear) {
+				if ((parseInt(i, 10) === currentYear && j >= nextMonth) || parseInt(findLowestKey, 10) > parseInt(key, 10)) {
 					break
 				}
 				newList[key] = {count: 0}
