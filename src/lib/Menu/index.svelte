@@ -1,6 +1,6 @@
 <script>
 import {currentConcertItem, currentPage, showMenu, signOut, userObj} from '../../myStore.ts'
-import {fly} from 'svelte/transition'
+
 import {getMyMenu} from './menuList'
 
 const myMenu = getMyMenu()
@@ -26,15 +26,15 @@ function handleSignOut() {
 
 {#if $showMenu}
 	<div class="backdrop" onclick={close} role="none">&nbsp;</div>
-	<div class="menu" transition:fly>
+	<div class="menu">
 		<button onclick={close} class="close-button"><span class="material-icons"> cancel </span></button>
 
 		<div class="avatar-wrapper">
 			<div class="rounded-full overflow-hidden w-16">
 				<!-- svelte-ignore a11y-img-redundant-alt -->
-				<img class="w-full" src={$userObj.img} alt="user image" />
+				<img class="w-full" src={$userObj.img} alt={$userObj.name} />
 			</div>
-			<h2 class="p-2 truncate text-wrap w-52">Hei {$userObj.name} jahskdjhaskdjhakdjhkasjhdkasjdhkjhdskadjdadkaj</h2>
+			<h2 class="p-2 truncate text-wrap w-52">{$userObj.name}</h2>
 		</div>
 
 		<div>
@@ -52,7 +52,8 @@ function handleSignOut() {
 
 <style>
 .backdrop {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(6);
 	@apply fixed inset-0;
 }
 .menu {
@@ -65,7 +66,7 @@ function handleSignOut() {
 }
 
 li.active {
-	@apply bg-indigo-900 border-l-4 border-amber-50;
+	@apply bg-indigo-900 border-l-4 border-amber-50 border-t border-gray-900;
 }
 
 .menu-list button {
@@ -81,6 +82,6 @@ h2 {
 }
 
 .avatar-wrapper {
-	@apply justify-items-center bg-indigo-900 pt-8 pb-4;
+	@apply justify-items-center bg-indigo-900 pt-8 pb-4 flex flex-col gap-2 items-center;
 }
 </style>
