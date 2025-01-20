@@ -25,9 +25,9 @@ function handleSignOut() {
 </script>
 
 {#if $showMenu}
-	<div class="backdrop" on:click={close} on:keypress={close} role="none">&nbsp;</div>
+	<div class="backdrop" onclick={close} role="none">&nbsp;</div>
 	<div class="menu" transition:fly>
-		<button on:click={close} class="close-button"><span class="material-icons"> cancel </span></button>
+		<button onclick={close} class="close-button"><span class="material-icons"> cancel </span></button>
 
 		<div class="avatar-wrapper">
 			<div class="rounded-full overflow-hidden w-16">
@@ -41,10 +41,10 @@ function handleSignOut() {
 			<ul class="menu-list">
 				{#each myMenu as item}
 					<li class:active={isActive(item.url)}>
-						<button on:click={() => navigateTo(item.url)}>{item.title}</button>
+						<button onclick={() => navigateTo(item.url)}>{item.title}</button>
 					</li>
 				{/each}
-				<li><button on:click={() => handleSignOut()}><span class="material-icons">logout</span> Logg ut</button></li>
+				<li><button onclick={() => handleSignOut()}><span class="material-icons">logout</span> Logg ut</button></li>
 			</ul>
 		</div>
 	</div>

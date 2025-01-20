@@ -2,8 +2,7 @@
 import {getEmptyConcertItem} from '../../../../helper'
 import {currentPage} from '../../../../myStore'
 
-export let concertObject = getEmptyConcertItem()
-export let resetData = null
+let {concertObject = getEmptyConcertItem(), resetData = null} = $props()
 
 function cancel() {
 	$currentPage = 'start'
@@ -26,7 +25,7 @@ function getFeedBack(rating) {
 	</h2>
 
 	<div class="flex gap-3 justify-between">
-		<button class="button" on:click={resetData}>Registrer ny konsert</button>
-		<button class="button gray" on:click={cancel}>Gå til forsiden</button>
+		<button class="button" onclick={resetData}>Registrer ny konsert</button>
+		<button class="button gray" onclick={cancel}>Gå til forsiden</button>
 	</div>
 </div>

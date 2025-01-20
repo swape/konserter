@@ -2,15 +2,14 @@
 import {currentConcertItem, currentPage} from '../../../../myStore'
 import {getArtistAndVenue} from '../../../../helper'
 
-export let concert
-
+let {concert} = $props()
 function clicked() {
 	currentConcertItem.set(concert)
 	currentPage.set('new')
 }
 </script>
 
-<button on:click={() => clicked()} class="box mb-3">
+<button onclick={() => clicked()} class="box mb-3">
 	<div>
 		<div class="text-xl">{getArtistAndVenue(concert)}</div>
 		<div class="flex justify-between text-sm text-gray-400 items-center">

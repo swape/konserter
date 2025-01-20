@@ -3,11 +3,11 @@ import {concerts} from '../../../../myStore'
 import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 
-export let limit = undefined
+let {limit = undefined} = $props()
 
-let futureConcerts = []
-let pastConcerts = []
-$: newDate = new Date()
+let futureConcerts = $state([])
+let pastConcerts = $state([])
+let newDate = $state(new Date())
 
 concerts.subscribe((data) => {
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100

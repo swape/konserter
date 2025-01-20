@@ -12,6 +12,6 @@ function handleSeeMore() {
 	<TotalConcerts />
 	<ConcertList limit={3} />
 	<div class="flex justify-center">
-		<button on:click={() => handleSeeMore()} class="button"> Se mer </button>
+		<button onclick={() => handleSeeMore()} class="button"> Se mer </button>
 	</div>
 </main>

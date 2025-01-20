@@ -2,25 +2,34 @@
 import {concerts} from '../../../../myStore'
 import {totalSumYear, filterByGivenYear} from '../../../../helper'
 
-export let year = ''
+let {year = ''} = $props()
+let countNumber = $state(0)
 
-let thisYear = ''
-let count = 0
+let localData = $state([])
 
-$: {
-	concerts.subscribe((data) => {
-		thisYear = totalSumYear(data, parseInt(year, 10))
-		count = filterByGivenYear(data, parseInt(year, 10)).length
-	})
+concerts.subscribe((data) => {
+	localData = [...data]
+})
+
+$effect(() => {
+	countNumber = count(year)
+})
+
+function thisYear(yearValue) {
+	return totalSumYear(localData, parseInt(yearValue, 10))
+}
+
+function count(yearValue) {
+	return filterByGivenYear(localData, parseInt(yearValue, 10)).length
 }
 </script>
 
 <div class="stats-wrapper">
-	<div class="stats">
-		{#if count}
-			<div>Du brukte <strong>{thisYear}</strong> i {year} på {count} konsert{`${count === 1 ? '' : 'er'}`}.</div>
+	<div class="stats text-xl">
+		{#if countNumber}
+			<div>Du brukte <strong>{thisYear(year)}</strong> i {year} på {countNumber} konsert{`${countNumber === 1 ? '' : 'er'}`}.</div>
 		{/if}
-		{#if count === 0}
+		{#if countNumber === 0}
 			<div>Ingen kontert i {year}?</div>
 		{/if}
 	</div>

@@ -50,8 +50,8 @@ function addEmptyYearMonth(list) {
 	return newList
 }
 
-let highestCount = 0
-let completeList = {}
+let highestCount = $state(0)
+let completeList = $state({})
 
 concerts.subscribe((value) => {
 	if (value) {

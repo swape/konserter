@@ -6,15 +6,15 @@ import Feedback from './components/Feedback/Feedback.svelte'
 import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
 import {writable} from 'svelte/store'
 
-let concertObject = writable()
-let showFeedBack = false
+let concertObject = $state()
+let showFeedBack = $state(false)
 
 // show the current data
 currentConcertItem.subscribe((data) => {
 	if (data?.id) {
-		$concertObject = data
+		concertObject = data
 	} else {
-		$concertObject = getEmptyConcertItem()
+		concertObject = getEmptyConcertItem()
 	}
 })
 
@@ -48,7 +48,7 @@ function save(concertValue) {
 
 function resetData() {
 	showFeedBack = false
-	$concertObject = getEmptyConcertItem()
+	concertObject = getEmptyConcertItem()
 }
 </script>
 
@@ -57,6 +57,6 @@ function resetData() {
 		<Feedback concertObject={concertObject} resetData={resetData} />
 	{/if}
 	{#if !showFeedBack}
-		<ConcertForm concertObject={$concertObject} onSave={save} onClose={close} />
+		<ConcertForm concertObject={concertObject} onSave={save} onClose={close} />
 	{/if}
 </main>

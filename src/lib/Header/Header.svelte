@@ -16,12 +16,12 @@ function navigateTo(value) {
 	<Menu />
 	<div class="grid grid-cols-3 items-center">
 		<div class="corner">
-			<button on:click={() => navigateTo('start')}><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /></button>
+			<button onclick={() => navigateTo('start')}><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /></button>
 		</div>
 		<div>
-			<button on:click={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
+			<button onclick={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
 		</div>
-		<div class="corner"><button on:click={openMenu}><span class="material-icons text-3xl"> menu </span></button></div>
+		<div class="corner"><button onclick={openMenu}><span class="material-icons text-3xl"> menu </span></button></div>
 	</div>
 </header>
 

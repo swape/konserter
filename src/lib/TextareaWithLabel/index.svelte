@@ -1,11 +1,10 @@
 <script>
-export let value = ''
-export let title = ''
+let {value, title, onchange = (value) => {}} = $props()
 </script>
 
 <div>
 	<div class="text-slate-700 pb-2 dark:bg-gray-900 dark:text-white">{title}</div>
 	<div>
-		<textarea bind:value={value} class="textarea" />
+		<textarea class="textarea" onkeyup={({target}) => onchange(target.value)}>{value}</textarea>
 	</div>
 </div>

@@ -5,11 +5,10 @@ import StarRating from '../../../../lib/StarRating/index.svelte'
 import {isDataOk} from '../../../../helper'
 import {concerts} from '../../../../myStore'
 
-export let concertObject
-export let onSave
-export let onClose
-let festivals = []
-let venues = []
+let {concertObject, onSave, onClose} = $props()
+
+let festivals = $state([])
+let venues = $state([])
 
 concerts.subscribe((data) => {
 	const countedFestival = data
@@ -63,27 +62,27 @@ function addVenue(v) {
 <div class="box">
 	<h2 class="header">{getHeader()}</h2>
 	<div class="grid grid-cols-1 gap-4">
-		<InputWithLabel bind:value={concertObject.artist} title="Artist / band" />
+		<InputWithLabel value={concertObject.artist} title="Artist / band" onchange={(value) => (concertObject.artist = value)} />
 
-		<InputWithLabel bind:value={concertObject.festival} title="Festival" />
+		<InputWithLabel value={concertObject.festival} title="Festival" onchange={(value) => (concertObject.festival = value)} />
 		<div class="flex gap-1">
-			{#each festivals as f}<button on:click={() => addFestival(f.name)} class="text-xs text-blue-600 border rounded-md p-1">{f.name}</button>{/each}
+			{#each festivals as f}<button onclick={() => addFestival(f.name)} class="text-xs text-blue-600 border rounded-md p-1">{f.name}</button>{/each}
 		</div>
 
-		<InputWithLabel bind:value={concertObject.venue} title="Spillested" />
+		<InputWithLabel value={concertObject.venue} title="Spillested" onchange={(value) => (concertObject.venue = value)} />
 		<div class="flex gap-1">
-			{#each venues as v}<button on:click={() => addVenue(v.name)} class="text-xs text-blue-600 border rounded-md p-1">{v.name}</button>{/each}
+			{#each venues as v}<button onclick={() => addVenue(v.name)} class="text-xs text-blue-600 border rounded-md p-1">{v.name}</button>{/each}
 		</div>
 
-		<InputWithLabel bind:value={concertObject.price} title="Pris" type="tel" postfix="kr" />
+		<InputWithLabel value={concertObject.price} title="Pris" type="tel" postfix="kr" onchange={(value) => (concertObject.price = value)} />
 
-		<InputWithLabel bind:value={concertObject.date} title="Dato" type="date" />
-		<StarRating bind:value={concertObject.rating} title="Min vurdering" stars={5} />
-		<TextareaWithLabel bind:value={concertObject.note} title="Notat" />
+		<InputWithLabel value={concertObject.date} title="Dato" type="date" onchange={(value) => (concertObject.date = value)} />
+		<StarRating value={concertObject.rating} title="Min vurdering" stars={5} onchange={(value) => (concertObject.rating = value)} />
+		<TextareaWithLabel value={concertObject.note} title="Notat" onchange={(value) => (concertObject.note = value)} />
 
 		<div class="flex gap-3 justify-between">
-			<button class="button {!isDataOk(concertObject) && 'gray'}" on:click={() => saveForm()} disabled={!isDataOk(concertObject)}>Lagre</button>
-			<button class="button gray" on:click={() => onClose()}>Avbryt</button>
+			<button class="button {!isDataOk(concertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
+			<button class="button gray" onclick={() => onClose()}>Avbryt</button>
 		</div>
 	</div>
 </div>

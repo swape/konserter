@@ -6,7 +6,7 @@ import AuthGate from './lib/AuthGate/AuthGate.svelte'
 import ListPage from './pages/list/index.svelte'
 import StatsPage from './pages/stats/index.svelte'
 
-let page = null
+let page = $state(null)
 
 function startViewTransition(callback) {
 	if (!document?.startViewTransition) {

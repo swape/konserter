@@ -1,12 +1,10 @@
 <script>
-export let value = 0
-export let title = ''
-export let stars = 5
-
+let {value = 0, title = '', stars = 5, onchange = (value) => {}} = $props()
 let starsList = Array(stars)
 
 function setStar(index) {
 	value = index + 1
+	onchange(value)
 }
 </script>
 
@@ -15,7 +13,7 @@ function setStar(index) {
 
 	<div>
 		{#each starsList as _, index}
-			<label on:change={() => setStar(index)}>
+			<label onchange={() => setStar(index)}>
 				<input type="radio" value={index} name="starrating" class="hidden" />
 				{#if index + 1 <= value}
 					<span class="material-icons text-blue-700 text-4xl"> star_rate </span>{/if}
