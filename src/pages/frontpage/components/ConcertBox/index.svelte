@@ -10,19 +10,19 @@ function clicked() {
 </script>
 
 <button onclick={() => clicked()} class="box mb-3">
-	<div>
-		<div class="text-xl">{getArtistAndVenue(concert)}</div>
-		<div class="flex justify-between text-sm text-gray-400 items-center">
+	<span class="block p-3">
+		<span class="text-xl">{getArtistAndVenue(concert)}</span>
+		<span class="flex justify-between text-sm text-gray-400 items-center">
 			<small>{concert?.date}</small>
 			{#if concert?.festival}
 				<div>{concert.festival}</div>
 			{/if}
 			{#if concert?.rating}
-				<div class="flex items-center">
+				<span class="flex items-center">
 					<span class="material-icons">star</span>
 					<span>{concert.rating}</span>
-				</div>
+				</span>
 			{/if}
-		</div>
-	</div>
+		</span>
+	</span>
 </button>

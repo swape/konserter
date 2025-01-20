@@ -1,5 +1,5 @@
 <script>
-let {value = null, title = '', type = 'text', postfix = null, onchange = (value) => {}} = $props()
+let {value = null, title = '', type = 'text', postfix = null, onchange = () => {}} = $props()
 </script>
 
 <div>

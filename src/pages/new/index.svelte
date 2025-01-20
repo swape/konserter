@@ -4,7 +4,6 @@ import {addEntry, updateEntry} from '../../fire.js'
 import {getEmptyConcertItem, isDataOk, toNumber} from '../../helper'
 import Feedback from './components/Feedback/Feedback.svelte'
 import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
-import {writable} from 'svelte/store'
 
 let concertObject = $state()
 let showFeedBack = $state(false)

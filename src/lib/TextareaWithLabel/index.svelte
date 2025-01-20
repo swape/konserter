@@ -1,5 +1,5 @@
 <script>
-let {value, title, onchange = (value) => {}} = $props()
+let {value, title, onchange = () => {}} = $props()
 </script>
 
 <div>
