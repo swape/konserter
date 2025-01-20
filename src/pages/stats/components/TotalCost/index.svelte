@@ -30,7 +30,7 @@ function count(yearValue) {
 			<div>Du brukte <strong>{thisYear(year)}</strong> i {year} på {countNumber} konsert{`${countNumber === 1 ? '' : 'er'}`}.</div>
 		{/if}
 		{#if countNumber === 0}
-			<div>Ingen kontert i {year}?</div>
+			<div>Ingen konterter i {year}?</div>
 		{/if}
 	</div>
 </div>
