@@ -34,7 +34,7 @@ function handleSignOut() {
 				<!-- svelte-ignore a11y-img-redundant-alt -->
 				<img class="w-full" src={$userObj.img} alt="user image" />
 			</div>
-			<h2>Hei {$userObj.name}</h2>
+			<h2 class="p-2 truncate text-wrap w-52">Hei {$userObj.name} jahskdjhaskdjhakdjhkasjhdkasjdhkjhdskadjdadkaj</h2>
 		</div>
 
 		<div>
@@ -69,7 +69,7 @@ li.active {
 }
 
 .menu-list button {
-	@apply text-cyan-50 w-full p-2 flex gap-2;
+	@apply text-cyan-50 w-full p-5 flex gap-2 text-xl;
 }
 
 .close-button {
@@ -81,6 +81,6 @@ h2 {
 }
 
 .avatar-wrapper {
-	@apply grid grid-cols-1 gap-3 justify-items-center bg-indigo-900 pt-8 pb-4;
+	@apply justify-items-center bg-indigo-900 pt-8 pb-4;
 }
 </style>
