@@ -51,6 +51,8 @@ function handleSignOut() {
 {/if}
 
 <style>
+@import 'tailwindcss';
+
 .backdrop {
 	background-color: rgba(0, 0, 0, 0.4);
 	backdrop-filter: blur(6);

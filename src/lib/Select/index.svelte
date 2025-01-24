@@ -13,6 +13,8 @@ let {options = [], onChange = () => {}, value, emptyText = 'Select an option'} =
 </div>
 
 <style>
+@import 'tailwindcss';
+
 .select {
 	@apply border border-gray-300 block w-full py-3 px-5 rounded-md dark:bg-gray-900 dark:text-white bg-gray-50 text-gray-900;
 	appearance: none;
