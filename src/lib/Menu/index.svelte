@@ -27,14 +27,14 @@ function handleSignOut() {
 {#if $showMenu}
 	<div class="backdrop" onclick={close} role="none">&nbsp;</div>
 	<div class="menu">
-		<button onclick={close} class="close-button"><span class="material-icons"> cancel </span></button>
+		<button onclick={close} class="text-slate-900 p-3 text-right fixed top-0 right-0"><span class="material-icons"> cancel </span></button>
 
-		<div class="avatar-wrapper">
+		<div class="justify-items-center bg-indigo-900 pt-8 pb-4 flex flex-col gap-2 items-center">
 			<div class="rounded-full overflow-hidden w-16">
 				<!-- svelte-ignore a11y-img-redundant-alt -->
 				<img class="w-full" src={$userObj.img} alt={$userObj.name} />
 			</div>
-			<h2 class="p-2 truncate text-wrap w-52">{$userObj.name}</h2>
+			<h2 class="p-2 truncate text-wrap w-52 text-cyan-50 text-center text-2xl my-3">{$userObj.name}</h2>
 		</div>
 
 		<div>
@@ -51,7 +51,7 @@ function handleSignOut() {
 {/if}
 
 <style>
-@import 'tailwindcss';
+@reference '../../app.css';
 
 .backdrop {
 	background-color: rgba(0, 0, 0, 0.4);
@@ -68,22 +68,10 @@ function handleSignOut() {
 }
 
 li.active {
-	@apply bg-indigo-900 border-l-4 border-amber-50 border-t border-gray-900;
+	@apply bg-indigo-900 border-l-4 border-t border-gray-900;
 }
 
 .menu-list button {
 	@apply text-cyan-50 w-full p-5 flex gap-2 text-xl;
-}
-
-.close-button {
-	@apply text-slate-900 p-3 text-right fixed top-0 right-0;
-}
-
-h2 {
-	@apply text-cyan-50 text-center text-2xl my-3;
-}
-
-.avatar-wrapper {
-	@apply justify-items-center bg-indigo-900 pt-8 pb-4 flex flex-col gap-2 items-center;
 }
 </style>
