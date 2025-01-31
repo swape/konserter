@@ -11,7 +11,7 @@ function handleSeeMore() {
 <main>
 	<TotalConcerts />
 	<ConcertList limit={3} />
-	<div class="flex justify-center">
+	<div class="flex justify-center mt-2">
 		<button onclick={() => handleSeeMore()} class="button"> Se mer </button>
 	</div>
 </main>

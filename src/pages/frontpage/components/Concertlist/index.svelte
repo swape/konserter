@@ -27,14 +27,18 @@ concerts.subscribe((data) => {
 
 <div class="p-3">
 	{#if futureConcerts.length > 0}
-		<h2 class="text-2xl text-center py-5 text-white">Kommende konserter</h2>
-		{#each futureConcerts as futureConcert}
-			<ConcertBox concert={futureConcert} />
-		{/each}
+		<h2 class="text-2xl text-center text-white">Kommende konserter</h2>
+		<div class="flex flex-col gap-4">
+			{#each futureConcerts as futureConcert}
+				<ConcertBox concert={futureConcert} />
+			{/each}
+		</div>
 	{/if}
 
 	<h2 class="text-2xl text-center py-5 text-white">Konserter</h2>
-	{#each pastConcerts as concert}
-		<ConcertBox concert={concert} />
-	{/each}
+	<div class="flex flex-col gap-4">
+		{#each pastConcerts as concert}
+			<ConcertBox concert={concert} />
+		{/each}
+	</div>
 </div>
