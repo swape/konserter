@@ -78,20 +78,9 @@ export function countSum(list: ConcertObjectType[]) {
 	return convertToNoCurrency(total)
 }
 
-export function totalSumThisYear(list: ConcertObjectType[]) {
-	const thisYearConcert = filterByThisYear(list)
-	return countSum(thisYearConcert)
-}
-
 export function totalSumYear(list: ConcertObjectType[], year: number) {
 	const thisYearConcert = filterByGivenYear(list, year)
 	return countSum(thisYearConcert)
-}
-
-export function filterByThisYear(list: ConcertObjectType[]) {
-	const now = new Date()
-	const thisYear = now.getFullYear()
-	return filterByGivenYear(list, thisYear)
 }
 
 export function filterByGivenYear(list: ConcertObjectType[], year: number) {
@@ -99,43 +88,6 @@ export function filterByGivenYear(list: ConcertObjectType[], year: number) {
 		const itemYear = item.date.split('-')[0]
 		return parseInt(itemYear, 10) === year
 	})
-}
-
-export function getMonthObject(): ChartData {
-	const newList: ChartData = {}
-	;[...Array(12)].forEach((_: unknown, i: number) => {
-		newList[`${i}`.padStart(2, '0')] = 1
-	})
-	return newList
-}
-
-export function sortByMonth(list: ConcertObjectType[]) {
-	const newList = getMonthObject()
-
-	list.forEach((concert) => {
-		const month = concert.date.split('-')[1]
-
-		if (newList[month]) {
-			newList[month] = newList[month] + 1
-		} else {
-			newList[month] = 1
-		}
-	})
-	return newList
-}
-
-export function getGraphData(list: ConcertObjectType[]) {
-	const newList: ChartData = {}
-	list.sort(sortByDate)
-	list.reverse()
-	list.forEach((concert) => {
-		if (newList[concert.date]) {
-			newList[concert.date] = newList[concert.date] + 1
-		} else {
-			newList[concert.date] = 1
-		}
-	})
-	return newList
 }
 
 export function getMostLikedArtists(list: ConcertObjectType[]) {
