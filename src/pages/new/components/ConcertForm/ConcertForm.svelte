@@ -9,6 +9,7 @@ let {concertObject, onSave, onClose} = $props()
 
 let festivals = $state([])
 let venues = $state([])
+let localConcertObject = $state({...concertObject})
 
 concerts.subscribe((data) => {
 	const countedFestival = data
@@ -37,10 +38,8 @@ concerts.subscribe((data) => {
 })
 
 function saveForm() {
-	if (isDataOk(concertObject)) {
-		onSave(concertObject)
-	} else {
-		// TODO: give feed back on not ok
+	if (isDataOk(localConcertObject)) {
+		onSave(localConcertObject)
 	}
 }
 
@@ -50,38 +49,35 @@ function getHeader() {
 	}
 	return 'Registrer'
 }
-function addFestival(f) {
-	concertObject.festival = f
-}
 
-function addVenue(v) {
-	concertObject.venue = v
+function updateValue(key, value) {
+	localConcertObject = {...localConcertObject, [key]: value}
 }
 </script>
 
 <div class="box">
 	<h2 class="header">{getHeader()}</h2>
 	<div class="grid grid-cols-1 gap-4">
-		<InputWithLabel value={concertObject.artist} title="Artist / band" onchange={(value) => (concertObject.artist = value)} />
+		<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist) => updateValue('artist', artist)} />
 
-		<InputWithLabel value={concertObject.festival} title="Festival" onchange={(value) => (concertObject.festival = value)} />
+		<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival) => updateValue('festival', festival)} />
 		<div class="flex gap-1">
-			{#each festivals as f}<button onclick={() => addFestival(f.name)} class="text-xs text-blue-600 border rounded-md p-1">{f.name}</button>{/each}
+			{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-xs text-blue-600 border rounded-md p-1">{f.name}</button>{/each}
 		</div>
 
-		<InputWithLabel value={concertObject.venue} title="Spillested" onchange={(value) => (concertObject.venue = value)} />
+		<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue) => updateValue('venue', venue)} />
 		<div class="flex gap-1">
-			{#each venues as v}<button onclick={() => addVenue(v.name)} class="text-xs text-blue-600 border rounded-md p-1">{v.name}</button>{/each}
+			{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-xs text-blue-600 border rounded-md p-1">{v.name}</button>{/each}
 		</div>
 
-		<InputWithLabel value={concertObject.price} title="Pris" type="tel" postfix="kr" onchange={(value) => (concertObject.price = value)} />
+		<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price) => updateValue('price', price)} />
 
-		<InputWithLabel value={concertObject.date} title="Dato" type="date" onchange={(value) => (concertObject.date = value)} />
-		<StarRating value={concertObject.rating} title="Min vurdering" stars={5} onchange={(value) => (concertObject.rating = value)} />
-		<TextareaWithLabel value={concertObject.note} title="Notat" onchange={(value) => (concertObject.note = value)} />
+		<InputWithLabel value={localConcertObject.date} title="Dato" type="date" onchange={(date) => updateValue('date', date)} />
+		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating) => updateValue('rating', rating)} />
+		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note) => updateValue('note', note)} />
 
 		<div class="flex gap-3 justify-between">
-			<button class="button {!isDataOk(concertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
+			<button class="button {!isDataOk(localConcertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
 			<button class="button gray" onclick={() => onClose()}>Avbryt</button>
 		</div>
 	</div>
