@@ -158,10 +158,11 @@ input[type='date'] {
 }
 
 .bar {
-	width: 10px;
-	background-color: tomato;
+	width: 8px;
+	background-color: hotpink;
 	margin: 0 1px;
 	border-radius: 4px 4px 0 0;
+	box-shadow: 1px -1px 1px rgba(0, 0, 0, 1);
 }
 .bars {
 	display: flex;
