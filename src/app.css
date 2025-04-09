@@ -169,5 +169,5 @@ input[type='date'] {
 	flex-direction: row;
 	align-items: flex-end;
 	height: 100px;
-	justify-content: center;
+	justify-content: flex-end;
 }
