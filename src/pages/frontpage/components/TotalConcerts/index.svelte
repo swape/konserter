@@ -75,7 +75,7 @@ function toYearMonth(key) {
 	{$concerts.length} konserter totalt.
 </div>
 {#if highestCount !== 0}
-	<div>
+	<div class="overflow-hidden">
 		<div class="bars border-slate-800 mt-3 border-b">
 			{#each Object.keys(completeList) as key}
 				<div title={toYearMonth(key)} class="bar" style="height: {(completeList[key].count / highestCount) * 100}%">&nbsp;</div>
