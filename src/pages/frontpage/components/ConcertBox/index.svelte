@@ -11,10 +11,10 @@ function clicked() {
 function getStarColor(rating) {
 	const ratingNumber = parseInt(rating, 10)
 	const starColor = {
-		1: 'text-red-400 opacity-80',
-		2: 'text-orange-400 opacity-80',
-		3: 'text-yellow-500 opacity-80',
-		4: 'text-green-700',
+		1: 'text-red-500',
+		2: 'text-orange-500',
+		3: 'text-yellow-500',
+		4: 'text-blue-500',
 		5: 'text-green-500'
 	}
 
@@ -36,7 +36,7 @@ function getStarColor(rating) {
 			{/if}
 
 			{#if concert?.festival}
-				<div>{concert.festival}</div>
+				<div class="truncate">{concert.festival}</div>
 			{/if}
 
 			<small>{concert?.date}</small>
@@ -50,7 +50,11 @@ function getStarColor(rating) {
 	align-items: center;
 	border-radius: 50px;
 	background-color: #23233a;
-	padding: 2px 8px;
+	padding: 2px 8px 2px 4px;
 	font-size: 16px;
+
+	.material-icons {
+		font-size: 16px;
+	}
 }
 </style>
