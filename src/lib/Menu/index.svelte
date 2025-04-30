@@ -22,19 +22,40 @@ function navigateTo(value) {
 function handleSignOut() {
 	signOut()
 }
+
+function shorterName(name) {
+	const nameList = name.split(' ')
+	let last = ''
+	if (nameList.length >= 2) {
+		const lastList = nameList[1].split('')
+		last = ` ${lastList[0]}.`
+	}
+	return `${nameList[0]}${last}`
+}
+
+function initials(name) {
+	const nameList = name.split(' ')
+	let initials = ''
+	if (nameList.length >= 2) {
+		initials = `${nameList[0][0]}${nameList[1][0]}`
+	} else {
+		initials = nameList[0][0]
+	}
+	return initials
+}
 </script>
 
 {#if $showMenu}
-	<div class="backdrop" onclick={close} role="none">&nbsp;</div>
+	<button class="backdrop" onclick={close} type="button"><span class="sr-only">close</span></button>
 	<div class="menu">
 		<button onclick={close} class="text-slate-900 p-3 text-right fixed top-0 right-0"><span class="material-icons"> cancel </span></button>
 
-		<div class="justify-items-center bg-indigo-900 pt-8 pb-4 flex flex-col gap-2 items-center">
-			<div class="rounded-full overflow-hidden w-16">
+		<div class="justify-items-center bg-indigo-900 pt-5 pb-2 flex flex-col gap-1 items-center">
+			<div class="rounded-full overflow-hidden w-10 h-10 shadow-slate-800 shadow">
 				<!-- svelte-ignore a11y-img-redundant-alt -->
-				<img class="w-full" src={$userObj.img} alt={$userObj.name} />
+				<img class="w-full" src={$userObj.img} alt={initials($userObj.name)} />
 			</div>
-			<h2 class="p-2 truncate text-wrap w-52 text-cyan-50 text-center text-2xl my-3">{$userObj.name}</h2>
+			<h2 class="p-2 truncate text-wrap w-52 text-cyan-50 text-center text-xl my-3">{shorterName($userObj.name)}</h2>
 		</div>
 
 		<div>
@@ -55,7 +76,7 @@ function handleSignOut() {
 
 .backdrop {
 	background-color: rgba(0, 0, 0, 0.4);
-	backdrop-filter: blur(6);
+	backdrop-filter: blur(8px);
 	@apply fixed inset-0;
 }
 .menu {

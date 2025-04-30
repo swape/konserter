@@ -22,10 +22,10 @@ function getStarColor(rating) {
 }
 </script>
 
-<button onclick={() => clicked()} class="box mb-3">
+<button onclick={() => clicked()} class="box mb-2">
 	<span class="block p-3">
-		<span class="text-xl">{getArtistAndVenue(concert)}</span>
-		<span class="flex justify-between text-sm text-gray-400 items-center">
+		<span class="text-[1.1rem]">{getArtistAndVenue(concert)}</span>
+		<span class="flex justify-between text-sm text-gray-400 items-center mt-2">
 			{#if concert?.rating}
 				<div class="star-box">
 					<span class={['flex items-center', getStarColor(concert.rating)].join(' ')}>
