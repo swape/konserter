@@ -11,7 +11,7 @@ concerts.subscribe((data) => {
 })
 
 $effect(() => {
-	sortedVenue = sortByBestVenue(filterByGivenYear(localData, parseInt(year, 10))).filter((item) => item[0])
+	sortedVenue = sortByBestVenue(filterByGivenYear(localData, Number.parseInt(year, 10))).filter((item) => item[0])
 })
 </script>
 

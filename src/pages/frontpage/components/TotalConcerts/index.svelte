@@ -6,13 +6,13 @@ const currentYear = date.getFullYear()
 const nextMonth = date.getMonth() + 2
 
 function yearMonthList(list) {
-	let newList = {}
+	const newList = {}
 	list.forEach((concert) => {
-		let dateSplit = concert.date.split('-')
-		let year = dateSplit[0]
-		let month = dateSplit[1]
-		let key = `${year}${month}`
-		if (parseInt(year, 10) === currentYear && parseInt(month, 10) > nextMonth) {
+		const dateSplit = concert.date.split('-')
+		const year = dateSplit[0]
+		const month = dateSplit[1]
+		const key = `${year}${month}`
+		if (Number.parseInt(year, 10) === currentYear && Number.parseInt(month, 10) > nextMonth) {
 			return
 		}
 		if (!newList[key]) {
@@ -29,18 +29,18 @@ function addEmptyYearMonth(list) {
 		return list
 	}
 
-	let newList = {...list}
-	let findHighestKey = Object.keys(list).sort((a, b) => b - a)[0]
-	let findLowestKey = Object.keys(list).sort((a, b) => a - b)[0]
+	const newList = {...list}
+	const findHighestKey = Object.keys(list).sort((a, b) => b - a)[0]
+	const findLowestKey = Object.keys(list).sort((a, b) => a - b)[0]
 
-	let highestYear = findHighestKey.slice(0, 4)
-	let lowestYear = findLowestKey.slice(0, 4)
+	const highestYear = findHighestKey.slice(0, 4)
+	const lowestYear = findLowestKey.slice(0, 4)
 	for (let i = highestYear; i >= lowestYear; i--) {
 		for (let j = 12; j >= 1; j--) {
-			let month = j.toString().padStart(2, '0')
-			let key = `${i}${month}`
+			const month = j.toString().padStart(2, '0')
+			const key = `${i}${month}`
 			if (!newList[key] && i <= currentYear) {
-				if ((parseInt(i, 10) === currentYear && j >= nextMonth) || parseInt(findLowestKey, 10) > parseInt(key, 10)) {
+				if ((Number.parseInt(i, 10) === currentYear && j >= nextMonth) || Number.parseInt(findLowestKey, 10) > Number.parseInt(key, 10)) {
 					break
 				}
 				newList[key] = {count: 0}
@@ -64,8 +64,8 @@ concerts.subscribe((value) => {
 })
 
 function toYearMonth(key) {
-	let year = key.slice(0, 4)
-	let month = key.slice(4, 6)
+	const year = key.slice(0, 4)
+	const month = key.slice(4, 6)
 	return `${year}-${month}`
 }
 </script>

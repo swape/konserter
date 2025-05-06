@@ -9,7 +9,7 @@ function clicked() {
 }
 
 function getStarColor(rating) {
-	const ratingNumber = parseInt(rating, 10)
+	const ratingNumber = Number.parseInt(rating, 10)
 	const starColor = {
 		1: 'text-red-500',
 		2: 'text-orange-500',

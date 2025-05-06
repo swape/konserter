@@ -34,7 +34,7 @@ function save(concertValue) {
 		uid: $userObj.uid
 	}
 	if (concertValue.id) {
-		updateEntry($userObj.uid + '/' + concertValue.id, saveObj).finally(() => {
+		updateEntry(`${$userObj.uid}/${concertValue.id}`, saveObj).finally(() => {
 			showFeedBack = true
 			$currentConcertItem = null
 		})

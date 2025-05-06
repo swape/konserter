@@ -16,11 +16,11 @@ $effect(() => {
 })
 
 function thisYear(yearValue) {
-	return totalSumYear(localData, parseInt(yearValue, 10))
+	return totalSumYear(localData, Number.parseInt(yearValue, 10))
 }
 
 function count(yearValue) {
-	return filterByGivenYear(localData, parseInt(yearValue, 10)).length
+	return filterByGivenYear(localData, Number.parseInt(yearValue, 10)).length
 }
 </script>
 
