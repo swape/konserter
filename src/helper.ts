@@ -35,7 +35,7 @@ export function cleanDateToNumber(value: string): number {
 	if (!value) {
 		return 0
 	}
-	return parseInt(value.replace(/-/g, ''), 10)
+	return Number.parseInt(value.replace(/-/g, ''), 10)
 }
 
 export function isDataOk(item: ConcertObjectType | undefined): boolean {
@@ -46,7 +46,7 @@ export function isDataOk(item: ConcertObjectType | undefined): boolean {
 }
 
 export function toNumber(value: string | number): number {
-	return parseInt(`${value}`.replace(/\D/g, ''), 10)
+	return Number.parseInt(`${value}`.replace(/\D/g, ''), 10)
 }
 
 export function getFormattedDate(nowDate = new Date(), addMonth = 0): string {
@@ -86,7 +86,7 @@ export function totalSumYear(list: ConcertObjectType[], year: number) {
 export function filterByGivenYear(list: ConcertObjectType[], year: number) {
 	return list.filter((item) => {
 		const itemYear = item.date.split('-')[0]
-		return parseInt(itemYear, 10) === year
+		return Number.parseInt(itemYear, 10) === year
 	})
 }
 
