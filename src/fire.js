@@ -37,9 +37,8 @@ export const saveUser = (dUser) => {
 			name: dUser.displayName,
 			firstName: dUser.displayName.split(' ')[0]
 		}
-	} else {
-		return null
 	}
+	return null
 }
 
 export const addEntry = (name, data) => {
