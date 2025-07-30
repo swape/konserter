@@ -3,7 +3,7 @@ import {concerts} from '../../../../myStore'
 import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 
-let {limit = undefined, artist = undefined} = $props()
+let {limit = undefined, artist = undefined, deleted = false} = $props()
 
 let futureConcerts = $state([])
 let pastConcerts = $state([])
@@ -40,6 +40,11 @@ function filterAndSort(data, artist) {
 		futureConcerts = []
 		pastConcerts = []
 		return
+	}
+
+	data = data.filter((item) => !item.deleted)
+	if (deleted) {
+		data = data.filter((item) => item.deleted)
 	}
 
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100

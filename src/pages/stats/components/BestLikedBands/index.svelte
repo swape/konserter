@@ -5,7 +5,7 @@ import {getMostLikedArtists} from '../../../../helper'
 let bands = $state([])
 
 concerts.subscribe((data) => {
-	bands = getMostLikedArtists(data)
+	bands = getMostLikedArtists(data.filter((item) => !item.deleted))
 })
 
 function onClickBand(band) {

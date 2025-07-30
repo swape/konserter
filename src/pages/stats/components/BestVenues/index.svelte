@@ -7,7 +7,7 @@ let sortedVenue = $state([])
 let localData = $state([])
 
 concerts.subscribe((data) => {
-	localData = [...data]
+	localData = [...data.filter((item) => !item.deleted)]
 })
 
 $effect(() => {

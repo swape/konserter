@@ -8,7 +8,7 @@ let countNumber = $state(0)
 let localData = $state([])
 
 concerts.subscribe((data) => {
-	localData = [...data]
+	localData = [...data.filter((item) => !item.deleted)]
 })
 
 $effect(() => {

@@ -55,7 +55,7 @@ let completeList = $state({})
 
 concerts.subscribe((value) => {
 	if (value) {
-		const yearMonthObject = yearMonthList(value)
+		const yearMonthObject = yearMonthList(value.filter((item) => !item.deleted))
 		completeList = addEmptyYearMonth(yearMonthObject)
 		if (Object.values(completeList).length > 0) {
 			highestCount = Object.values(completeList).sort((a, b) => b.count - a.count)[0].count
