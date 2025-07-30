@@ -8,6 +8,7 @@ export const userObj = writable<UserObjType>({})
 export const currentPage = writable('start')
 export const concerts = writable([])
 export const currentConcertItem = writable()
+export const searchedBandName = writable('')
 
 export async function signIn() {
 	return await fireSignIn()
