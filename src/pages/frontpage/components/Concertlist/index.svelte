@@ -3,12 +3,14 @@ import {concerts} from '../../../../myStore'
 import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 
-let {limit = undefined} = $props()
+let {limit = undefined, artist = undefined} = $props()
 
 let futureConcerts = $state([])
 let pastConcerts = $state([])
 let newDate = $state(new Date())
 let lastConcertDate = ''
+let localAllData = $state([])
+let localArtist = $state('')
 
 function getYear(concertDate) {
 	if (!concertDate) {
@@ -21,11 +23,36 @@ function getYear(concertDate) {
 	return retVal
 }
 
+$effect(() => {
+	localArtist = artist
+	setTimeout(() => {
+		filterAndSort(localAllData, localArtist)
+	}, 150)
+})
+
 concerts.subscribe((data) => {
+	localAllData = data
+	filterAndSort(data, artist)
+})
+
+function filterAndSort(data, artist) {
+	if (!data || data.length === 0) {
+		futureConcerts = []
+		pastConcerts = []
+		return
+	}
+
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
-	data.sort(sortByDate)
-	futureConcerts = data.filter((item) => cleanDateToNumber(item?.date) > now)
-	pastConcerts = data.filter((item) => cleanDateToNumber(item?.date) <= now)
+	const sorted = data.toSorted()
+
+	futureConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) > now)
+	pastConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) <= now)
+
+	if (artist) {
+		const lowerCaseArtist = artist.toLowerCase()
+		futureConcerts = futureConcerts.filter((item) => item?.artist.toLowerCase().includes(lowerCaseArtist))
+		pastConcerts = pastConcerts.filter((item) => item?.artist.toLowerCase().includes(lowerCaseArtist))
+	}
 
 	if (limit) {
 		futureConcerts = futureConcerts
@@ -34,7 +61,7 @@ concerts.subscribe((data) => {
 			.filter((item) => item)
 		pastConcerts = pastConcerts.map((item, index) => (index < limit ? item : null)).filter((item) => item)
 	}
-})
+}
 </script>
 
 <div class="p-3">
