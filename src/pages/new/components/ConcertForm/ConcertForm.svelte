@@ -53,6 +53,15 @@ function getHeader() {
 function updateValue(key, value) {
 	localConcertObject = {...localConcertObject, [key]: value}
 }
+
+function confirmDelete() {
+	if (localConcertObject.id) {
+		const confirmed = confirm('Er du sikker på at du vil slette denne konserten?')
+		if (confirmed) {
+			onSave({...localConcertObject, deleted: true})
+		}
+	}
+}
 </script>
 
 <div class="box">
@@ -82,3 +91,6 @@ function updateValue(key, value) {
 		</div>
 	</div>
 </div>
+{#if localConcertObject.id}
+	<div class="flex justify-center mt-4"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+{/if}

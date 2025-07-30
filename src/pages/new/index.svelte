@@ -7,6 +7,7 @@ import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
 
 let concertObject = $state()
 let showFeedBack = $state(false)
+let feedbackText = $state('')
 
 // show the current data
 currentConcertItem.subscribe((data) => {
@@ -33,6 +34,8 @@ function save(concertValue) {
 		price: toNumber(concertValue.price) || 0,
 		uid: $userObj.uid
 	}
+	setFeedBack(concertValue)
+
 	if (concertValue.id) {
 		updateEntry(`${$userObj.uid}/${concertValue.id}`, saveObj).finally(() => {
 			showFeedBack = true
@@ -45,6 +48,20 @@ function save(concertValue) {
 	}
 }
 
+function setFeedBack(data) {
+	const {rating, deleted} = data
+
+	if (deleted) {
+		feedbackText = 'Konserten er slettet'
+	} else if (!rating) {
+		feedbackText = 'Konserten er registrert'
+	} else if (rating < 3) {
+		feedbackText = 'Uffda. Neste konsert kommer til å bli fantastisk'
+	} else {
+		feedbackText = 'Takk for at du registrerte konserten'
+	}
+}
+
 function resetData() {
 	showFeedBack = false
 	concertObject = getEmptyConcertItem()
@@ -53,7 +70,7 @@ function resetData() {
 
 <main>
 	{#if showFeedBack}
-		<Feedback concertObject={concertObject} resetData={resetData} />
+		<Feedback resetData={resetData} feedbackText={feedbackText} />
 	{/if}
 	{#if !showFeedBack}
 		<ConcertForm concertObject={concertObject} onSave={save} onClose={close} />
