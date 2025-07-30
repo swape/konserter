@@ -15,6 +15,8 @@ export interface ConcertObjectType {
 	price: number
 	uid?: string
 	id?: string
+	deleted?: boolean
+	deletedDate?: Date | null
 }
 
 export interface ConcertObjectTypeFromFireBase {

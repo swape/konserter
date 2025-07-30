@@ -7,6 +7,10 @@ let {resetData = null, feedbackText = ''} = $props()
 function cancel() {
 	$currentPage = 'list'
 }
+
+function deletedListPage() {
+	$currentPage = 'deletedConcert'
+}
 </script>
 
 <div class="box">
@@ -15,6 +19,7 @@ function cancel() {
 	</h2>
 	<div class="flex gap-3 justify-between">
 		<button class="button" onclick={resetData}>Registrer ny konsert</button>
-		<button class="button gray" onclick={cancel}>Se på listen</button>
+		<button class="button green" onclick={cancel}>Alle konserter</button>
+		<button class="button gray" onclick={deletedListPage}>Slettede konserter</button>
 	</div>
 </div>

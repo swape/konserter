@@ -6,6 +6,7 @@ import AuthGate from './lib/AuthGate/AuthGate.svelte'
 import ListPage from './pages/list/index.svelte'
 import StatsPage from './pages/stats/index.svelte'
 import BandSearchPage from './pages/bandSearch/index.svelte'
+import DeletedPage from './pages/deletedConcert/index.svelte'
 
 let page = $state(null)
 
@@ -35,6 +36,8 @@ currentPage.subscribe((value) => {
 		<NewPage />
 	{:else if page === 'bandSearch'}
 		<BandSearchPage />
+	{:else if page === 'deletedConcert'}
+		<DeletedPage />
 	{:else}
 		404
 	{/if}

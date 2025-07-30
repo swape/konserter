@@ -42,9 +42,10 @@ function filterAndSort(data, artist) {
 		return
 	}
 
-	data = data.filter((item) => !item.deleted)
 	if (deleted) {
 		data = data.filter((item) => item.deleted)
+	} else {
+		data = data.filter((item) => !item.deleted)
 	}
 
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
@@ -72,7 +73,7 @@ function filterAndSort(data, artist) {
 <div class="p-3">
 	{#if futureConcerts.length > 0}
 		<h2 class="text-2xl text-center text-white">Kommende konserter</h2>
-		<div class="flex flex-col gap-4">
+		<div class="flex flex-col gap-4 mt-4">
 			{#each futureConcerts as futureConcert}
 				<ConcertBox concert={futureConcert} />
 			{/each}

@@ -58,8 +58,14 @@ function confirmDelete() {
 	if (localConcertObject.id) {
 		const confirmed = confirm('Er du sikker på at du vil slette denne konserten?')
 		if (confirmed) {
-			onSave({...localConcertObject, deleted: true})
+			onSave({...localConcertObject, deleted: true, deletedDate: new Date()})
 		}
+	}
+}
+
+function unDelete() {
+	if (localConcertObject.id) {
+		onSave({...localConcertObject, deleted: false, deletedDate: null})
 	}
 }
 </script>
@@ -91,6 +97,12 @@ function confirmDelete() {
 		</div>
 	</div>
 </div>
-{#if localConcertObject.id}
+{#if localConcertObject.id && !localConcertObject.deleted}
 	<div class="flex justify-center mt-4"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+{/if}
+{#if localConcertObject.deleted}
+	<div class="flex justify-center mt-4">
+		<p class="text-white">Konserten er slettet. Vil du gjenopprette den?</p>
+		<span><button class="button" onclick={unDelete}>Gjenopprett</button></span>
+	</div>
 {/if}
