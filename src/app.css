@@ -57,6 +57,10 @@ p {
 	@apply bg-gray-200 text-gray-900 hover:text-gray-800 hover:bg-gray-300;
 }
 
+.button.small {
+	@apply text-sm px-4 py-1;
+}
+
 .button.round {
 	border-radius: 50%;
 	width: 40px;
