@@ -63,7 +63,7 @@ function filterAndSort(data, artist) {
 	}
 
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
-	const sorted = data.toSorted()
+	const sorted = [...data.toSorted().reverse()]
 
 	futureConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) > now)
 	pastConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) <= now)
