@@ -1,5 +1,5 @@
 <script lang="js">
-import {concerts} from '../../../../myStore'
+import {concerts, currentPage, searchedBandName} from '../../../../myStore'
 import {getMostLikedArtists} from '../../../../helper'
 
 let bands = $state([])
@@ -7,6 +7,11 @@ let bands = $state([])
 concerts.subscribe((data) => {
 	bands = getMostLikedArtists(data)
 })
+
+function onClickBand(band) {
+	$searchedBandName = band[0]
+	$currentPage = 'bandSearch'
+}
 </script>
 
 {#if bands.length > 0}
@@ -18,7 +23,7 @@ concerts.subscribe((data) => {
 			</div>
 			{#each bands as band}
 				<div class="flex justify-between">
-					<span class="text-cyan-800 truncate capitalize dark:text-white">{band[0]}:</span>
+					<button onclick={() => onClickBand(band)} class="text-cyan-800 truncate capitalize dark:text-white underline p-1">{band[0]}:</button>
 					<span>{band[1]}</span>
 				</div>
 			{/each}
