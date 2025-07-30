@@ -1,7 +1,8 @@
 <script>
-import {concerts} from '../../../../myStore'
+import {concerts, userObj} from '../../../../myStore'
 import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
+import {deleteEntryPathList} from '../../../../fire.js'
 
 let {limit = undefined, artist = undefined, deleted = false} = $props()
 
@@ -44,6 +45,19 @@ function filterAndSort(data, artist) {
 
 	if (deleted) {
 		data = data.filter((item) => item.deleted)
+
+		// remove old deleted concerts from DB
+		if (data.length > 0) {
+			const deleteData = data.filter((item) => {
+				const date = new Date(item.deletedDate)
+				return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * 30 // older than 30 days
+			})
+			if (deleteData.length > 0) {
+				const deleteList = deleteData.map((item) => `${$userObj.uid}/${item.id}`)
+
+				deleteEntryPathList(deleteList)
+			}
+		}
 	} else {
 		data = data.filter((item) => !item.deleted)
 	}
