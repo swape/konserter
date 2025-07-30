@@ -57,6 +57,18 @@ export const updateEntry = (name, data) => {
 	return update(ref(database, name), data)
 }
 
+export const deleteEntry = (name) => {
+	return update(ref(database, name), null)
+}
+
+export const deleteEntryPathList = (pathList) => {
+	const updates = {}
+	pathList.forEach((pathName) => {
+		updates[pathName] = null
+	})
+	return update(ref(database), updates)
+}
+
 export const syncItems = (path, cb) => {
 	const results = query(ref(database, path))
 
