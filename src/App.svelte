@@ -5,6 +5,7 @@ import NewPage from './pages/new/index.svelte'
 import AuthGate from './lib/AuthGate/AuthGate.svelte'
 import ListPage from './pages/list/index.svelte'
 import StatsPage from './pages/stats/index.svelte'
+import BandSearchPage from './pages/bandSearch/index.svelte'
 
 let page = $state(null)
 
@@ -32,6 +33,8 @@ currentPage.subscribe((value) => {
 		<StatsPage />
 	{:else if page === 'new'}
 		<NewPage />
+	{:else if page === 'bandSearch'}
+		<BandSearchPage />
 	{:else}
 		404
 	{/if}
