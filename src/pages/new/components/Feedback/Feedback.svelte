@@ -17,9 +17,9 @@ function deletedListPage() {
 	<h2 class="header">
 		{feedbackText}
 	</h2>
-	<div class="flex gap-3 justify-between flex-wrap">
-		<button class="button small flex-1" onclick={resetData}>Registrer ny konsert</button>
-		<button class="button green small" onclick={cancel}>Alle konserter</button>
-		<button class="button gray small flex-1" onclick={deletedListPage}>Slettede konserter</button>
+	<div class="flex gap-1 flex-wrap">
+		<span><button class="button small" onclick={resetData}>Registrer ny konsert</button></span>
+		<span><button class="button green small" onclick={cancel}>Alle konserter</button></span>
+		<span><button class="button gray small" onclick={deletedListPage}>Slettede konserter</button></span>
 	</div>
 </div>

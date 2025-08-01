@@ -19,7 +19,8 @@ function getYear(concertDate) {
 	}
 	const lastYear = new Date(lastConcertDate).getFullYear()
 	const concertYear = new Date(concertDate).getFullYear()
-	const retVal = concertYear !== lastYear ? concertYear : ''
+	const retVal = concertYear !== lastYear ? concertYear : null
+
 	lastConcertDate = concertDate
 	return retVal
 }
@@ -63,7 +64,11 @@ function filterAndSort(data, artist) {
 	}
 
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
-	const sorted = [...data.toSorted().reverse()]
+	const sorted = [
+		...data.toSorted((a, b) => {
+			return cleanDateToNumber(b.date) - cleanDateToNumber(a.date)
+		})
+	]
 
 	futureConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) > now)
 	pastConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) <= now)
@@ -87,7 +92,7 @@ function filterAndSort(data, artist) {
 <div class="p-3">
 	{#if futureConcerts.length > 0}
 		<h2 class="text-2xl text-center text-white">Kommende konserter</h2>
-		<div class="flex flex-col gap-4 mt-4">
+		<div class="flex flex-col mt-4">
 			{#each futureConcerts as futureConcert}
 				<ConcertBox concert={futureConcert} />
 			{/each}
@@ -97,7 +102,9 @@ function filterAndSort(data, artist) {
 	<h2 class="text-2xl text-center py-5 text-white">Konserter</h2>
 	<div>
 		{#each pastConcerts as concert}
-			<div class="text-white mb-1">{getYear(concert?.date)}</div>
+			{#if getYear(concert?.date) !== null}
+				<div class="text-white mb-1">{concert.date.slice(0, 4)}</div>
+			{/if}
 			<ConcertBox concert={concert} />
 		{/each}
 	</div>

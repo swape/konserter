@@ -101,8 +101,8 @@ function unDelete() {
 	<div class="flex justify-center mt-4"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
 {/if}
 {#if localConcertObject.deleted}
-	<div class="flex justify-center mt-4">
-		<p class="text-white">Konserten er slettet. Vil du gjenopprette den?</p>
-		<span><button class="button" onclick={unDelete}>Gjenopprett</button></span>
+	<div class="mt-4 p-5 text-center content-center items-center flex flex-col">
+		<p class="text-white text-sm">Konserten er slettet. Vil du gjenopprette den?</p>
+		<span><button class="button small" onclick={unDelete}>Gjenopprett</button></span>
 	</div>
 {/if}
