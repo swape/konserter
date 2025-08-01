@@ -72,6 +72,7 @@ p {
 .input {
 	@apply border rounded-md border-gray-400 px-2 w-full dark:bg-gray-900 dark:text-white;
 	height: 40px;
+	max-width: 87svw;
 }
 
 .input:focus-visible {
