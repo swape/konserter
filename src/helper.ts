@@ -1,5 +1,12 @@
 import type {ConcertObjectType, ChartData} from './types'
 
+let counter = 0
+
+export function getUniqueId(name: string = 'id-'): string {
+	counter += 1
+	return `${name}${counter}`
+}
+
 export function sortByDate(a: ConcertObjectType, b: ConcertObjectType) {
 	const cleanedA = cleanDateToNumber(a.date)
 	const cleanedB = cleanDateToNumber(b.date)
