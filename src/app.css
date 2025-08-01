@@ -73,6 +73,8 @@ p {
 	@apply border rounded-md border-gray-400 px-2 w-full dark:bg-gray-900 dark:text-white;
 	height: 40px;
 	max-width: 92svw;
+	box-sizing: border-box;
+	display: block;
 }
 
 .input:focus-visible {
