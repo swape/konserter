@@ -19,3 +19,7 @@ export function signOut() {
 		isAuthenticated.set(false)
 	})
 }
+
+currentPage.subscribe(() => {
+	window.scrollTo(0, 0)
+})
