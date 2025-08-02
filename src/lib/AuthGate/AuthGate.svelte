@@ -1,6 +1,8 @@
 <script>
 import {isAuthenticated, signIn} from '../../myStore.ts'
 import Header from '../Header/Header.svelte'
+
+import InputWithLabel from '../InputWithLabel/index.svelte'
 </script>
 
 {#if $isAuthenticated}

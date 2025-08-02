@@ -69,18 +69,6 @@ p {
 	margin: 0 auto;
 }
 
-.input {
-	@apply border rounded-md border-gray-400 px-2 w-full dark:bg-gray-900 dark:text-white;
-	height: 40px;
-	max-width: 92svw;
-	box-sizing: border-box;
-	display: block;
-}
-
-.input:focus-visible {
-	@apply border-blue-600 outline-none;
-}
-
 .textarea {
 	@apply border rounded-md border-gray-400 p-2 w-full dark:bg-gray-900 dark:text-white;
 	min-height: 100px;
@@ -142,14 +130,6 @@ p {
 
 .box > .header {
 	@apply text-xl text-center p-6 bg-slate-900 text-white;
-}
-
-input[type='date'] {
-	display: flex;
-	appearance: textfield;
-	-webkit-appearance: textfield;
-	-moz-appearance: textfield;
-	min-height: 1.2em;
 }
 
 .stats {
