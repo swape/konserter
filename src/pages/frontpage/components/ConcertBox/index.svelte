@@ -1,38 +1,22 @@
 <script>
 import {currentConcertItem, currentPage} from '../../../../myStore'
 import {getArtistAndVenue} from '../../../../helper'
+import StarBox from '../../../../lib/StarBox/index.svelte'
 
 let {concert} = $props()
+
 function clicked() {
 	currentConcertItem.set(concert)
 	currentPage.set('new')
-}
-
-function getStarColor(rating) {
-	const ratingNumber = Number.parseInt(rating, 10)
-	const starColor = {
-		1: 'text-red-500',
-		2: 'text-orange-500',
-		3: 'text-yellow-500',
-		4: 'text-blue-500',
-		5: 'text-green-500'
-	}
-
-	return starColor[ratingNumber] || 'gray'
 }
 </script>
 
 <button onclick={() => clicked()} class="box mb-1">
 	<span class={['block p-2', concert?.deleted && 'opacity-50'].join(' ')}>
 		<span class="text-[1.1rem]">{getArtistAndVenue(concert)}</span>
-		<span class="flex justify-between text-sm text-gray-300 items-center mt-2">
+		<span class="flex justify-between text-sm text-gray-700 dark:text-white items-center mt-2">
 			{#if concert?.rating}
-				<div class="star-box">
-					<span class={['flex items-center', getStarColor(concert.rating)].join(' ')}>
-						<span class="material-icons">star</span>
-						<span>{concert.rating}</span>
-					</span>
-				</div>
+				<StarBox rating={concert.rating} />
 			{/if}
 
 			{#if concert?.festival}
@@ -43,18 +27,3 @@ function getStarColor(rating) {
 		</span>
 	</span>
 </button>
-
-<style>
-.star-box {
-	display: flex;
-	align-items: center;
-	border-radius: 50px;
-	background-color: #23233a;
-	padding: 2px 8px 2px 4px;
-	font-size: 16px;
-
-	.material-icons {
-		font-size: 16px;
-	}
-}
-</style>
