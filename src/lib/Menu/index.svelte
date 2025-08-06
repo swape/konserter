@@ -80,7 +80,7 @@ function initials(name) {
 	@apply fixed inset-0;
 }
 .menu {
-	@apply fixed right-0 z-50 top-0 bottom-0 bg-black flex flex-col;
+	@apply fixed right-0 z-50 top-0 bottom-0 bg-black flex flex-col overflow-auto;
 	min-width: 250px;
 }
 
@@ -93,6 +93,6 @@ li.active {
 }
 
 .menu-list button {
-	@apply text-cyan-50 w-full p-5 flex gap-2 text-xl;
+	@apply text-cyan-50 w-full p-3 flex gap-2 text-xl;
 }
 </style>
