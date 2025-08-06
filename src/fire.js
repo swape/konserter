@@ -1,31 +1,41 @@
 import {initializeApp} from 'firebase/app'
-import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut} from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, signInWithPopup} from 'firebase/auth'
 import {child, getDatabase, onValue, push, query, ref, update} from 'firebase/database'
 
-import {firebaseConfig} from './config.js'
+import {firebaseConfig, isDev} from './config.js'
 import {isAuthenticated, userObj, concerts} from './myStore.ts'
 
 const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-
 const database = getDatabase(app)
 const provider = new GoogleAuthProvider()
+export const auth = getAuth(app)
 
-onAuthStateChanged(auth, (dUser) => {
-	if (dUser?.uid) {
-		userObj.set(saveUser(dUser))
-		isAuthenticated.set(true)
-		syncItems(dUser?.uid, (concertObj) => {
-			if (concertObj) {
-				concerts.set([...Object.values(concertObj)])
-			}
-		})
+export function initTheAuth() {
+	onAuthStateChanged(auth, (dUser) => {
+		if (dUser?.uid) {
+			userObj.set(saveUser(dUser))
+			isAuthenticated.set(true)
+			syncItems(dUser?.uid, (concertObj) => {
+				if (concertObj) {
+					concerts.set([...Object.values(concertObj)])
+				}
+			})
+		}
+	})
+}
+
+export function fireSignOut() {
+	signOut(auth)
+}
+
+export async function fireSignIn() {
+	if (isDev) {
+		const userCred = await signInWithPopup(auth, provider)
+		console.log('userCred', userCred)
+	} else {
+		signInWithRedirect(auth, provider)
 	}
-})
-
-export const fireSignOut = () => signOut(auth)
-
-export const fireSignIn = () => signInWithRedirect(auth, provider)
+}
 
 export const saveUser = (dUser) => {
 	if (dUser) {
