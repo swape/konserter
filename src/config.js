@@ -8,3 +8,5 @@ export const firebaseConfig = {
 	appId: import.meta.env.VITE_appId,
 	measurementId: import.meta.env.VITE_measurementId
 }
+
+export const isDev = import.meta.env.VITE_IS_DEV === '1'
