@@ -15,9 +15,8 @@ export async function signIn() {
 }
 
 export function signOut() {
-	fireSignOut().finally(() => {
-		isAuthenticated.set(false)
-	})
+	fireSignOut()
+	isAuthenticated.set(false)
 }
 
 currentPage.subscribe(() => {
