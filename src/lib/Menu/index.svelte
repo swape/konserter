@@ -93,6 +93,6 @@ li.active {
 }
 
 .menu-list button {
-	@apply text-cyan-50 w-full p-3 flex gap-2 text-xl;
+	@apply text-cyan-50 w-full p-3 flex gap-2 text-xl cursor-pointer;
 }
 </style>

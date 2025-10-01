@@ -27,10 +27,14 @@ function navigateTo(value) {
 
 <style>
 @reference '../../app.css';
+button {
+	@apply cursor-pointer;
+}
 
 header {
 	@apply bg-slate-900 fixed top-0 left-0 right-0 z-10 text-white;
 }
+
 header > div {
 	@apply flex justify-between container mx-auto;
 }
@@ -44,6 +48,7 @@ header > div {
 	height: 32px;
 	transition: all 0.3s;
 }
+
 .logo:hover {
 	transform: scale(1.2);
 }
