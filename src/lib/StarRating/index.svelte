@@ -1,6 +1,6 @@
 <script>
 let {value = 0, title = '', stars = 5, onchange = () => {}} = $props()
-let starsList = Array(stars)
+let starsList = $derived(Array(stars))
 
 function setStar(index) {
 	value = index + 1

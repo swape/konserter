@@ -9,7 +9,7 @@ let {concertObject, onSave, onClose} = $props()
 
 let festivals = $state([])
 let venues = $state([])
-let localConcertObject = $state({...concertObject})
+let localConcertObject = $derived({...concertObject})
 
 concerts.subscribe((data) => {
 	const countedFestival = data
