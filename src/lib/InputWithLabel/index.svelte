@@ -2,7 +2,7 @@
 import {getUniqueId} from '../../helper.ts'
 
 let {value = null, title = '', type = 'text', postfix = null, onchange = () => {}, onkeyup = () => {}} = $props()
-let id = getUniqueId(type)
+let id = $derived(getUniqueId(type))
 </script>
 
 <label for={id}>
@@ -24,7 +24,7 @@ let id = getUniqueId(type)
 @reference "../../app.css";
 
 .input {
-	@apply box-border appearance-none border rounded-md border-gray-600 px-2 py-2 w-full dark:bg-gray-900 dark:text-white bg-white;
+	@apply box-border appearance-none border rounded-md border-gray-600 p-2 w-full dark:bg-gray-900 dark:text-white bg-white;
 	max-width: 92svw;
 	min-width: 200px;
 }

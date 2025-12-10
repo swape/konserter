@@ -42,7 +42,10 @@ p {
 }
 
 .button {
-	@apply bg-blue-500 text-base px-6 py-2 flex justify-center rounded-md text-white hover:bg-blue-800 cursor-pointer;
+	@apply bg-blue-500 text-base px-6 py-2 flex justify-center  text-white hover:bg-blue-800 cursor-pointer;
+	corner-shape: squircle;
+	border-radius: 9px;
+	transition: all 0.2s ease-in-out;
 }
 
 .button.green {
@@ -69,17 +72,8 @@ p {
 	margin: 0 auto;
 }
 
-.textarea {
-	@apply border rounded-md border-gray-400 p-2 w-full dark:bg-gray-900 dark:text-white;
-	min-height: 100px;
-}
-
-.textarea:focus-visible {
-	@apply border-blue-600 outline-none;
-}
-
 .combo {
-	@apply flex;
+	@apply flex items-center;
 }
 
 .combo .input {
@@ -112,16 +106,18 @@ p {
 
 .combo > span:first-child {
 	@apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center dark:bg-gray-900 dark:text-white;
-	height: 40px;
 }
 
 .combo > span:last-child {
-	@apply bg-gray-200 rounded-r-md grid content-center px-2 border-gray-400 border border-l-0 justify-center dark:bg-gray-900 dark:text-white;
-	height: 40px;
+	@apply bg-gray-200 rounded-r-md grid content-center p-2 border-gray-400 border border-l-0 justify-center dark:bg-gray-900 dark:text-white;
 }
 
 .box {
-	@apply rounded-xl bg-white text-xl w-full flex-1 self-center dark:bg-gray-900 dark:text-white;
+	@apply bg-white text-xl w-full flex-1 self-center dark:bg-gray-900 dark:text-white;
+	corner-shape: squircle;
+	border-radius: 30px;
+	border: 1px solid #7113784d;
+	overflow: hidden;
 }
 
 .box > div {
@@ -148,7 +144,7 @@ p {
 	width: 8px;
 	background-color: hotpink;
 	margin: 0 1px;
-	border-radius: 4px 4px 0 0;
+	border-radius: 3px 3px 0 0;
 	box-shadow: 1px -1px 1px rgba(0, 0, 0, 1);
 }
 .bars {
