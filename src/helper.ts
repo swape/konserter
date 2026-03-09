@@ -70,7 +70,8 @@ export function getEmptyConcertItem(): ConcertObjectType {
 		rating: 3,
 		festival: '',
 		venue: '',
-		price: 0
+		price: 0,
+		mbid: null
 	}
 }
 

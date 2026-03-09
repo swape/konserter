@@ -17,6 +17,7 @@ export interface ConcertObjectType {
 	id?: string
 	deleted?: boolean
 	deletedDate?: Date | null
+	mbid?: string | null
 }
 
 export interface ConcertObjectTypeFromFireBase {

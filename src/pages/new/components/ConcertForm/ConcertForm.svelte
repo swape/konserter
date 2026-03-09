@@ -2,8 +2,10 @@
 import InputWithLabel from '../../../../lib/InputWithLabel/index.svelte'
 import TextareaWithLabel from '../../../../lib/TextareaWithLabel/index.svelte'
 import StarRating from '../../../../lib/StarRating/index.svelte'
+import BandInfoBox from '../../../../lib/BandInfoBox/index.svelte'
 import {isDataOk} from '../../../../helper'
 import {concerts} from '../../../../myStore'
+import {searchArtistFromFirebase} from '../../../../musicBrainz.js'
 
 let {concertObject, onSave, onClose} = $props()
 
@@ -52,6 +54,14 @@ function getHeader() {
 
 function updateValue(key, value) {
 	localConcertObject = {...localConcertObject, [key]: value}
+
+	if (key === 'venue' && localConcertObject.artist && !localConcertObject.mbid) {
+		searchArtistFromFirebase(localConcertObject.artist, (data) => {
+			if (data?.mbid) {
+				localConcertObject = {...localConcertObject, mbid: data.mbid}
+			}
+		})
+	}
 }
 
 function confirmDelete() {
@@ -91,12 +101,17 @@ function unDelete() {
 		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating) => updateValue('rating', rating)} />
 		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note) => updateValue('note', note)} />
 
+		{#if localConcertObject.mbid}
+			<BandInfoBox mbid={localConcertObject.mbid} />
+		{/if}
+
 		<div class="flex gap-3 justify-between">
 			<button class="button {!isDataOk(localConcertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
 			<button class="button gray" onclick={() => onClose()}>Avbryt</button>
 		</div>
 	</div>
 </div>
+
 {#if localConcertObject.id && !localConcertObject.deleted}
 	<div class="flex justify-center mt-4"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
 {/if}
