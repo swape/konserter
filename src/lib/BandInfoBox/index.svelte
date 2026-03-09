@@ -12,7 +12,7 @@ searchArtistFromFirebaseByMBID(mbid, (data) => {
 
 <div>
 	{#if bandInfo?.data?.country}
-		<div>Country: {bandInfo?.data?.country}</div>{/if}
+		<div>Opprinnelsesland: {bandInfo?.data?.country}</div>{/if}
 	{#if bandInfo?.data?.genre}
-		<div>Genre: {bandInfo?.data?.genre}</div>{/if}
+		<div>Sjanger: {bandInfo?.data?.genre}</div>{/if}
 </div>
