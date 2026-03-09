@@ -1,9 +1,9 @@
-import {initializeApp} from 'firebase/app'
-import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, signInWithPopup} from 'firebase/auth'
-import {child, getDatabase, onValue, push, query, ref, update} from 'firebase/database'
+import { initializeApp } from 'firebase/app'
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, signInWithPopup } from 'firebase/auth'
+import { child, getDatabase, onValue, orderByChild, push, query, ref, update, equalTo, limitToFirst } from 'firebase/database'
 
-import {firebaseConfig, isDev} from './config.js'
-import {isAuthenticated, userObj, concerts} from './myStore.ts'
+import { firebaseConfig, isDev } from './config.js'
+import { isAuthenticated, userObj, concerts } from './myStore.ts'
 
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
@@ -81,6 +81,14 @@ export const deleteEntryPathList = (pathList) => {
 
 export const syncItems = (path, cb) => {
 	const results = query(ref(database, path))
+
+	onValue(results, (data) => {
+		cb(data.val())
+	})
+}
+
+export const searchItems = (path, searchKey, searchVal, cb, limit = 1) => {
+	const results = query(ref(database, path), orderByChild(searchKey), equalTo(searchVal), limitToFirst(limit))
 
 	onValue(results, (data) => {
 		cb(data.val())
