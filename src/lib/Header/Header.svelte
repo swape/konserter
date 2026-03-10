@@ -14,18 +14,15 @@ function navigateTo(value) {
 
 <header>
 	<Menu />
-	<div class="grid grid-cols-3 items-center">
-		<div class="corner">
-			<h1>
-				<button onclick={() => navigateTo('start')} class="flex items-center gap-2"
-					><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /><span class="text-2xl hidden sm:inline">Konserter</span></button
-				>
-			</h1>
-		</div>
+	<div class="flex items-center p-4">
+		<h1>
+			<button onclick={() => navigateTo('start')} class="flex items-center gap-2 min-w-[30px] h-[30px]"><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /></button>
+		</h1>
+
 		<div>
-			<button onclick={() => navigateTo('new')}><span class="material-icons text-3xl text-blue-100"> add_circle </span></button>
+			<button onclick={() => navigateTo('new')}><span class="material-icons text-blue-100"> add_circle </span></button>
 		</div>
-		<div class="corner"><button onclick={openMenu}><span class="material-icons text-3xl"> menu </span></button></div>
+		<div><button onclick={openMenu}><span class="material-icons text-3xl"> menu </span></button></div>
 	</div>
 </header>
 
@@ -43,14 +40,11 @@ header > div {
 	@apply flex justify-between container mx-auto;
 }
 
-.corner {
-	@apply p-4;
-}
-
 .logo {
-	width: 32px;
-	height: 32px;
+	width: 42px;
+	height: 42px;
 	transition: all 0.3s;
+	position: absolute;
 }
 
 .logo:hover {

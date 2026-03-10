@@ -80,19 +80,19 @@ function unDelete() {
 }
 </script>
 
-<div class="box">
-	<h2 class="header">{getHeader()}</h2>
+<div class="p-3 text-white">
+	<h2 class="text-2xl pb-8">{getHeader()}</h2>
 	<div class="grid grid-cols-1 gap-4">
 		<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist) => updateValue('artist', artist)} />
 
 		<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival) => updateValue('festival', festival)} />
 		<div class="flex gap-1">
-			{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-xs text-blue-600 border rounded-md p-1">{f.name}</button>{/each}
+			{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-sm text-slate-400 border rounded-md p-1">{f.name}</button>{/each}
 		</div>
 
 		<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue) => updateValue('venue', venue)} />
 		<div class="flex gap-1">
-			{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-xs text-blue-600 border rounded-md p-1">{v.name}</button>{/each}
+			{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-sm text-slate-400 border rounded-md p-1">{v.name}</button>{/each}
 		</div>
 
 		<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price) => updateValue('price', price)} />
@@ -113,7 +113,7 @@ function unDelete() {
 </div>
 
 {#if localConcertObject.id && !localConcertObject.deleted}
-	<div class="flex justify-center mt-4"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+	<div class="flex justify-center mt-8 pt-8 border-t border-gray-800"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
 {/if}
 {#if localConcertObject.deleted}
 	<div class="mt-4 p-5 text-center content-center items-center flex flex-col">

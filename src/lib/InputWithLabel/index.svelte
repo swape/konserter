@@ -6,7 +6,7 @@ let id = $derived(getUniqueId(type))
 </script>
 
 <label for={id}>
-	<div class="pb-2 text-black dark:text-white">{title}</div>
+	<div class="pb-2">{title}</div>
 	{#if !postfix}
 		<div>
 			<input id={id} value={value} class="input" {...{type}} onchange={({target}) => onchange(target.value)} onkeyup={({target}) => onkeyup(target.value)} />
@@ -24,7 +24,7 @@ let id = $derived(getUniqueId(type))
 @reference "../../app.css";
 
 .input {
-	@apply box-border appearance-none border rounded-md border-gray-600 p-2 w-full dark:bg-gray-900 dark:text-white bg-white;
+	@apply box-border appearance-none border rounded-md border-gray-600 p-2 w-full  text-white;
 	max-width: 92svw;
 	min-width: 200px;
 }

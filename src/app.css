@@ -8,7 +8,7 @@ main {
 
 body {
 	background-blend-mode: screen;
-	background: linear-gradient(180deg, #3a0d75 0%, #071632 100%) fixed;
+	background-color: black;
 }
 
 footer > p {
@@ -42,9 +42,8 @@ p {
 }
 
 .button {
-	@apply bg-blue-500 text-base px-6 py-2 flex justify-center  text-white hover:bg-blue-800 cursor-pointer;
-	corner-shape: squircle;
-	border-radius: 9px;
+	@apply bg-blue-500 text-base px-6 py-2 flex justify-center text-white hover:bg-blue-800 cursor-pointer;
+	border-radius: 8px;
 	transition: all 0.2s ease-in-out;
 }
 
@@ -104,19 +103,19 @@ p {
 	@apply rounded-l-md;
 }
 
-.combo > span:first-child {
-	@apply bg-gray-200 rounded-l-md grid content-center px-2 border-gray-400 border border-r-0 justify-center dark:bg-gray-900 dark:text-white;
+.combo > input.input {
+	@apply rounded-l-md grid content-center px-2 border-gray-400 border justify-center;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .combo > span:last-child {
-	@apply bg-gray-200 rounded-r-md grid content-center p-2 border-gray-400 border border-l-0 justify-center dark:bg-gray-900 dark:text-white;
+	@apply rounded-r-md grid content-center p-2 border-gray-400 border border-l-0 justify-center;
 }
 
 .box {
-	@apply bg-white text-xl w-full flex-1 self-center dark:bg-gray-900 dark:text-white;
-	corner-shape: squircle;
-	border-radius: 30px;
-	border: 1px solid #7113784d;
+	@apply text-xl w-full flex-1 self-center bg-gray-800 text-white;
+	border-radius: 8px;
 	overflow: hidden;
 }
 
@@ -129,7 +128,7 @@ p {
 }
 
 .stats {
-	@apply p-4 bg-white text-center text-cyan-600 rounded-md w-full dark:bg-gray-900 dark:text-white;
+	@apply p-4 text-center rounded-md w-full bg-slate-900 text-white;
 }
 
 .stats-wrapper {
@@ -137,16 +136,17 @@ p {
 }
 
 .stats-number {
-	@apply flex justify-center text-4xl text-cyan-900 pt-4 dark:text-white;
+	@apply flex justify-center text-4xl pt-4;
 }
 
 .bar {
 	width: 8px;
-	background-color: hotpink;
+	background-color: rgb(255, 132, 17);
 	margin: 0 1px;
 	border-radius: 3px 3px 0 0;
 	box-shadow: 1px -1px 1px rgba(0, 0, 0, 1);
 }
+
 .bars {
 	display: flex;
 	flex-direction: row;
