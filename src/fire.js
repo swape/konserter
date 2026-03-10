@@ -1,9 +1,9 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, signInWithPopup } from 'firebase/auth'
-import { child, getDatabase, onValue, orderByChild, push, query, ref, update, equalTo, limitToFirst } from 'firebase/database'
+import {initializeApp} from 'firebase/app'
+import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut, signInWithPopup} from 'firebase/auth'
+import {child, getDatabase, onValue, orderByChild, push, query, ref, update, equalTo, limitToFirst} from 'firebase/database'
 
-import { firebaseConfig, isDev } from './config.js'
-import { isAuthenticated, userObj, concerts } from './myStore.ts'
+import {firebaseConfig, isDev} from './config.js'
+import {isAuthenticated, userObj, concerts} from './myStore.ts'
 
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
