@@ -18,7 +18,8 @@ function navigateTo(value) {
 		<div class="corner">
 			<h1>
 				<button onclick={() => navigateTo('start')} class="flex items-center gap-2"
-					><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /><span class="text-2xl hidden sm:inline">Konserter</span></button>
+					><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /><span class="text-2xl hidden sm:inline">Konserter</span></button
+				>
 			</h1>
 		</div>
 		<div>
