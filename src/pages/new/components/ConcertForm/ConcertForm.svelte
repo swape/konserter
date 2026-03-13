@@ -11,7 +11,7 @@ let {concertObject, onSave, onClose} = $props()
 
 let festivals = $state([])
 let venues = $state([])
-let localConcertObject = $derived({...concertObject})
+let localConcertObject = $state({...concertObject})
 
 concerts.subscribe((data) => {
 	const countedFestival = data
@@ -58,9 +58,17 @@ function updateValue(key, value) {
 	if (key === 'venue' && localConcertObject.artist && !localConcertObject.mbid) {
 		searchArtistFromFirebase(localConcertObject.artist, (data) => {
 			if (data?.mbid) {
-				localConcertObject = {...localConcertObject, mbid: data.mbid}
+				updateBandInfo(data)
 			}
 		})
+	}
+}
+
+function updateBandInfo(info) {
+	if (!info) {
+		localConcertObject = {...localConcertObject, mbid: null}
+	} else {
+		localConcertObject = {...localConcertObject, mbid: info.mbid}
 	}
 }
 
@@ -101,8 +109,8 @@ function unDelete() {
 		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating) => updateValue('rating', rating)} />
 		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note) => updateValue('note', note)} />
 
-		{#if localConcertObject.mbid}
-			<BandInfoBox mbid={localConcertObject.mbid} />
+		{#if localConcertObject.artist}
+			<BandInfoBox bind:mbid={localConcertObject.mbid} bind:artistName={localConcertObject.artist} updateBandInfo={updateBandInfo} />
 		{/if}
 
 		<div class="flex gap-3 justify-between">
