@@ -17,16 +17,8 @@ export function searchArtistFromFirebase(artistName, cb) {
 			searchArtistFromMusicBrainz(artistName)
 				.then((mbData) => {
 					// store this to firebase and return the data
-					if (mbData) {
-						const newObj = {
-							artist: mbData.name,
-							fetchedDate: new Date().toISOString(),
-							mbid: mbData.id,
-							data: {
-								country: mbData.country,
-								genre: mbData.tags ? mbData.tags.map((tag) => tag.name).join(', ') : ''
-							}
-						}
+					if (mbData?.id) {
+						const newObj = convertToBandInfo(mbData)
 						addArtistInfoToFirebase(mbData.id, newObj)
 						cb(newObj)
 					} else {
@@ -40,15 +32,39 @@ export function searchArtistFromFirebase(artistName, cb) {
 	})
 }
 
-export async function searchArtistFromMusicBrainz(artistName) {
+export function convertToBandInfo(data) {
+	return {
+		artist: data.name,
+		fetchedDate: new Date().toISOString(),
+		mbid: data.id,
+		data: {
+			type: data.type,
+			disambiguation: data.disambiguation || '',
+			formed: data['life-span']?.begin || '',
+			country: data.country || '',
+			genre: data.tags
+				? data.tags
+						.filter((tag) => tag.count > 2)
+						.map((tag) => tag.name)
+						.join(', ')
+				: ''
+		}
+	}
+}
+
+export async function searchArtistFromMusicBrainz(artistName, all = false) {
 	try {
 		const query = `artist:${artistName}`
 		const result = await mbApi.search('artist', {query})
 
+		if (all) {
+			return result?.artists || []
+		}
+
 		if (result?.artists?.length === 1) {
 			return result.artists[0]
 		} else {
-			return null
+			return result.artists
 		}
 	} catch (error) {
 		console.error('Error searching artist from MusicBrainz:', error)
@@ -62,10 +78,6 @@ export async function addArtistInfoToFirebase(mbid, data) {
 
 export function searchArtistFromFirebaseByMBID(mbid, cb) {
 	syncItems(`musicBrainz/${mbid}`, (data) => {
-		if (data) {
-			cb(data)
-		} else {
-			cb(null)
-		}
+		cb(data ?? null)
 	})
 }
