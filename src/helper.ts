@@ -42,7 +42,7 @@ export function cleanDateToNumber(value: string): number {
 	if (!value) {
 		return 0
 	}
-	return Number.parseInt(value.replace(/-/g, ''), 10)
+	return Number.parseInt(value.replaceAll('-', ''), 10)
 }
 
 export function isDataOk(item: ConcertObjectType | undefined): boolean {
@@ -53,7 +53,7 @@ export function isDataOk(item: ConcertObjectType | undefined): boolean {
 }
 
 export function toNumber(value: string | number): number {
-	return Number.parseInt(`${value}`.replace(/\D/g, ''), 10)
+	return Number.parseInt(`${value}`.replaceAll(/\D/g, ''), 10)
 }
 
 export function getFormattedDate(nowDate = new Date(), addMonth = 0): string {
