@@ -51,7 +51,7 @@ function filterAndSort(data: ConcertObjectType[], artist: string | undefined) {
 		// remove old deleted concerts from DB
 		if (data.length > 0) {
 			const deleteData = data.filter((item) => {
-				const date = new Date(item.deletedDate)
+				const date = new Date(item.deletedDate || '')
 				return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * 30 // older than 30 days
 			})
 			if (deleteData.length > 0) {
