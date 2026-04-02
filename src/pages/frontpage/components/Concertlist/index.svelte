@@ -2,7 +2,7 @@
 import {concerts, userObj} from '../../../../myStore'
 import {cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
-import {deleteEntryPathList} from '../../../../fire.js'
+import {deleteEntryPathList} from '../../../../fire'
 import type {ConcertObjectType} from '../../../../types'
 
 let {limit = undefined, artist = undefined, deleted = false} = $props()

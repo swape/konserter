@@ -1,6 +1,6 @@
 <script lang="ts">
 import {userObj, currentPage, currentConcertItem} from '../../myStore'
-import {addEntry, updateEntry} from '../../fire.js'
+import {addEntry, updateEntry} from '../../fire'
 import {getEmptyConcertItem, isDataOk, toNumber} from '../../helper'
 import Feedback from './components/Feedback/Feedback.svelte'
 import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
@@ -43,7 +43,7 @@ function save(concertValue: ConcertObjectType) {
 			$currentConcertItem = null
 		})
 	} else {
-		addEntry($userObj.uid, saveObj).finally(() => {
+		addEntry(String($userObj.uid), saveObj).finally(() => {
 			showFeedBack = true
 		})
 	}

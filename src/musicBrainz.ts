@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import {searchItems, syncItems, updateEntry} from './fire.js'
+import {searchItems, syncItems, updateEntry} from './fire'
 import {MusicBrainzApi} from 'musicbrainz-api'
 import type {IArtist, IArtistMatch} from 'musicbrainz-api'
 import type {BandInfo} from './types'

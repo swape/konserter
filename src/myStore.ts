@@ -1,5 +1,5 @@
 import {writable} from 'svelte/store'
-import {fireSignIn, fireSignOut} from './fire.js'
+import {fireSignIn, fireSignOut} from './fire'
 import type {UserObjType ,ConcertObjectType} from './types'
 
 export const showMenu = writable(false)

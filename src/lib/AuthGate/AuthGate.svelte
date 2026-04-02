@@ -1,7 +1,7 @@
 <script>
 import {isAuthenticated, signIn} from '../../myStore.ts'
 import Header from '../Header/Header.svelte'
-import {initTheAuth} from '../../fire.js'
+import {initTheAuth} from '../../fire'
 import InputWithLabel from '../InputWithLabel/index.svelte'
 
 initTheAuth()
