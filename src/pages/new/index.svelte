@@ -1,16 +1,17 @@
-<script>
+<script lang="ts">
 import {userObj, currentPage, currentConcertItem} from '../../myStore'
 import {addEntry, updateEntry} from '../../fire.js'
 import {getEmptyConcertItem, isDataOk, toNumber} from '../../helper'
 import Feedback from './components/Feedback/Feedback.svelte'
 import ConcertForm from './components/ConcertForm/ConcertForm.svelte'
+import type {ConcertObjectType} from '../../types'
 
-let concertObject = $state()
+let concertObject = $state<ConcertObjectType>()
 let showFeedBack = $state(false)
 let feedbackText = $state('')
 
 // show the current data
-currentConcertItem.subscribe((data) => {
+currentConcertItem.subscribe((data: ConcertObjectType | null) => {
 	if (data?.id) {
 		concertObject = data
 	} else {
@@ -23,7 +24,7 @@ function close() {
 	$currentConcertItem = null
 }
 
-function save(concertValue) {
+function save(concertValue: ConcertObjectType) {
 	if (!isDataOk(concertValue)) {
 		return false
 	}
@@ -48,7 +49,7 @@ function save(concertValue) {
 	}
 }
 
-function setFeedBack(data) {
+function setFeedBack(data: ConcertObjectType) {
 	const {rating, deleted} = data
 
 	if (deleted) {

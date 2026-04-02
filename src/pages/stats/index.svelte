@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import BestVenues from './components/BestVenues/index.svelte'
 import TotalCost from './components/TotalCost/index.svelte'
 import Select from '../../lib/Select/index.svelte'
@@ -10,8 +10,9 @@ const years = [...Array(5)].map((_, i) => `${nowYear - i}`)
 const options = years.map((year) => ({value: year, title: year}))
 let selected = $state(`${nowYear}`)
 
-function handleSelectChange(e) {
-	selected = e.target.value
+function handleSelectChange(e: Event) {
+	const target = e.target as HTMLSelectElement
+	selected = target.value
 }
 </script>
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import TotalConcerts from './components/TotalConcerts/index.svelte'
 import ConcertList from './components/Concertlist/index.svelte'
 import {currentPage} from '../../myStore'

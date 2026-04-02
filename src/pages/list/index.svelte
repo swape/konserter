@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import ConcertList from '../frontpage/components/Concertlist/index.svelte'
 </script>
 

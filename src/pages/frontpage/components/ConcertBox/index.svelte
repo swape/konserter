@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 import {currentConcertItem, currentPage} from '../../../../myStore'
 import {getArtistAndVenue} from '../../../../helper'
 import StarBox from '../../../../lib/StarBox/index.svelte'
+import type {ConcertObjectType} from '../../../../types'
 
-let {concert} = $props()
+let {concert}: {concert: ConcertObjectType} = $props()
 
 function clicked() {
 	currentConcertItem.set(concert)

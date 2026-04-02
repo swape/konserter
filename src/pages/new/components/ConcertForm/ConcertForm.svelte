@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import InputWithLabel from '../../../../lib/InputWithLabel/index.svelte'
 import TextareaWithLabel from '../../../../lib/TextareaWithLabel/index.svelte'
 import StarRating from '../../../../lib/StarRating/index.svelte'
@@ -6,17 +6,19 @@ import BandInfoBox from '../../../../lib/BandInfoBox/index.svelte'
 import {isDataOk} from '../../../../helper'
 import {concerts} from '../../../../myStore'
 import {searchArtistFromFirebase} from '../../../../musicBrainz.js'
+import type {ConcertObjectType} from '../../../../types'
+import {untrack} from 'svelte'
 
 let {concertObject, onSave, onClose} = $props()
 
-let festivals = $state([])
-let venues = $state([])
-let localConcertObject = $state({...concertObject})
+let festivals = $state<{name: string; count: number}[]>([])
+let venues = $state<{name: string; count: number}[]>([])
+let localConcertObject = $state<ConcertObjectType>(untrack(() => ({...concertObject})))
 
-concerts.subscribe((data) => {
+concerts.subscribe((data: ConcertObjectType[]) => {
 	const countedFestival = data
 		.map((item) => item.festival)
-		.reduce((acc, curr) => {
+		.reduce((acc: Record<string, number>, curr) => {
 			acc[curr] = (acc[curr] || 0) + 1
 			return acc
 		}, {})
@@ -28,7 +30,7 @@ concerts.subscribe((data) => {
 		.filter((_, index) => index < 5)
 	const countedVenue = data
 		.map((item) => item.venue)
-		.reduce((acc, curr) => {
+		.reduce((acc: Record<string, number>, curr) => {
 			acc[curr] = (acc[curr] || 0) + 1
 			return acc
 		}, {})
@@ -52,11 +54,11 @@ function getHeader() {
 	return 'Registrer'
 }
 
-function updateValue(key, value) {
+function updateValue(key: keyof ConcertObjectType, value: any) {
 	localConcertObject = {...localConcertObject, [key]: value}
 
 	if (key === 'venue' && localConcertObject.artist && !localConcertObject.mbid) {
-		searchArtistFromFirebase(localConcertObject.artist, (data) => {
+		searchArtistFromFirebase(localConcertObject.artist, (data: {mbid?: string} | null) => {
 			if (data?.mbid) {
 				updateBandInfo(data)
 			}
@@ -64,7 +66,7 @@ function updateValue(key, value) {
 	}
 }
 
-function updateBandInfo(info) {
+function updateBandInfo(info: {mbid?: string} | null) {
 	if (!info) {
 		localConcertObject = {...localConcertObject, mbid: null}
 	} else {
@@ -91,23 +93,23 @@ function unDelete() {
 <div class="p-3 text-white">
 	<h2 class="text-2xl pb-8">{getHeader()}</h2>
 	<div class="grid grid-cols-1 gap-4">
-		<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist) => updateValue('artist', artist)} />
+		<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist: string) => updateValue('artist', artist)} />
 
-		<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival) => updateValue('festival', festival)} />
+		<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival: string) => updateValue('festival', festival)} />
 		<div class="flex gap-1">
 			{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-sm text-slate-400 border rounded-md p-1">{f.name}</button>{/each}
 		</div>
 
-		<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue) => updateValue('venue', venue)} />
+		<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue: string) => updateValue('venue', venue)} />
 		<div class="flex gap-1">
 			{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-sm text-slate-400 border rounded-md p-1">{v.name}</button>{/each}
 		</div>
 
-		<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price) => updateValue('price', price)} />
+		<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price: string) => updateValue('price', price)} />
 
-		<InputWithLabel value={localConcertObject.date} title="Dato" type="date" onchange={(date) => updateValue('date', date)} />
-		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating) => updateValue('rating', rating)} />
-		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note) => updateValue('note', note)} />
+		<InputWithLabel value={localConcertObject.date} title="Dato" type="date" onchange={(date: string) => updateValue('date', date)} />
+		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating: number) => updateValue('rating', rating)} />
+		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note: string) => updateValue('note', note)} />
 
 		{#if localConcertObject.artist}
 			<BandInfoBox bind:mbid={localConcertObject.mbid} bind:artistName={localConcertObject.artist} updateBandInfo={updateBandInfo} />

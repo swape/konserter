@@ -1,5 +1,4 @@
-<script>
-import {getEmptyConcertItem} from '../../../../helper'
+<script lang="ts">
 import {currentPage} from '../../../../myStore'
 
 let {resetData = null, feedbackText = ''} = $props()

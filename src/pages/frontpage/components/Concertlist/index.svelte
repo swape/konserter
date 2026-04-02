@@ -1,19 +1,20 @@
-<script>
+<script lang="ts">
 import {concerts, userObj} from '../../../../myStore'
-import {sortByDate, cleanDateToNumber, getFormattedDate} from '../../../../helper'
+import {cleanDateToNumber, getFormattedDate} from '../../../../helper'
 import ConcertBox from '../ConcertBox/index.svelte'
 import {deleteEntryPathList} from '../../../../fire.js'
+import type {ConcertObjectType} from '../../../../types'
 
 let {limit = undefined, artist = undefined, deleted = false} = $props()
 
-let futureConcerts = $state([])
-let pastConcerts = $state([])
+let futureConcerts = $state<ConcertObjectType[]>([])
+let pastConcerts = $state<ConcertObjectType[]>([])
 let newDate = $state(new Date())
 let lastConcertDate = ''
-let localAllData = $state([])
+let localAllData = $state<ConcertObjectType[]>([])
 let localArtist = $state('')
 
-function getYear(concertDate) {
+function getYear(concertDate: string) {
 	if (!concertDate) {
 		return ''
 	}
@@ -37,7 +38,7 @@ concerts.subscribe((data) => {
 	filterAndSort(data, artist)
 })
 
-function filterAndSort(data, artist) {
+function filterAndSort(data: any[], artist: string | undefined) {
 	if (!data || data.length === 0) {
 		futureConcerts = []
 		pastConcerts = []
@@ -83,8 +84,8 @@ function filterAndSort(data, artist) {
 		futureConcerts = futureConcerts
 			.reverse()
 			.map((item, index) => (index < limit ? item : null))
-			.filter((item) => item)
-		pastConcerts = pastConcerts.map((item, index) => (index < limit ? item : null)).filter((item) => item)
+			.filter((item): item is ConcertObjectType => item !== null)
+		pastConcerts = pastConcerts.map((item, index) => (index < limit ? item : null)).filter((item): item is ConcertObjectType => item !== null)
 	}
 }
 </script>
