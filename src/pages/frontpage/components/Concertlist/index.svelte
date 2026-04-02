@@ -38,7 +38,7 @@ concerts.subscribe((data) => {
 	filterAndSort(data, artist)
 })
 
-function filterAndSort(data: any[], artist: string | undefined) {
+function filterAndSort(data: ConcertObjectType[], artist: string | undefined) {
 	if (!data || data.length === 0) {
 		futureConcerts = []
 		pastConcerts = []

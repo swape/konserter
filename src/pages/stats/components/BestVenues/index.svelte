@@ -1,13 +1,14 @@
-<script lang="js">
+<script lang="ts">
 import {concerts} from '../../../../myStore'
 import {filterByGivenYear, sortByBestVenue} from '../../../../helper'
+import type {ConcertObjectType} from '../../../../types'
 
 let {year = ''} = $props()
-let sortedVenue = $state([])
-let localData = $state([])
+let sortedVenue = $state<[string, number][]>([])
+let localData = $state<ConcertObjectType[]>([])
 
 concerts.subscribe((data) => {
-	localData = [...data.filter((item) => !item.deleted)]
+	localData = data.filter((item: ConcertObjectType) => !item.deleted) as ConcertObjectType[]
 })
 
 $effect(() => {

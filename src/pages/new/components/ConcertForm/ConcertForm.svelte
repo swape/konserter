@@ -54,7 +54,7 @@ function getHeader() {
 	return 'Registrer'
 }
 
-function updateValue(key: keyof ConcertObjectType, value: any) {
+function updateValue(key: keyof ConcertObjectType, value: string | number) {
 	localConcertObject = {...localConcertObject, [key]: value}
 
 	if (key === 'venue' && localConcertObject.artist && !localConcertObject.mbid) {

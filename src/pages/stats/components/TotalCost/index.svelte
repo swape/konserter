@@ -1,25 +1,26 @@
-<script lang="js">
+<script lang="ts">
 import {concerts} from '../../../../myStore'
 import {totalSumYear, filterByGivenYear} from '../../../../helper'
+import type {ConcertObjectType} from '../../../../types'
 
 let {year = ''} = $props()
 let countNumber = $state(0)
 
-let localData = $state([])
+let localData = $state<ConcertObjectType[]>([])
 
 concerts.subscribe((data) => {
-	localData = [...data.filter((item) => !item.deleted)]
+	localData = [...data.filter((item: ConcertObjectType) => !item.deleted)] as ConcertObjectType[]
 })
 
 $effect(() => {
 	countNumber = count(year)
 })
 
-function thisYear(yearValue) {
+function thisYear(yearValue: string) {
 	return totalSumYear(localData, Number.parseInt(yearValue, 10))
 }
 
-function count(yearValue) {
+function count(yearValue: string) {
 	return filterByGivenYear(localData, Number.parseInt(yearValue, 10)).length
 }
 </script>

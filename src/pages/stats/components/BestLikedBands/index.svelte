@@ -1,14 +1,15 @@
-<script lang="js">
+<script lang="ts">
 import {concerts, currentPage, searchedBandName} from '../../../../myStore'
 import {getMostLikedArtists} from '../../../../helper'
+import type {ConcertObjectType} from '../../../../types'
 
-let bands = $state([])
+let bands = $state<[string, number][]>([])
 
 concerts.subscribe((data) => {
-	bands = getMostLikedArtists(data.filter((item) => !item.deleted))
+	bands = getMostLikedArtists(data.filter((item: ConcertObjectType) => !item.deleted)) as [string, number][]
 })
 
-function onClickBand(band) {
+function onClickBand(band: [string, number]) {
 	$searchedBandName = band[0]
 	$currentPage = 'bandSearch'
 }
