@@ -1,6 +1,8 @@
+/// <reference types="vite/client" />
 import {searchItems, syncItems, updateEntry} from './fire.js'
-
 import {MusicBrainzApi} from 'musicbrainz-api'
+import type {IArtist, IArtistMatch} from 'musicbrainz-api'
+import type {BandInfo} from './types'
 
 const mbApi = new MusicBrainzApi({
 	appName: 'konserter.swape.net',
@@ -8,8 +10,8 @@ const mbApi = new MusicBrainzApi({
 	appContactInfo: import.meta.env.VITE_MUSICBRAINZ_EMAIL
 })
 
-export function searchArtistFromFirebase(artistName, cb) {
-	searchItems('musicBrainz', 'artist', artistName, (data) => {
+export function searchArtistFromFirebase(artistName: string, cb: (data: BandInfo | null) => void): void {
+	searchItems('musicBrainz', 'artist', artistName, (data: BandInfo | null) => {
 		if (data) {
 			cb(data)
 		} else {
@@ -17,7 +19,7 @@ export function searchArtistFromFirebase(artistName, cb) {
 			searchArtistFromMusicBrainz(artistName)
 				.then((mbData) => {
 					// store this to firebase and return the data
-					if (mbData?.id) {
+					if (mbData && !Array.isArray(mbData) && mbData.id) {
 						const newObj = convertToBandInfo(mbData)
 						addArtistInfoToFirebase(mbData.id, newObj)
 						cb(newObj)
@@ -32,16 +34,16 @@ export function searchArtistFromFirebase(artistName, cb) {
 	})
 }
 
-export function convertToBandInfo(data) {
+export function convertToBandInfo(data: IArtist): BandInfo {
 	return {
-		artist: data.name,
+		artist: data.name ?? '',
 		fetchedDate: new Date().toISOString(),
 		mbid: data.id,
 		data: {
 			type: data.type,
-			disambiguation: data.disambiguation || '',
-			formed: data['life-span']?.begin || '',
-			country: data.country || '',
+			disambiguation: data.disambiguation ?? '',
+			formed: data['life-span']?.begin ?? '',
+			country: data.country ?? '',
 			genre: data.tags
 				? data.tags
 						.filter((tag) => tag.count > 2)
@@ -52,13 +54,15 @@ export function convertToBandInfo(data) {
 	}
 }
 
-export async function searchArtistFromMusicBrainz(artistName, all = false) {
+export async function searchArtistFromMusicBrainz(artistName: string, all: true): Promise<IArtistMatch[]>
+export async function searchArtistFromMusicBrainz(artistName: string, all?: false): Promise<IArtistMatch | IArtistMatch[] | null>
+export async function searchArtistFromMusicBrainz(artistName: string, all?: boolean): Promise<IArtistMatch | IArtistMatch[] | null> {
 	try {
 		const query = `artist:${artistName}`
 		const result = await mbApi.search('artist', {query})
 
 		if (all) {
-			return result?.artists || []
+			return result?.artists ?? []
 		}
 
 		if (result?.artists?.length === 1) {
@@ -72,12 +76,12 @@ export async function searchArtistFromMusicBrainz(artistName, all = false) {
 	}
 }
 
-export async function addArtistInfoToFirebase(mbid, data) {
+export async function addArtistInfoToFirebase(mbid: string, data: BandInfo): Promise<void> {
 	updateEntry(`musicBrainz/${mbid}`, data)
 }
 
-export function searchArtistFromFirebaseByMBID(mbid, cb) {
-	syncItems(`musicBrainz/${mbid}`, (data) => {
+export function searchArtistFromFirebaseByMBID(mbid: string, cb: (data: BandInfo | null) => void): void {
+	syncItems(`musicBrainz/${mbid}`, (data: BandInfo | null) => {
 		cb(data ?? null)
 	})
 }

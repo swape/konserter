@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
 let {value, title, onchange = () => {}} = $props()
 </script>
 
 <div>
 	<div class=" pb-2">{title}</div>
 	<div>
-		<textarea class="textarea" onkeyup={({target}) => onchange(target.value)}>{value}</textarea>
+		<textarea class="textarea" onkeyup={({target}) => onchange((target as HTMLTextAreaElement).value)}>{value}</textarea>
 	</div>
 </div>
 

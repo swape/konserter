@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
 let {rating = 0} = $props()
 
-function getStarColor(rating) {
-	const ratingNumber = Number.parseInt(rating, 10)
-	const starColor = {
+function getStarColor(rating: number) {
+	const starColor: Record<number, string> = {
 		1: 'text-red-500',
 		2: 'text-orange-500',
 		3: 'text-yellow-500',
@@ -11,7 +10,7 @@ function getStarColor(rating) {
 		5: 'text-green-500'
 	}
 
-	return starColor[ratingNumber] || 'gray'
+	return starColor[rating] || 'text-gray-500'
 }
 </script>
 

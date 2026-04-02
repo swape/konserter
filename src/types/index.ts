@@ -39,3 +39,18 @@ export interface SelectProps {
 	value?: string
 	emptyText?: string
 }
+
+export interface BandInfoData {
+	type: string | undefined
+	disambiguation: string
+	formed: string
+	country: string
+	genre: string
+}
+
+export interface BandInfo {
+	artist: string
+	fetchedDate: string
+	mbid: string
+	data: BandInfoData
+}

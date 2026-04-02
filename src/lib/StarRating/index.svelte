@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 let {value = 0, title = '', stars = 5, onchange = () => {}} = $props()
 let starsList = $derived(Array(stars))
 
-function setStar(index) {
+function setStar(index = 0) {
 	value = index + 1
 	onchange(value)
 }

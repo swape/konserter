@@ -1,10 +1,11 @@
-<script>
-import {searchArtistFromFirebaseByMBID, searchArtistFromMusicBrainz, convertToBandInfo, addArtistInfoToFirebase} from '../../musicBrainz.js'
+<script lang="ts">
+import {searchArtistFromFirebaseByMBID, searchArtistFromMusicBrainz, convertToBandInfo, addArtistInfoToFirebase} from '../../musicBrainz'
+import type {BandInfo} from '../../types'
 
 let {mbid = $bindable(), artistName = $bindable(), updateBandInfo} = $props()
-let bandInfo = $state(null)
+let bandInfo = $state<BandInfo | null>(null)
 let showAllArtists = $state(false)
-let searchedResults = $state([])
+let searchedResults = $state<BandInfo[]>([])
 
 $effect(() => {
 	searchArtistFromFirebaseByMBID(mbid, (data) => {
@@ -14,7 +15,7 @@ $effect(() => {
 	})
 })
 
-function searchAndShowArtists(artistName) {
+function searchAndShowArtists(artistName = '') {
 	searchArtistFromMusicBrainz(artistName, true).then((data) => {
 		if (data?.length > 0) {
 			searchedResults = data.map(convertToBandInfo)
@@ -24,7 +25,7 @@ function searchAndShowArtists(artistName) {
 	})
 }
 
-function selectArtist(item) {
+function selectArtist(item: BandInfo) {
 	mbid = item.mbid
 	bandInfo = item
 	showAllArtists = false

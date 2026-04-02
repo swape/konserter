@@ -5,7 +5,7 @@ import StarRating from '../../../../lib/StarRating/index.svelte'
 import BandInfoBox from '../../../../lib/BandInfoBox/index.svelte'
 import {isDataOk} from '../../../../helper'
 import {concerts} from '../../../../myStore'
-import {searchArtistFromFirebase} from '../../../../musicBrainz.js'
+import {searchArtistFromFirebase} from '../../../../musicBrainz'
 import type {ConcertObjectType} from '../../../../types'
 import {untrack} from 'svelte'
 
