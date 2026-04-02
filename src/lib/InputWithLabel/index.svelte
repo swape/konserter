@@ -15,7 +15,8 @@ let id = $derived(getUniqueId(type))
 				class="input"
 				{...{type}}
 				onchange={({target}) => onchange((target as HTMLInputElement).value)}
-				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)} />
+				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)}
+			/>
 		</div>
 	{/if}
 	{#if postfix}
@@ -26,7 +27,8 @@ let id = $derived(getUniqueId(type))
 				class="input"
 				{...{type}}
 				onchange={({target}) => onchange((target as HTMLInputElement).value)}
-				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)} />
+				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)}
+			/>
 			<span>{postfix}</span>
 		</div>
 	{/if}
