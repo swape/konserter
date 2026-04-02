@@ -1,5 +1,7 @@
-<script>
-let {options = [], onChange = () => {}, value, emptyText = 'Select an option'} = $props()
+<script lang="ts">
+import type {SelectProps} from '../../types'
+
+let {options = [], onChange = () => {}, value = $bindable(undefined), emptyText = 'Select an option'}: SelectProps = $props()
 </script>
 
 <div class="relative w-full">

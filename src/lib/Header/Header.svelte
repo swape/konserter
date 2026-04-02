@@ -1,12 +1,12 @@
-<script>
-import {currentConcertItem, currentPage, showMenu} from '../../myStore.ts'
+<script lang="ts">
+import {currentConcertItem, currentPage, showMenu} from '../../myStore'
 import Menu from '../Menu/index.svelte'
 
 function openMenu() {
 	showMenu.set(true)
 }
 
-function navigateTo(value) {
+function navigateTo(value: string) {
 	$currentPage = value
 	$currentConcertItem = null
 }
@@ -16,7 +16,7 @@ function navigateTo(value) {
 	<Menu />
 	<div class="flex items-center p-4">
 		<h1>
-			<button onclick={() => navigateTo('start')} class="flex items-center gap-2 min-w-[30px] h-[30px]"><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /></button>
+			<button onclick={() => navigateTo('start')} class="flex items-center gap-2 min-w-7.5 h-7.5"><img src={'/konserter-96.png'} alt="konserter logo" class="logo" /></button>
 		</h1>
 
 		<div>

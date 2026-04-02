@@ -1,7 +1,7 @@
-<script>
-import {currentConcertItem, currentPage, showMenu, signOut, userObj} from '../../myStore.ts'
-
+<script lang="ts">
+import {currentConcertItem, currentPage, showMenu, signOut, userObj} from '../../myStore'
 import {getMyMenu} from './menuList'
+import {shorterName, initials} from './helpers'
 
 const myMenu = getMyMenu()
 
@@ -9,11 +9,11 @@ function close() {
 	showMenu.set(!$showMenu)
 }
 
-function isActive(path) {
+function isActive(path: string) {
 	return $currentPage === path
 }
 
-function navigateTo(value) {
+function navigateTo(value: string) {
 	$currentPage = value
 	$currentConcertItem = null
 	showMenu.set(!$showMenu)
@@ -21,27 +21,6 @@ function navigateTo(value) {
 
 function handleSignOut() {
 	signOut()
-}
-
-function shorterName(name) {
-	const nameList = name.split(' ')
-	let last = ''
-	if (nameList.length >= 2) {
-		const lastList = nameList[1].split('')
-		last = ` ${lastList[0]}.`
-	}
-	return `${nameList[0]}${last}`
-}
-
-function initials(name) {
-	const nameList = name.split(' ')
-	let initials = ''
-	if (nameList.length >= 2) {
-		initials = `${nameList[0][0]}${nameList[1][0]}`
-	} else {
-		initials = nameList[0][0]
-	}
-	return initials
 }
 </script>
 

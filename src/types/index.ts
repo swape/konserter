@@ -27,3 +27,15 @@ export interface ConcertObjectTypeFromFireBase {
 export interface ChartData {
 	[key: string]: number
 }
+
+export interface SelectOption {
+	value?: string
+	title: string
+}
+
+export interface SelectProps {
+	options?: SelectOption[]
+	onChange?: (e: Event & {currentTarget: EventTarget & HTMLSelectElement}) => void
+	value?: string
+	emptyText?: string
+}

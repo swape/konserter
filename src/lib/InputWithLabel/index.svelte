@@ -1,5 +1,5 @@
-<script>
-import {getUniqueId} from '../../helper.ts'
+<script lang="ts">
+import {getUniqueId} from '../../helper'
 
 let {value = null, title = '', type = 'text', postfix = null, onchange = () => {}, onkeyup = () => {}} = $props()
 let id = $derived(getUniqueId(type))
@@ -9,12 +9,24 @@ let id = $derived(getUniqueId(type))
 	<div class="pb-2">{title}</div>
 	{#if !postfix}
 		<div>
-			<input id={id} value={value} class="input" {...{type}} onchange={({target}) => onchange(target.value)} onkeyup={({target}) => onkeyup(target.value)} />
+			<input
+				id={id}
+				value={value}
+				class="input"
+				{...{type}}
+				onchange={({target}) => onchange((target as HTMLInputElement).value)}
+				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)} />
 		</div>
 	{/if}
 	{#if postfix}
 		<div class="combo">
-			<input id={id} value={value} class="input" {...{type}} onchange={({target}) => onchange(target.value)} onkeyup={({target}) => onkeyup(target.value)} />
+			<input
+				id={id}
+				value={value}
+				class="input"
+				{...{type}}
+				onchange={({target}) => onchange((target as HTMLInputElement).value)}
+				onkeyup={({target}) => onkeyup((target as HTMLInputElement).value)} />
 			<span>{postfix}</span>
 		</div>
 	{/if}
