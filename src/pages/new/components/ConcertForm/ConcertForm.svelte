@@ -24,13 +24,12 @@ $effect(() => {
 	}
 })
 
-$effect(()=>{
-	if(!concertObject?.id ){
+$effect(() => {
+	if (!concertObject?.id) {
 		showBandInfo = false
 		localConcertObject = getEmptyConcertItem()
 	}
 })
-
 
 concerts.subscribe((data: ConcertObjectType[]) => {
 	// TODO: move this counting to helper or something, also it is not very efficient to do this on every change, maybe we can store the counted festivals and venues in the store and update them when adding/updating/deleting a concert
