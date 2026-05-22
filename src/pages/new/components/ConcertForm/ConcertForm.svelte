@@ -9,6 +9,7 @@ import {searchArtistFromFirebase} from '../../../../musicBrainz'
 import type {ConcertObjectType} from '../../../../types'
 import {untrack} from 'svelte'
 import BandInfo from './BandInfoArtwork.svelte'
+import {getEmptyConcertItem} from '../../../../helper'
 
 let {concertObject, onSave, onClose} = $props()
 
@@ -18,10 +19,18 @@ let localConcertObject = $state<ConcertObjectType>(untrack(() => ({...concertObj
 let showBandInfo = $state(false)
 
 $effect(() => {
-	if (concertObject?.id && concertObject?.mbid) {
+	if (concertObject?.id && concertObject?.mbid && localConcertObject?.artist) {
 		showBandInfo = true
 	}
 })
+
+$effect(()=>{
+	if(!concertObject?.id ){
+		showBandInfo = false
+		localConcertObject = getEmptyConcertItem()
+	}
+})
+
 
 concerts.subscribe((data: ConcertObjectType[]) => {
 	// TODO: move this counting to helper or something, also it is not very efficient to do this on every change, maybe we can store the counted festivals and venues in the store and update them when adding/updating/deleting a concert

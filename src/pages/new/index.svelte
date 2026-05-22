@@ -15,7 +15,7 @@ currentConcertItem.subscribe((data: ConcertObjectType | null) => {
 	if (data?.id) {
 		concertObject = data
 	} else {
-		concertObject = getEmptyConcertItem()
+		concertObject = {...getEmptyConcertItem()}
 	}
 })
 
