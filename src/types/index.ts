@@ -53,4 +53,5 @@ export interface BandInfo {
 	fetchedDate: string
 	mbid: string
 	data: BandInfoData
+	fanartData?: unknown
 }

@@ -8,14 +8,23 @@ import {concerts} from '../../../../myStore'
 import {searchArtistFromFirebase} from '../../../../musicBrainz'
 import type {ConcertObjectType} from '../../../../types'
 import {untrack} from 'svelte'
+import BandInfo from './BandInfoArtwork.svelte'
 
 let {concertObject, onSave, onClose} = $props()
 
 let festivals = $state<{name: string; count: number}[]>([])
 let venues = $state<{name: string; count: number}[]>([])
 let localConcertObject = $state<ConcertObjectType>(untrack(() => ({...concertObject})))
+let showBandInfo = $state(false)
+
+$effect(() => {
+	if (concertObject?.id && concertObject?.mbid) {
+		showBandInfo = true
+	}
+})
 
 concerts.subscribe((data: ConcertObjectType[]) => {
+	// TODO: move this counting to helper or something, also it is not very efficient to do this on every change, maybe we can store the counted festivals and venues in the store and update them when adding/updating/deleting a concert
 	const countedFestival = data
 		.map((item) => item.festival)
 		.reduce((acc: Record<string, number>, curr) => {
@@ -48,10 +57,7 @@ function saveForm() {
 }
 
 function getHeader() {
-	if (concertObject?.id) {
-		return 'Rediger'
-	}
-	return 'Registrer'
+	return concertObject?.id ? 'Rediger' : 'Registrer'
 }
 
 function updateValue(key: keyof ConcertObjectType, value: string | number) {
@@ -90,44 +96,49 @@ function unDelete() {
 }
 </script>
 
-<div class="p-3 text-white">
-	<h2 class="text-2xl pb-8">{getHeader()}</h2>
-	<div class="grid grid-cols-1 gap-4">
-		<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist: string) => updateValue('artist', artist)} />
-
-		<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival: string) => updateValue('festival', festival)} />
-		<div class="flex gap-1">
-			{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-sm text-slate-400 border rounded-md p-1">{f.name}</button>{/each}
-		</div>
-
-		<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue: string) => updateValue('venue', venue)} />
-		<div class="flex gap-1">
-			{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-sm text-slate-400 border rounded-md p-1">{v.name}</button>{/each}
-		</div>
-
-		<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price: string) => updateValue('price', price)} />
-
-		<InputWithLabel value={localConcertObject.date} title="Dato" type="date" onchange={(date: string) => updateValue('date', date)} />
-		<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating: number) => updateValue('rating', rating)} />
-		<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note: string) => updateValue('note', note)} />
-
-		{#if localConcertObject.artist}
-			<BandInfoBox bind:mbid={localConcertObject.mbid} bind:artistName={localConcertObject.artist} updateBandInfo={updateBandInfo} />
-		{/if}
-
-		<div class="flex gap-3 justify-between">
-			<button class="button {!isDataOk(localConcertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
-			<button class="button gray" onclick={() => onClose()}>Avbryt</button>
-		</div>
-	</div>
-</div>
-
-{#if localConcertObject.id && !localConcertObject.deleted}
-	<div class="flex justify-center mt-8 pt-8 border-t border-gray-800"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+{#if showBandInfo}
+	<BandInfo showForm={() => (showBandInfo = false)} concertObject={concertObject} />
 {/if}
-{#if localConcertObject.deleted}
-	<div class="mt-4 p-5 text-center content-center items-center flex flex-col">
-		<p class="text-white text-sm">Konserten er slettet. Vil du gjenopprette den?</p>
-		<span><button class="button small" onclick={unDelete}>Gjenopprett</button></span>
+{#if !showBandInfo}
+	<div class="p-3 text-white">
+		<h2 class="text-2xl pb-8">{getHeader()}</h2>
+		<div class="grid grid-cols-1 gap-4">
+			<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist: string) => updateValue('artist', artist)} />
+
+			<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival: string) => updateValue('festival', festival)} />
+			<div class="flex gap-1">
+				{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-sm text-slate-400 border rounded-md p-1">{f.name}</button>{/each}
+			</div>
+
+			<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue: string) => updateValue('venue', venue)} />
+			<div class="flex gap-1">
+				{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-sm text-slate-400 border rounded-md p-1">{v.name}</button>{/each}
+			</div>
+
+			<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price: string) => updateValue('price', price)} />
+
+			<InputWithLabel value={localConcertObject.date} title="Dato" type="date" onchange={(date: string) => updateValue('date', date)} />
+			<StarRating value={localConcertObject.rating} title="Min vurdering" stars={5} onchange={(rating: number) => updateValue('rating', rating)} />
+			<TextareaWithLabel value={localConcertObject.note} title="Notat" onchange={(note: string) => updateValue('note', note)} />
+
+			{#if localConcertObject.artist}
+				<BandInfoBox bind:mbid={localConcertObject.mbid} bind:artistName={localConcertObject.artist} updateBandInfo={updateBandInfo} />
+			{/if}
+
+			<div class="flex gap-3 justify-between">
+				<button class="button {!isDataOk(localConcertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
+				<button class="button gray" onclick={() => onClose()}>Avbryt</button>
+			</div>
+		</div>
 	</div>
+
+	{#if localConcertObject.id && !localConcertObject.deleted}
+		<div class="flex justify-center mt-8 pt-8 border-t border-gray-800"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+	{/if}
+	{#if localConcertObject.deleted}
+		<div class="mt-4 p-5 text-center content-center items-center flex flex-col">
+			<p class="text-white text-sm">Konserten er slettet. Vil du gjenopprette den?</p>
+			<span><button class="button small" onclick={unDelete}>Gjenopprett</button></span>
+		</div>
+	{/if}
 {/if}

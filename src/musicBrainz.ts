@@ -3,6 +3,7 @@ import {searchItems, syncItems, updateEntry} from './fire'
 import {MusicBrainzApi} from 'musicbrainz-api'
 import type {IArtist, IArtistMatch} from 'musicbrainz-api'
 import type {BandInfo} from './types'
+// import {fetchFanart} from './fanart'
 
 const mbApi = new MusicBrainzApi({
 	appName: 'konserter.swape.net',
@@ -10,10 +11,29 @@ const mbApi = new MusicBrainzApi({
 	appContactInfo: import.meta.env.VITE_MUSICBRAINZ_EMAIL
 })
 
+function addFanArtDataToBandInfo(mbid: string, data: BandInfo): void {
+	// fetchFanart(mbid).then((fanartData) => {
+	// 	if (fanartData) {
+	// 		data.fanartData = fanartData
+	// 		addArtistInfoToFirebase(mbid, data)
+	// 	}
+	// }).catch(() => {
+	// 	console.error('Error fetching fanart')
+	// })
+}
+
 export function searchArtistFromFirebase(artistName: string, cb: (data: BandInfo | null) => void): void {
 	searchItems('musicBrainz', 'artist', artistName, (data: BandInfo | null) => {
 		if (data) {
-			cb(data)
+			if (data?.fanartData === undefined) {
+				// if fanartData is not fetched before, fetch it and update the firebase entry
+				addFanArtDataToBandInfo(data.mbid, data)
+				// meanwhile return the data without fanartData
+				cb(data)
+			} else {
+				// if fanartData is already fetched, return the data
+				cb(data)
+			}
 		} else {
 			// search from musicBrainz and add to firebase
 			searchArtistFromMusicBrainz(artistName)
@@ -22,6 +42,8 @@ export function searchArtistFromFirebase(artistName: string, cb: (data: BandInfo
 					if (mbData && !Array.isArray(mbData) && mbData.id) {
 						const newObj = convertToBandInfo(mbData)
 						addArtistInfoToFirebase(mbData.id, newObj)
+						addFanArtDataToBandInfo(mbData.id, newObj)
+
 						cb(newObj)
 					} else {
 						cb(null)
@@ -82,6 +104,10 @@ export async function addArtistInfoToFirebase(mbid: string, data: BandInfo): Pro
 
 export function searchArtistFromFirebaseByMBID(mbid: string, cb: (data: BandInfo | null) => void): void {
 	syncItems(`musicBrainz/${mbid}`, (data: BandInfo | null) => {
+		if (data && data.fanartData === undefined) {
+			addFanArtDataToBandInfo(mbid, data)
+		}
+
 		cb(data ?? null)
 	})
 }

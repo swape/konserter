@@ -7,6 +7,7 @@ import ListPage from './pages/list/index.svelte'
 import StatsPage from './pages/stats/index.svelte'
 import BandSearchPage from './pages/bandSearch/index.svelte'
 import DeletedPage from './pages/deletedConcert/index.svelte'
+import AboutPage from './pages/about/index.svelte'
 
 let page = $state(null)
 
@@ -38,6 +39,8 @@ currentPage.subscribe((value) => {
 		<BandSearchPage />
 	{:else if page === 'deletedConcert'}
 		<DeletedPage />
+	{:else if page === 'about'}
+		<AboutPage />
 	{:else}
 		404
 	{/if}
