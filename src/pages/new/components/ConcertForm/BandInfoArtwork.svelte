@@ -5,12 +5,16 @@ import StarBox from '../../../../lib/StarBox/index.svelte'
 
 let {showForm, concertObject} = $props()
 let bandInfo: BandInfo | undefined = $state(undefined)
+let fanArtUrl = $state('')
 
 $effect(() => {
 	if (!bandInfo?.mbid) {
 		searchArtistFromFirebaseByMBID(concertObject.mbid, (data) => {
 			if (data) {
 				bandInfo = data as BandInfo
+				if (bandInfo.fanartData) {
+					fanArtUrl = bandInfo.fanartData
+				}
 			}
 		})
 	}
@@ -18,7 +22,7 @@ $effect(() => {
 </script>
 
 <div>
-	<div class="band-wrapper">
+	<div class="band-wrapper" style={fanArtUrl ? `background-image: url(${fanArtUrl})` : ''}>
 		<button onclick={showForm} class="text-sm text-gray-400 mb-2 edit-button">
 			<span class="material-icons">edit</span>
 		</button>
@@ -44,6 +48,7 @@ $effect(() => {
 	overflow: hidden;
 	border-radius: 8px;
 	margin-inline: 1rem;
+	background-size: cover;
 }
 .note {
 	margin-top: 1rem;
@@ -67,6 +72,11 @@ $effect(() => {
 .band-name {
 	text-shadow: 0 0 2px black;
 	margin-block: 5rem;
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 12px;
+	corner-shape: squircle;
+	border-radius: 1.4rem;
+	margin-inline: 0.4rem;
 }
 .edit-button {
 	position: absolute;

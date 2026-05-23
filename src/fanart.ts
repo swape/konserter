@@ -1,6 +1,11 @@
+import {isDev} from './config'
+
 export async function getFanArt(mbid: string): Promise<string | null> {
-	// get the fanart from https://konserter.swape.net/api/fanart?mbid=b5179744-f217-4455-9d8b-17b8d4fdeb93
-	const URL = `https://konserter.swape.net/api/fanart?mbid=${mbid}`
+	if (isDev) {
+		return null
+	}
+
+	const URL = `/api/fanart?mbid=${mbid}`
 	try {
 		const response = await fetch(URL)
 		if (!response.ok) {
