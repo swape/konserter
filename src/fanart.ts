@@ -1,21 +1,43 @@
-const API_KEY = import.meta.env.FANART_API_KEY
-const BASE_URL = 'https://webservice.fanart.tv/v3.2/music/'
-
-function getFanartUrl(musicBrainzId: string) {
-	return `${BASE_URL}${musicBrainzId}?api_key=${API_KEY}`
-}
-
-// this lives on server
-export async function fetchFanart(musicBrainzId: string): Promise<string | null> {
+export async function getFanArt(mbid: string): Promise<string | null> {
+	// get the fanart from https://konserter.swape.net/api/fanart?mbid=b5179744-f217-4455-9d8b-17b8d4fdeb93
+	const URL = `https://konserter.swape.net/api/fanart?mbid=${mbid}`
 	try {
-		const response = await fetch(getFanartUrl(musicBrainzId))
+		const response = await fetch(URL)
 		if (!response.ok) {
 			console.error('Failed to fetch fanart:', response.statusText)
 			return null
 		}
-		return await response.json()
+		const data: FanArtData | null = await response.json()
+		return convertFanArtData(data)
 	} catch (error) {
 		console.error('Error fetching fanart:', error)
 		return null
 	}
+}
+
+function convertFanArtData(data: FanArtData | null): string | null {
+	let imageURL: string | null = null
+	if (!data || typeof data !== 'object') {
+		return null
+	}
+
+	if (data.artistbackground && data.artistbackground.length > 0) {
+		imageURL = data.artistbackground[0].url
+	} else if (data.hdmusiclogo && data.hdmusiclogo.length > 0) {
+		imageURL = data.hdmusiclogo[0].url
+	} else if (data.artistthumb && data.artistthumb.length > 0) {
+		imageURL = data.artistthumb[0].url
+	} else if (data.albums && data.albums.length > 0 && data.albums[0].albumcover && data.albums[0].albumcover.length > 0) {
+		imageURL = data.albums[0].albumcover[0].url
+	}
+	return imageURL
+}
+
+interface FanArtData {
+	albums?: {
+		albumcover?: {url: string}[]
+	}[]
+	artistbackground?: {url: string}[]
+	hdmusiclogo?: {url: string}[]
+	artistthumb?: {url: string}[]
 }

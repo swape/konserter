@@ -3,21 +3,20 @@ const BASE_URL = 'https://webservice.fanart.tv/v3.2/music/'
 
 export async function GET(request: Request) {
 	if (!API_KEY) {
-		return new Response('Missing API key', { status: 400 })
+		return new Response('Missing API key', {status: 400})
 	}
 	const musicBrainzId = new URL(request.url).searchParams.get('mbid')
-	if (!musicBrainzId) { 
-		return new Response('Missing musicBrainzId', { status: 400 })
+	if (!musicBrainzId) {
+		return new Response('Missing musicBrainzId', {status: 400})
 	}
 
 	const fanart = await fetchFanart(musicBrainzId)
 	if (!fanart) {
-		return new Response('Failed to fetch fanart', { status: 500 })
+		return new Response('Failed to fetch fanart', {status: 500})
 	}
 
-	return new Response(JSON.stringify(fanart), { status: 200 })
+	return new Response(JSON.stringify(fanart), {status: 200})
 }
-
 
 function getFanartUrl(musicBrainzId: string) {
 	return `${BASE_URL}${musicBrainzId}?api_key=${API_KEY}`

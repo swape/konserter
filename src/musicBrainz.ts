@@ -3,7 +3,7 @@ import {searchItems, syncItems, updateEntry} from './fire'
 import {MusicBrainzApi} from 'musicbrainz-api'
 import type {IArtist, IArtistMatch} from 'musicbrainz-api'
 import type {BandInfo} from './types'
-// import {fetchFanart} from './fanart'
+import {getFanArt} from './fanart'
 
 const mbApi = new MusicBrainzApi({
 	appName: 'konserter.swape.net',
@@ -11,15 +11,12 @@ const mbApi = new MusicBrainzApi({
 	appContactInfo: import.meta.env.VITE_MUSICBRAINZ_EMAIL
 })
 
-function addFanArtDataToBandInfo(mbid: string, data: BandInfo): void {
-	// fetchFanart(mbid).then((fanartData) => {
-	// 	if (fanartData) {
-	// 		data.fanartData = fanartData
-	// 		addArtistInfoToFirebase(mbid, data)
-	// 	}
-	// }).catch(() => {
-	// 	console.error('Error fetching fanart')
-	// })
+async function addFanArtDataToBandInfo(mbid: string, data: BandInfo): Promise<void> {
+	const fanArtUrl = await getFanArt(mbid)
+	if (fanArtUrl) {
+		data.fanartData = fanArtUrl
+		updateEntry(`musicBrainz/${mbid}`, data)
+	}
 }
 
 export function searchArtistFromFirebase(artistName: string, cb: (data: BandInfo | null) => void): void {
