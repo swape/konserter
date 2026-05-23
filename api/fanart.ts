@@ -1,7 +1,10 @@
-const API_KEY = import.meta.env.FANART_API_KEY
+const API_KEY = process.env.FANART_API_KEY
 const BASE_URL = 'https://webservice.fanart.tv/v3.2/music/'
 
 export async function GET(request: Request) {
+	if (!API_KEY) {
+		return new Response('Missing API key', { status: 400 })
+	}
 	const musicBrainzId = new URL(request.url).searchParams.get('mbid')
 	if (!musicBrainzId) { 
 		return new Response('Missing musicBrainzId', { status: 400 })
