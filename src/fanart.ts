@@ -1,4 +1,4 @@
-const API_KEY = import.meta.env.VITE_FANART_API_KEY
+const API_KEY = import.meta.env.FANART_API_KEY
 const BASE_URL = 'https://webservice.fanart.tv/v3.2/music/'
 
 function getFanartUrl(musicBrainzId: string) {
