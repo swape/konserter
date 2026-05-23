@@ -12,7 +12,8 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"target": "ESNext",
-		"noEmit": true
+		"noEmit": true,
+		"types": ["node"]
 	},
 	"exclude": ["node_modules", "dist", "public"],
 	"include": ["src", "api"]
