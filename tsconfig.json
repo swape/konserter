@@ -15,5 +15,5 @@
 		"noEmit": true
 	},
 	"exclude": ["node_modules", "dist", "public"],
-	"include": ["src"]
+	"include": ["src", "api"]
 }
