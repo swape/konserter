@@ -3,7 +3,7 @@ import InputWithLabel from '../../../../lib/InputWithLabel/index.svelte'
 import TextareaWithLabel from '../../../../lib/TextareaWithLabel/index.svelte'
 import StarRating from '../../../../lib/StarRating/index.svelte'
 import BandInfoBox from '../../../../lib/BandInfoBox/index.svelte'
-import {isDataOk} from '../../../../helper'
+import {isDataOk, getTopRepeatedValues} from '../../../../helper'
 import {concerts} from '../../../../myStore'
 import {searchArtistFromFirebase} from '../../../../musicBrainz'
 import type {ConcertObjectType} from '../../../../types'
@@ -13,8 +13,8 @@ import {getEmptyConcertItem} from '../../../../helper'
 
 let {concertObject, onSave, onClose} = $props()
 
-let festivals = $state<{name: string; count: number}[]>([])
-let venues = $state<{name: string; count: number}[]>([])
+const festivals = $derived(getTopRepeatedValues($concerts, 'festival'))
+const venues = $derived(getTopRepeatedValues($concerts, 'venue'))
 let localConcertObject = $state<ConcertObjectType>(untrack(() => ({...concertObject})))
 let showBandInfo = $state(false)
 
@@ -31,33 +31,6 @@ $effect(() => {
 		showBandInfo = false
 		localConcertObject = getEmptyConcertItem()
 	}
-})
-
-concerts.subscribe((data: ConcertObjectType[]) => {
-	// TODO: move this counting to helper or something, also it is not very efficient to do this on every change, maybe we can store the counted festivals and venues in the store and update them when adding/updating/deleting a concert
-	const countedFestival = data
-		.map((item) => item.festival)
-		.reduce((acc: Record<string, number>, curr) => {
-			acc[curr] = (acc[curr] || 0) + 1
-			return acc
-		}, {})
-
-	festivals = Object.entries(countedFestival)
-		.map((item) => ({name: item[0], count: item[1]}))
-		.filter((item) => item.count > 1 && item.name)
-		.sort((a, b) => b.count - a.count)
-		.filter((_, index) => index < 5)
-	const countedVenue = data
-		.map((item) => item.venue)
-		.reduce((acc: Record<string, number>, curr) => {
-			acc[curr] = (acc[curr] || 0) + 1
-			return acc
-		}, {})
-	venues = Object.entries(countedVenue)
-		.map((item) => ({name: item[0], count: item[1]}))
-		.filter((item) => item.count > 1 && item.name)
-		.sort((a, b) => b.count - a.count)
-		.filter((_, index) => index < 5)
 })
 
 function saveForm() {

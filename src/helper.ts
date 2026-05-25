@@ -98,6 +98,20 @@ export function filterByGivenYear(list: ConcertObjectType[], year: number) {
 	})
 }
 
+export function getTopRepeatedValues(data: ConcertObjectType[], key: 'festival' | 'venue', limit = 5): {name: string; count: number}[] {
+	const counted = data
+		.map((item) => item[key])
+		.reduce((acc: Record<string, number>, curr) => {
+			acc[curr] = (acc[curr] || 0) + 1
+			return acc
+		}, {})
+	return Object.entries(counted)
+		.map(([name, count]) => ({name, count}))
+		.filter((item) => item.count > 1 && item.name)
+		.sort((a, b) => b.count - a.count)
+		.slice(0, limit)
+}
+
 export function getMostLikedArtists(list: ConcertObjectType[]) {
 	const newList: ChartData = {}
 	list.sort(sortByDate)
