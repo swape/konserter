@@ -27,11 +27,7 @@ function handleKeydown(event: KeyboardEvent) {
 <div>
 	<div class="pb-2" id="starrating-label-{title}">{title}: {value}</div>
 
-	<div
-		role="radiogroup"
-		aria-labelledby="starrating-label-{title}"
-		onkeydown={handleKeydown}
-	>
+	<div role="radiogroup" aria-labelledby="starrating-label-{title}" onkeydown={handleKeydown}>
 		{#each starsList as _, index}
 			<label>
 				<input
