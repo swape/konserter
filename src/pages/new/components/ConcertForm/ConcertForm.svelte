@@ -19,9 +19,11 @@ let localConcertObject = $state<ConcertObjectType>(untrack(() => ({...concertObj
 let showBandInfo = $state(false)
 
 $effect(() => {
-	if (concertObject?.id && concertObject?.mbid && localConcertObject?.artist) {
-		showBandInfo = true
-	}
+	untrack(() => {
+		if (concertObject?.id && concertObject?.mbid && localConcertObject?.artist) {
+			showBandInfo = true
+		}
+	})
 })
 
 $effect(() => {
