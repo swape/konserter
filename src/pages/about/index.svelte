@@ -13,10 +13,10 @@
 		<h3 class="text-xl text-white mb-2">Teknisk info:</h3>
 		<p class="mb-4">
 			Denne appen er bygget med Svelte og Vite, og bruker Firebase for autentisering og database. Den er designet for å være enkel og rask, og fungerer både på desktop og mobil.
-			Koden er åpen kildekode og ligger på <a href="https://github.com/swape/konserter" target="_blank" class="text-blue-400 underline">GitHub</a>.
+			Koden er åpen kildekode og ligger på <a href="https://github.com/swape/konserter" target="_blank" class="text-blue-400 underline">GitHub</a>
 		</p>
 		<p>
-			Bandinfoen hentes fra <a href="https://musicbrainz.org/" target="_blank" class="text-blue-400 underline">MusicBrainz</a> sitt API.
-		</p>
+			Bandinfoen hentes fra <a href="https://musicbrainz.org/" target="_blank" class="text-blue-400 underline">MusicBrainz</a>
+		<br>Bandbildene hentes fra <a href="https://www.fanart.tv/" target="_blank" class="text-blue-400 underline">Fanart.tv</a></p>
 	</div>
 </main>
