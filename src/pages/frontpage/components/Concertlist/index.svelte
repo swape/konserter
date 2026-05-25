@@ -43,9 +43,7 @@ const _lists = $derived.by(() => {
 	const data = $concerts
 	if (!data || data.length === 0) return {future: [] as ConcertObjectType[], past: [] as ConcertObjectType[]}
 
-	const filtered = deleted
-		? data.filter((item) => item.deleted)
-		: data.filter((item) => !item.deleted)
+	const filtered = deleted ? data.filter((item) => item.deleted) : data.filter((item) => !item.deleted)
 
 	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
 	const sorted = filtered.toSorted((a, b) => cleanDateToNumber(b.date) - cleanDateToNumber(a.date))
