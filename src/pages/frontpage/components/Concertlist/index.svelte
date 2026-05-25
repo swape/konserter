@@ -10,12 +10,65 @@ const DELETED_RETENTION_DAYS = 30
 
 let {limit = undefined, artist = undefined, deleted = false} = $props()
 
-let futureConcerts = $state<ConcertObjectType[]>([])
-let pastConcerts = $state<ConcertObjectType[]>([])
 let newDate = $state(new Date())
 let lastConcertDate = ''
-let localAllData = $state<ConcertObjectType[]>([])
-let localArtist = $state('')
+let localArtist = $state<string | undefined>(artist)
+
+$effect(() => {
+	const a = artist
+	const timer = setTimeout(() => {
+		localArtist = a
+	}, ARTIST_FILTER_DEBOUNCE_MS)
+	return () => clearTimeout(timer)
+})
+
+// Side effect: purge deleted concerts older than DELETED_RETENTION_DAYS from DB
+$effect(() => {
+	if (!deleted) return
+	const data = $concerts
+	if (!data || data.length === 0) return
+	const toDelete = data
+		.filter((item) => item.deleted)
+		.filter((item) => {
+			const date = new Date(item.deletedDate || '')
+			return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * DELETED_RETENTION_DAYS
+		})
+	if (toDelete.length > 0) {
+		const deleteList = toDelete.map((item) => `${$userObj.uid}/${item.id}`)
+		deleteEntryPathList(deleteList)
+	}
+})
+
+const _lists = $derived.by(() => {
+	const data = $concerts
+	if (!data || data.length === 0) return {future: [] as ConcertObjectType[], past: [] as ConcertObjectType[]}
+
+	const filtered = deleted
+		? data.filter((item) => item.deleted)
+		: data.filter((item) => !item.deleted)
+
+	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
+	const sorted = filtered.toSorted((a, b) => cleanDateToNumber(b.date) - cleanDateToNumber(a.date))
+
+	let future = sorted.filter((item) => cleanDateToNumber(item?.date) > now)
+	let past = sorted.filter((item) => cleanDateToNumber(item?.date) <= now)
+
+	if (localArtist) {
+		const lower = localArtist.toLowerCase()
+		future = future.filter((item) => item?.artist.toLowerCase().includes(lower))
+		past = past.filter((item) => item?.artist.toLowerCase().includes(lower))
+	}
+
+	if (limit) {
+		future = future.slice().reverse().slice(0, limit)
+		past = past.slice(0, limit)
+	}
+
+	return {future, past}
+})
+
+const futureConcerts = $derived(_lists.future)
+const pastConcerts = $derived(_lists.past)
 
 function getYear(concertDate: string) {
 	if (!concertDate) {
@@ -27,69 +80,6 @@ function getYear(concertDate: string) {
 
 	lastConcertDate = concertDate
 	return retVal
-}
-
-$effect(() => {
-	localArtist = artist
-	setTimeout(() => {
-		filterAndSort(localAllData, localArtist)
-	}, ARTIST_FILTER_DEBOUNCE_MS)
-})
-
-concerts.subscribe((data) => {
-	localAllData = data
-	filterAndSort(data, artist)
-})
-
-function filterAndSort(data: ConcertObjectType[], artist: string | undefined) {
-	if (!data || data.length === 0) {
-		futureConcerts = []
-		pastConcerts = []
-		return
-	}
-
-	if (deleted) {
-		data = data.filter((item) => item.deleted)
-
-		// remove old deleted concerts from DB
-		if (data.length > 0) {
-			const deleteData = data.filter((item) => {
-				const date = new Date(item.deletedDate || '')
-				return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * DELETED_RETENTION_DAYS
-			})
-			if (deleteData.length > 0) {
-				const deleteList = deleteData.map((item) => `${$userObj.uid}/${item.id}`)
-
-				deleteEntryPathList(deleteList)
-			}
-		}
-	} else {
-		data = data.filter((item) => !item.deleted)
-	}
-
-	const now = cleanDateToNumber(getFormattedDate(newDate)) + 100
-	const sorted = [
-		...data.toSorted((a, b) => {
-			return cleanDateToNumber(b.date) - cleanDateToNumber(a.date)
-		})
-	]
-
-	futureConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) > now)
-	pastConcerts = sorted.filter((item) => cleanDateToNumber(item?.date) <= now)
-
-	if (artist) {
-		const lowerCaseArtist = artist.toLowerCase()
-		futureConcerts = futureConcerts.filter((item) => item?.artist.toLowerCase().includes(lowerCaseArtist))
-		pastConcerts = pastConcerts.filter((item) => item?.artist.toLowerCase().includes(lowerCaseArtist))
-	}
-
-	if (limit) {
-		futureConcerts = futureConcerts
-			.reverse()
-			.map((item, index) => (index < limit ? item : null))
-			.filter((item): item is ConcertObjectType => item !== null)
-		pastConcerts = pastConcerts.map((item, index) => (index < limit ? item : null)).filter((item): item is ConcertObjectType => item !== null)
-	}
 }
 </script>
 
