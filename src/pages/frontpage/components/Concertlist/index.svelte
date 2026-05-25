@@ -5,6 +5,9 @@ import ConcertBox from '../ConcertBox/index.svelte'
 import {deleteEntryPathList} from '../../../../fire'
 import type {ConcertObjectType} from '../../../../types'
 
+const ARTIST_FILTER_DEBOUNCE_MS = 150
+const DELETED_RETENTION_DAYS = 30
+
 let {limit = undefined, artist = undefined, deleted = false} = $props()
 
 let futureConcerts = $state<ConcertObjectType[]>([])
@@ -30,7 +33,7 @@ $effect(() => {
 	localArtist = artist
 	setTimeout(() => {
 		filterAndSort(localAllData, localArtist)
-	}, 150)
+	}, ARTIST_FILTER_DEBOUNCE_MS)
 })
 
 concerts.subscribe((data) => {
@@ -52,7 +55,7 @@ function filterAndSort(data: ConcertObjectType[], artist: string | undefined) {
 		if (data.length > 0) {
 			const deleteData = data.filter((item) => {
 				const date = new Date(item.deletedDate || '')
-				return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * 30 // older than 30 days
+				return date.getTime() < new Date().getTime() - 1000 * 60 * 60 * 24 * DELETED_RETENTION_DAYS
 			})
 			if (deleteData.length > 0) {
 				const deleteList = deleteData.map((item) => `${$userObj.uid}/${item.id}`)
