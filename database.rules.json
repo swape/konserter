@@ -1,0 +1,46 @@
+{
+	"rules": {
+		".read": false,
+		".write": false,
+		"$uid": {
+			".read": "auth != null && auth.uid === $uid",
+			"$concertId": {
+				".write": "auth != null && auth.uid === $uid && (!newData.exists() || (newData.child('uid').val() === auth.uid && newData.child('id').val() === $concertId))",
+				"date": {".validate": "newData.isString() && newData.val().matches(/^\\d{4}-\\d{2}-\\d{2}$/)"},
+				"artist": {".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 160"},
+				"note": {".validate": "newData.isString() && newData.val().length <= 4000"},
+				"rating": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5"},
+				"festival": {".validate": "newData.isString() && newData.val().length <= 160"},
+				"venue": {".validate": "newData.isString() && newData.val().length <= 160"},
+				"price": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000"},
+				"uid": {".validate": "newData.val() === auth.uid"},
+				"id": {".validate": "newData.val() === $concertId"},
+				"deleted": {".validate": "newData.isBoolean()"},
+				"deletedDate": {".validate": "newData.val() === null || newData.isString() || newData.isNumber()"},
+				"mbid": {
+					".validate": "newData.val() === null || (newData.isString() && newData.val().matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/))"
+				},
+				"$other": {".validate": false}
+			}
+		},
+		"musicBrainz": {
+			".read": "auth != null",
+			"$mbid": {
+				".write": "auth != null && $mbid.matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/) && newData.child('mbid').val() === $mbid",
+				"artist": {".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 160"},
+				"fetchedDate": {".validate": "newData.isString() && newData.val().length <= 40"},
+				"mbid": {".validate": "newData.val() === $mbid"},
+				"fanartData": {".validate": "newData.isString() && newData.val().matches(/^https:\\/\\/([^\\/]+\\.)?fanart\\.tv\\//)"},
+				"data": {
+					"type": {".validate": "newData.val() === null || (newData.isString() && newData.val().length <= 80)"},
+					"disambiguation": {".validate": "newData.isString() && newData.val().length <= 240"},
+					"formed": {".validate": "newData.isString() && newData.val().length <= 40"},
+					"country": {".validate": "newData.isString() && newData.val().length <= 80"},
+					"genre": {".validate": "newData.isString() && newData.val().length <= 500"},
+					"$other": {".validate": false}
+				},
+				"$other": {".validate": false}
+			}
+		}
+	}
+}
