@@ -1,30 +1,20 @@
 <script lang="ts">
+import {getUniqueId} from '../../helper'
 import type {SelectProps} from '../../types'
 
-let {options = [], onChange = () => {}, value = $bindable(undefined), emptyText = 'Select an option'}: SelectProps = $props()
+let {options = [], onChange = () => {}, value = $bindable(undefined), emptyText = 'Select an option', title = ''}: SelectProps = $props()
+const id = getUniqueId('select')
 </script>
 
-<div class="relative w-full">
-	<select class="select" onchange={onChange} bind:value={value}>
-		{#if value === undefined}<option value={undefined}>{emptyText}</option>{/if}
-		{#each options as option}
-			<option value={option?.value || option.title}>{option.title}</option>
-		{/each}
-	</select>
-	<span class="material-icons absolute right-2 top-1.5 pointer-events-none text-white py-2"> expand_more </span>
-</div>
-
-<style>
-@reference '../../app.css';
-
-.select {
-	@apply border border-gray-300 block w-full py-3 px-5 rounded-md bg-slate-900 text-white;
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	outline: transparent;
-}
-.select:focus {
-	@apply border-blue-500;
-}
-</style>
+<label class="field" for={id}>
+	{#if title}<span class="field-label">{title}</span>{/if}
+	<span class="relative block w-full">
+		<select id={id} class="select" onchange={onChange} bind:value={value} aria-label={title || emptyText}>
+			{#if value === undefined}<option value={undefined}>{emptyText}</option>{/if}
+			{#each options as option}
+				<option value={option?.value || option.title}>{option.title}</option>
+			{/each}
+		</select>
+		<span class="material-icons pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-slate-300" aria-hidden="true"> expand_more </span>
+	</span>
+</label>

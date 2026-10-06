@@ -19,7 +19,7 @@ $effect(() => {
 {#if sortedVenue.length > 0}
 	<div class="stats-wrapper">
 		<div class="stats">
-			<div class="mb-4 text-xl flex items-center flex-wrap gap-1"><span class="material-icons">map</span> <span>Mest besøkte</span> <span>konsertstedene i {year}</span></div>
+			<div class="mb-4 flex flex-wrap items-center gap-1 text-xl"><span class="material-icons">map</span> <span>Mest besøkte</span> <span>konsertstedene i {year}</span></div>
 			{#each sortedVenue as venue}
 				<div class="flex justify-between">
 					<span class=" truncate capitalize">{venue[0]}:</span>

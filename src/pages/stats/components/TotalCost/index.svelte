@@ -28,13 +28,13 @@ function count(yearValue: string) {
 <div class="stats-wrapper">
 	<div class="stats text-xl">
 		{#if countNumber}
-			<div class="flex items-center gap-1 flex-wrap">
-				<span class="material-icons">payments</span>
-				Du brukte <strong>{thisYear(year)}</strong> <span>i {year} <span> på {countNumber} konsert{`${countNumber === 1 ? '' : 'er'}`}.</span> </span>
+			<div class="flex items-center justify-center gap-2 text-pretty">
+				<span class="material-icons" aria-hidden="true">payments</span>
+				<span>Du brukte <strong>{thisYear(year)}</strong> i {year} på {countNumber} konsert{`${countNumber === 1 ? '' : 'er'}`}.</span>
 			</div>
 		{/if}
 		{#if countNumber === 0}
-			<div>Ingen konterter i {year}?</div>
+			<div>Ingen konserter i {year}.</div>
 		{/if}
 	</div>
 </div>

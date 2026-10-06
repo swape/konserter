@@ -12,19 +12,19 @@ function clicked() {
 }
 </script>
 
-<button onclick={() => clicked()} class="box mb-1">
-	<span class={['block p-2', concert?.deleted && 'opacity-50'].join(' ')}>
-		<span class="text-[1.1rem] px-12">{getArtistAndVenue(concert)}</span>
-		<span class="flex justify-between text-sm text-white items-center mt-2">
+<button onclick={clicked} class="box concert-card" type="button" aria-label="Åpne {getArtistAndVenue(concert)} {concert?.date}">
+	<span class={['block p-4', concert?.deleted && 'opacity-50'].join(' ')}>
+		<span class="block text-lg font-semibold text-pretty">{getArtistAndVenue(concert)}</span>
+		<span class="mt-3 flex items-center justify-between gap-3 text-sm text-slate-200">
 			{#if concert?.rating}
 				<StarBox rating={concert.rating} />
 			{/if}
 
 			{#if concert?.festival}
-				<div class="truncate">{concert.festival}</div>
+				<span class="truncate">{concert.festival}</span>
 			{/if}
 
-			<small class="text-gray-300">{concert?.date}</small>
+			<time class="text-slate-300" datetime={concert?.date}>{concert?.date}</time>
 		</span>
 	</span>
 </button>

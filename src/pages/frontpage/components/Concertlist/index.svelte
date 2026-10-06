@@ -12,7 +12,7 @@ let {limit = undefined, artist = undefined, deleted = false} = $props()
 
 let newDate = $state(new Date())
 let lastConcertDate = ''
-let localArtist = $state<string | undefined>(artist)
+let localArtist = $state<string | undefined>()
 
 $effect(() => {
 	const a = artist
@@ -81,23 +81,27 @@ function getYear(concertDate: string) {
 }
 </script>
 
-<div class="p-3">
+<section class="p-3" aria-live="polite">
 	{#if futureConcerts.length > 0}
-		<h2 class="text-2xl text-center text-white">Kommende konserter</h2>
-		<div class="flex flex-col mt-4">
+		<h2 class="text-center text-2xl font-semibold text-white">Kommende konserter</h2>
+		<div class="mt-4 flex flex-col gap-2">
 			{#each futureConcerts as futureConcert}
 				<ConcertBox concert={futureConcert} />
 			{/each}
 		</div>
 	{/if}
 
-	<h2 class="text-2xl text-center py-5 text-white">Konserter</h2>
-	<div>
-		{#each pastConcerts as concert}
-			{#if getYear(concert?.date) !== null}
-				<div class="text-white mb-1">{concert.date.slice(0, 4)}</div>
-			{/if}
-			<ConcertBox concert={concert} />
-		{/each}
-	</div>
-</div>
+	{#if futureConcerts.length === 0 && pastConcerts.length === 0}
+		<div class="muted-card py-8 text-center text-slate-300">Ingen konserter funnet.</div>
+	{:else}
+		<h2 class="py-5 text-center text-2xl font-semibold text-white">Konserter</h2>
+		<div class="flex flex-col gap-2">
+			{#each pastConcerts as concert}
+				{#if getYear(concert?.date) !== null}
+					<div class="mb-1 text-sm font-semibold text-slate-300">{concert.date.slice(0, 4)}</div>
+				{/if}
+				<ConcertBox concert={concert} />
+			{/each}
+		</div>
+	{/if}
+</section>

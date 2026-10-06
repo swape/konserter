@@ -84,19 +84,23 @@ function unDelete() {
 {/if}
 {#if !showBandInfo}
 	<div class="p-3 text-white">
-		<h2 class="text-2xl pb-8">{getHeader()}</h2>
+		<h1 class="pb-8 text-3xl font-bold">{getHeader()} konsert</h1>
 		<div class="grid grid-cols-1 gap-4">
 			<InputWithLabel value={localConcertObject.artist} title="Artist / band" onchange={(artist: string) => updateValue('artist', artist)} />
 
 			<InputWithLabel value={localConcertObject.festival} title="Festival" onchange={(festival: string) => updateValue('festival', festival)} />
-			<div class="flex gap-1">
-				{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="text-sm text-slate-400 border rounded-md p-1">{f.name}</button>{/each}
-			</div>
+			{#if festivals.length > 0}
+				<div class="flex flex-wrap gap-2" aria-label="Vanlige festivaler">
+					{#each festivals as f}<button onclick={() => updateValue('festival', f.name)} class="suggestion-chip" type="button">{f.name}</button>{/each}
+				</div>
+			{/if}
 
 			<InputWithLabel value={localConcertObject.venue} title="Spillested" onchange={(venue: string) => updateValue('venue', venue)} />
-			<div class="flex gap-1">
-				{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="text-sm text-slate-400 border rounded-md p-1">{v.name}</button>{/each}
-			</div>
+			{#if venues.length > 0}
+				<div class="flex flex-wrap gap-2" aria-label="Vanlige spillesteder">
+					{#each venues as v}<button onclick={() => updateValue('venue', v.name)} class="suggestion-chip" type="button">{v.name}</button>{/each}
+				</div>
+			{/if}
 
 			<InputWithLabel value={localConcertObject.price} title="Pris" type="tel" postfix="kr" onchange={(price: string) => updateValue('price', price)} />
 
@@ -108,20 +112,20 @@ function unDelete() {
 				<BandInfoBox bind:mbid={localConcertObject.mbid} bind:artistName={localConcertObject.artist} updateBandInfo={updateBandInfo} />
 			{/if}
 
-			<div class="flex gap-3 justify-between">
-				<button class="button {!isDataOk(localConcertObject) && 'gray'}" onclick={() => saveForm()}>Lagre</button>
-				<button class="button gray" onclick={() => onClose()}>Avbryt</button>
+			<div class="flex justify-between gap-3">
+				<button class="button" disabled={!isDataOk(localConcertObject)} onclick={saveForm} type="button">Lagre</button>
+				<button class="button gray" onclick={onClose} type="button">Avbryt</button>
 			</div>
 		</div>
 	</div>
 
 	{#if localConcertObject.id && !localConcertObject.deleted}
-		<div class="flex justify-center mt-8 pt-8 border-t border-gray-800"><button class="button red small" onclick={confirmDelete}>Slett</button></div>
+		<div class="mt-8 flex justify-center border-t border-white/10 pt-8"><button class="button red small" onclick={confirmDelete} type="button">Slett</button></div>
 	{/if}
 	{#if localConcertObject.deleted}
-		<div class="mt-4 p-5 text-center content-center items-center flex flex-col">
-			<p class="text-white text-sm">Konserten er slettet. Vil du gjenopprette den?</p>
-			<span><button class="button small" onclick={unDelete}>Gjenopprett</button></span>
+		<div class="mt-4 flex flex-col items-center p-5 text-center">
+			<p class="text-sm text-white">Konserten er slettet. Vil du gjenopprette den?</p>
+			<span><button class="button small" onclick={unDelete} type="button">Gjenopprett</button></span>
 		</div>
 	{/if}
 {/if}

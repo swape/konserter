@@ -6,6 +6,7 @@ let {mbid = $bindable(), artistName = $bindable(), updateBandInfo} = $props()
 let bandInfo = $state<BandInfo | null>(null)
 let showAllArtists = $state(false)
 let searchedResults = $state<BandInfo[]>([])
+let isLoading = $state(false)
 
 $effect(() => {
 	searchArtistFromFirebaseByMBID(mbid, (data) => {
@@ -16,13 +17,15 @@ $effect(() => {
 })
 
 function searchAndShowArtists(artistName = '') {
-	searchArtistFromMusicBrainz(artistName, true).then((data) => {
-		if (data?.length > 0) {
-			searchedResults = data.map(convertToBandInfo)
-			// console.log('searchedResults', data)
+	isLoading = true
+	searchArtistFromMusicBrainz(artistName, true)
+		.then((data) => {
+			searchedResults = data?.length > 0 ? data.map(convertToBandInfo) : []
 			showAllArtists = true
-		}
-	})
+		})
+		.finally(() => {
+			isLoading = false
+		})
 }
 
 function selectArtist(item: BandInfo) {
@@ -42,10 +45,12 @@ function confirmThis() {
 }
 </script>
 
-<div class="mb-2 relative">
+<div class="relative mb-2" aria-busy={isLoading}>
 	{#if bandInfo}
 		<span class="absolute right-0">
-			<button onclick={confirmThis}><span class="material-icons">delete</span></button>
+			<button onclick={confirmThis} class="icon-danger" type="button" aria-label="Fjern artistinformasjon">
+				<span class="material-icons" aria-hidden="true">delete</span>
+			</button>
 		</span>
 	{/if}
 	{#if bandInfo?.data?.country}
@@ -53,7 +58,7 @@ function confirmThis() {
 	{#if bandInfo?.data?.genre}
 		<div>
 			Sjanger: {#if bandInfo.data.disambiguation}
-				<span class="italic text-sm">({bandInfo.data.disambiguation})</span>
+				<span class="text-sm italic">({bandInfo.data.disambiguation})</span>
 			{/if}
 			<span>{bandInfo?.data?.genre}</span>
 		</div>
@@ -61,42 +66,41 @@ function confirmThis() {
 
 	{#if !bandInfo}
 		<div class="mb-3">
-			<button class="button gray" onclick={() => searchAndShowArtists(artistName)}> Hent info om {artistName} </button>
+			<button class="button gray" onclick={() => searchAndShowArtists(artistName)} disabled={isLoading} type="button">
+				{isLoading ? 'Henter artistinfo ...' : `Hent info om ${artistName}`}
+			</button>
 		</div>
 
 		<div>
 			{#if showAllArtists}
 				<div class="mt-2">
 					<div class="font-bold">Flere artister med samme navn:</div>
+					{#if searchedResults.length === 0}
+						<p class="text-sm text-slate-300">Ingen artistinfo funnet.</p>
+					{/if}
 					{#each searchedResults as item}
-						<div class="mt-1 box">
+						<div class="box mt-2">
 							<div>
 								<div>
 									{item.artist}
 									{#if item.data.disambiguation}
-										<span class="italic text-sm">({item.data.disambiguation})</span>
+										<span class="text-sm italic">({item.data.disambiguation})</span>
 									{/if}
 								</div>
-								<div>
-									{#if item.data.type}
-										<div>{item.data.type}</div>
-									{/if}
-									{#if item.data.country}
-										<div>Land: {item.data.country}</div>
-									{/if}
-									{#if item.data.genre}
-										<div>Sjanger: {item.data.genre}</div>
-									{/if}
+								<div class="text-sm text-slate-300">
+									{#if item.data.type}<div>{item.data.type}</div>{/if}
+									{#if item.data.country}<div>Land: {item.data.country}</div>{/if}
+									{#if item.data.genre}<div>Sjanger: {item.data.genre}</div>{/if}
 								</div>
 							</div>
 							<div>
-								<button class="button small" onclick={() => selectArtist(item)}>Velg denne</button>
+								<button class="button small" onclick={() => selectArtist(item)} type="button">Velg denne</button>
 							</div>
 						</div>
 					{/each}
 				</div>
 				<div class="mt-2">
-					<button class="button small gray" onclick={() => (showAllArtists = false)}>Lukk</button>
+					<button class="button small gray" onclick={() => (showAllArtists = false)} type="button">Lukk</button>
 				</div>
 			{/if}
 		</div>

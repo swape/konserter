@@ -16,28 +16,7 @@ function getStarColor(rating: number) {
 
 <div class="star-box">
 	<span class={getStarColor(rating)}>
-		<span class="material-icons">star</span>
+		<span class="material-icons" aria-hidden="true">star</span>
 		<span>{rating}</span>
 	</span>
 </div>
-
-<style>
-.star-box {
-	corner-shape: squircle;
-	border-radius: 50px;
-	background-color: #23233a;
-	padding: 2px 8px 2px 4px;
-	font-size: 16px;
-	translate: 0 -36px;
-
-	> span {
-		display: flex;
-		align-items: center;
-		gap: 3px;
-	}
-
-	.material-icons {
-		font-size: 24px;
-	}
-}
-</style>

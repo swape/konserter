@@ -17,16 +17,18 @@ concerts.subscribe((value) => {
 })
 </script>
 
-<div class="flex justify-center items-center text-white text-xl">
-	<span class="material-icons">music_note</span>
-	{$concerts.length} konserter totalt.
-</div>
-{#if highestCount !== 0}
-	<div class="overflow-hidden mb-4">
-		<div class="bars border-slate-800 mt-3 border-b">
-			{#each Object.keys(completeList) as key}
-				<div title={toYearMonth(key)} class="bar" style="height: {(completeList[key].count / highestCount) * 100}%">&nbsp;</div>
-			{/each}
+<section class="mb-6 text-white" aria-labelledby="total-concerts-title">
+	<h2 id="total-concerts-title" class="flex items-center justify-center gap-2 text-xl font-semibold">
+		<span class="material-icons" aria-hidden="true">music_note</span>
+		{$concerts.length} konserter totalt
+	</h2>
+	{#if highestCount !== 0}
+		<div class="mb-4 overflow-hidden" role="img" aria-label="Konserter per måned. Høyeste måned har {highestCount} konserter.">
+			<div class="bars mt-3 border-b border-slate-700">
+				{#each Object.keys(completeList) as key}
+					<div title="{toYearMonth(key)}: {completeList[key].count}" class="bar" style="height: {(completeList[key].count / highestCount) * 100}%" aria-hidden="true">&nbsp;</div>
+				{/each}
+			</div>
 		</div>
-	</div>
-{/if}
+	{/if}
+</section>

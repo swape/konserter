@@ -69,7 +69,7 @@ function resetData() {
 }
 </script>
 
-<main>
+<main id="main-content" tabindex="-1">
 	{#if showFeedBack}
 		<Feedback resetData={resetData} feedbackText={feedbackText} />
 	{/if}

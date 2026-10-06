@@ -27,7 +27,7 @@ function handleKeydown(event: KeyboardEvent) {
 <div>
 	<div class="pb-2" id="starrating-label-{title}">{title}: {value}</div>
 
-	<div role="radiogroup" aria-labelledby="starrating-label-{title}" onkeydown={handleKeydown}>
+	<div role="radiogroup" aria-labelledby="starrating-label-{title}" tabindex="0" onkeydown={handleKeydown}>
 		{#each starsList as _, index}
 			<label>
 				<input
@@ -40,9 +40,9 @@ function handleKeydown(event: KeyboardEvent) {
 					onchange={() => setStar(index)}
 				/>
 				{#if index + 1 <= value}
-					<span class="material-icons text-blue-700 text-4xl" aria-hidden="true"> star_rate </span>
+					<span class="material-icons text-4xl text-blue-700" aria-hidden="true"> star_rate </span>
 				{:else}
-					<span class="material-icons text-slate-500 text-4xl" aria-hidden="true"> star_border </span>
+					<span class="material-icons text-4xl text-slate-500" aria-hidden="true"> star_border </span>
 				{/if}
 			</label>
 		{/each}

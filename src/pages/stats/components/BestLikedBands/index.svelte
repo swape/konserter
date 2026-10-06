@@ -20,11 +20,11 @@ function onClickBand(band: [string, number]) {
 		<div class="stats">
 			<div class="mb-2">
 				<span class="text-xl">Mest sett Artister/Band</span> <i>({bands.length})</i><br />
-				<span class="text-gray-300 pb-4">i alle år</span>
+				<span class="pb-4 text-gray-300">i alle år</span>
 			</div>
 			{#each bands as band}
 				<div class="flex justify-between">
-					<button onclick={() => onClickBand(band)} class="truncate capitalize underline p-1">{band[0]}:</button>
+					<button onclick={() => onClickBand(band)} class="truncate p-1 capitalize underline">{band[0]}:</button>
 					<span>{band[1]}</span>
 				</div>
 			{/each}

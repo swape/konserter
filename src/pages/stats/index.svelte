@@ -16,13 +16,15 @@ function handleSelectChange(e: Event) {
 }
 </script>
 
-<main>
+<main id="main-content" tabindex="-1">
+	<h1 class="sr-only">Statistikk</h1>
+
 	<div class="p-3">
-		<Select value={selected} options={options} onChange={handleSelectChange} />
+		<Select title="Velg år" value={selected} options={options} onChange={handleSelectChange} />
 	</div>
 
 	<TotalCost year={selected} />
 	<BestVenues year={selected} />
-	<hr class="m-3" />
+	<hr class="m-3 border-white/10" />
 	<BestLikedBands />
 </main>
