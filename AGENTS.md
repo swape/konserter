@@ -45,6 +45,7 @@ let {value = $bindable(''), onchange} = $props()
 - Use scoped `<style>` blocks for component styles.
 - Prefer utility classes (Tailwind) for layout and spacing; use scoped styles for component-specific rules.
 - Avoid `:global()` unless targeting third-party or dynamic content.
+- Don't use `!important` in CSS.
 
 ## Performance
 
