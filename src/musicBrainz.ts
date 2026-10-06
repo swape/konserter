@@ -3,7 +3,7 @@ import {searchItems, syncItems, updateEntry} from './fire'
 import {MusicBrainzApi} from 'musicbrainz-api'
 import type {IArtist, IArtistMatch} from 'musicbrainz-api'
 import type {BandInfo} from './types'
-import {getFanArt} from './fanart'
+import {getFanArt, isMusicBrainzId, isTrustedFanArtUrl} from './fanart'
 
 const mbApi = new MusicBrainzApi({
 	appName: 'konserter.swape.net',
@@ -12,6 +12,10 @@ const mbApi = new MusicBrainzApi({
 })
 
 async function addFanArtDataToBandInfo(mbid: string, data: BandInfo): Promise<void> {
+	if (!isMusicBrainzId(mbid)) {
+		return
+	}
+
 	const fanArtUrl = await getFanArt(mbid)
 	if (fanArtUrl) {
 		data.fanartData = fanArtUrl
@@ -23,19 +27,14 @@ export function searchArtistFromFirebase(artistName: string, cb: (data: BandInfo
 	searchItems('musicBrainz', 'artist', artistName, (data: BandInfo | null) => {
 		if (data) {
 			if (data?.fanartData === undefined) {
-				// if fanartData is not fetched before, fetch it and update the firebase entry
 				addFanArtDataToBandInfo(data.mbid, data)
-				// meanwhile return the data without fanartData
 				cb(data)
 			} else {
-				// if fanartData is already fetched, return the data
 				cb(data)
 			}
 		} else {
-			// search from musicBrainz and add to firebase
 			searchArtistFromMusicBrainz(artistName)
 				.then((mbData) => {
-					// store this to firebase and return the data
 					if (mbData && !Array.isArray(mbData) && mbData.id) {
 						const newObj = convertToBandInfo(mbData)
 						addArtistInfoToFirebase(mbData.id, newObj)
@@ -96,11 +95,28 @@ export async function searchArtistFromMusicBrainz(artistName: string, all?: bool
 }
 
 export async function addArtistInfoToFirebase(mbid: string, data: BandInfo): Promise<void> {
+	if (!isMusicBrainzId(mbid) || mbid !== data.mbid) {
+		return
+	}
+
+	if (data.fanartData && !isTrustedFanArtUrl(data.fanartData)) {
+		delete data.fanartData
+	}
+
 	updateEntry(`musicBrainz/${mbid}`, data)
 }
 
-export function searchArtistFromFirebaseByMBID(mbid: string, cb: (data: BandInfo | null) => void): void {
+export function searchArtistFromFirebaseByMBID(mbid: string | null | undefined, cb: (data: BandInfo | null) => void): void {
+	if (!isMusicBrainzId(mbid)) {
+		cb(null)
+		return
+	}
+
 	syncItems(`musicBrainz/${mbid}`, (data: BandInfo | null) => {
+		if (data?.fanartData && !isTrustedFanArtUrl(data.fanartData)) {
+			data = {...data, fanartData: undefined}
+		}
+
 		if (data && data.fanartData === undefined) {
 			addFanArtDataToBandInfo(mbid, data)
 		}
