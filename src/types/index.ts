@@ -38,6 +38,7 @@ export interface SelectProps {
 	onChange?: (e: Event & {currentTarget: EventTarget & HTMLSelectElement}) => void
 	value?: string
 	emptyText?: string
+	title?: string
 }
 
 export interface BandInfoData {
