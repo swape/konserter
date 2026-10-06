@@ -2,6 +2,7 @@
 import {searchArtistFromFirebaseByMBID} from '../../../../musicBrainz'
 import type {BandInfo} from '../../../../types'
 import StarBox from '../../../../lib/StarBox/index.svelte'
+import {isTrustedFanArtUrl} from '../../../../fanart'
 
 let {showForm, concertObject} = $props()
 let bandInfo: BandInfo | undefined = $state(undefined)
@@ -12,9 +13,7 @@ $effect(() => {
 		searchArtistFromFirebaseByMBID(concertObject.mbid, (data) => {
 			if (data) {
 				bandInfo = data as BandInfo
-				if (bandInfo.fanartData) {
-					fanArtUrl = bandInfo.fanartData
-				}
+				fanArtUrl = isTrustedFanArtUrl(bandInfo.fanartData) ? bandInfo.fanartData : ''
 			}
 		})
 	}
@@ -22,14 +21,22 @@ $effect(() => {
 </script>
 
 <div>
-	<div class="band-wrapper" style={fanArtUrl ? `background-image: url(${fanArtUrl})` : ''}>
-		<button onclick={showForm} class="text-sm text-gray-400 mb-2 edit-button">
-			<span class="material-icons">edit</span>
+	<div
+		class="relative mx-4 overflow-hidden rounded-2xl bg-gradient-to-r from-[#05009d] to-[#439a05] bg-cover bg-center"
+		style:background-image={fanArtUrl ? `url(${fanArtUrl})` : undefined}
+	>
+		<button
+			onclick={showForm}
+			class="absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-950"
+			type="button"
+			aria-label="Rediger konsert"
+		>
+			<span class="material-icons text-xl" aria-hidden="true">edit</span>
 		</button>
-		{#if concertObject.rating}<div class="rating"><StarBox rating={concertObject.rating} /></div>{/if}
+		{#if concertObject.rating}<div class="absolute top-2 left-2 translate-y-9"><StarBox rating={concertObject.rating} /></div>{/if}
 
-		<h2 class="text-2xl text-white capitalize text-center band-name">{concertObject.artist}</h2>
-		{#if concertObject.venue}<div class="venue">@ {concertObject.venue}</div>{/if}
+		<h2 class="mx-1.5 my-20 rounded-[1.4rem] bg-black/50 p-3 text-center text-2xl text-white capitalize [text-shadow:0_0_2px_black]">{concertObject.artist}</h2>
+		{#if concertObject.venue}<div class="absolute bottom-3 left-3 text-white [text-shadow:0_0_2px_black]">@ {concertObject.venue}</div>{/if}
 	</div>
 	<div class="p-4 text-white">
 		{#if bandInfo?.data?.genre}<div><b class="font-bold">Sjanger:</b> {bandInfo?.data?.genre}</div>{/if}
@@ -37,61 +44,6 @@ $effect(() => {
 		{#if concertObject.festival}<div class="mt-2"><b class="font-bold">Festival:</b> {concertObject.festival}</div>{/if}
 		{#if concertObject.price}<div class="mt-2"><b class="font-bold">Pris:</b> {concertObject.price} kr</div>{/if}
 		{#if concertObject.date}<div class="mt-2"><b class="font-bold">Dato:</b> {new Date(concertObject.date).toLocaleDateString()}</div>{/if}
-		{#if concertObject.note}<div class="note">{concertObject.note}</div>{/if}
+		{#if concertObject.note}<div class="mt-4 rounded-xl bg-white/10 p-4">{concertObject.note}</div>{/if}
 	</div>
 </div>
-
-<style>
-.band-wrapper {
-	position: relative;
-	background: linear-gradient(to right, #05009d, #439a05);
-	overflow: hidden;
-	border-radius: 8px;
-	margin-inline: 1rem;
-	background-size: cover;
-}
-.note {
-	margin-top: 1rem;
-	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.1);
-	border-radius: 4px;
-}
-.rating {
-	position: absolute;
-	top: 0.5rem;
-	left: 0.5rem;
-	translate: 0 36px;
-}
-.venue {
-	position: absolute;
-	bottom: 0.5rem;
-	left: 0.5rem;
-	text-shadow: 0 0 2px black;
-	color: white;
-}
-.band-name {
-	text-shadow: 0 0 2px black;
-	margin-block: 5rem;
-	background-color: rgba(0, 0, 0, 0.4);
-	padding: 12px;
-	corner-shape: squircle;
-	border-radius: 1.4rem;
-	margin-inline: 0.4rem;
-}
-.edit-button {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-	padding: 0.25rem;
-	border-radius: 34px;
-	background-color: white;
-	width: 32px;
-	height: 32px;
-	span {
-		font-size: 16px;
-	}
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-</style>
